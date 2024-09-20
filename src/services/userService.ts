@@ -1,3 +1,4 @@
+'use client'
 import axiosInstance from "@/configs/axios";
 import {UserType} from "@/types/user-type";
 
@@ -8,7 +9,7 @@ export type LoginResponse = {
     token: string
 }
 
-export const userService = Object.freeze({
+export const userService = {
     login: async (initData: string) => {
         const response = await axiosInstance.post<LoginResponse>("/auth/login", {
             initData
@@ -21,4 +22,4 @@ export const userService = Object.freeze({
 
         return response.data
     }
-})
+}

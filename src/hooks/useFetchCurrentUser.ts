@@ -1,10 +1,11 @@
+'use client'
 import { useState } from "react"
 import {UserType} from "@/types/user-type";
 import {userService} from "@/services/userService";
 
 
 export const useFetchCurrentUser = () => {
-    const [user, setUser] = useState<UserType | undefined>()
+    const [user, setUser] = useState<UserType | undefined>(undefined)
     const [error, setError] = useState<Error | null>(null)
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -17,6 +18,7 @@ export const useFetchCurrentUser = () => {
             setUser(data)
         } catch (err) {
             setError(err as Error)
+            console.log(err)
         } finally {
             setIsLoading(false)
         }

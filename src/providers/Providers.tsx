@@ -1,12 +1,15 @@
 'use client'
 import React from 'react';
 import {AuthProvider} from "@/providers/AuthProvider";
+import {SDKProvider} from "@telegram-apps/sdk-react";
 
 const Providers = ({children}:{children: React.ReactNode}) => {
     return (
-        <AuthProvider>
-            {children}
-        </AuthProvider>
+        <SDKProvider acceptCustomStyles>
+            <AuthProvider>
+                {children}
+            </AuthProvider>
+        </SDKProvider>
     );
 };
 

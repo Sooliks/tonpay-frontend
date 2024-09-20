@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const axiosInstance = axios.create({
-    baseURL: process.env.MODE === 'dev' ? "http://localhost:4200/api" : 'https://tonpay-backend.vercel.app/api'
+    baseURL: true ? "http://localhost:4200/api" : 'https://tonpay-backend.vercel.app/api'
 })
 
 axiosInstance.interceptors.request.use(

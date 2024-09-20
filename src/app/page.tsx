@@ -1,17 +1,12 @@
 'use client'
 import {useAuth} from "@/hooks/useAuth";
-import {retrieveLaunchParams} from "@telegram-apps/sdk";
-
 
 export default function Home() {
-    const { initDataRaw } = retrieveLaunchParams();
     const auth = useAuth();
-
-
     const user = auth.user
+
     return (
         <div>
-            {initDataRaw}
             {
                 user && (
                     <div>
@@ -22,7 +17,7 @@ export default function Home() {
                             telegramId: { user.telegramId }
                         </div>
                         <div>
-                            username: { user.nickname }
+                            nickname: { user.nickname }
                         </div>
                     </div>
                 )

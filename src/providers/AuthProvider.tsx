@@ -1,7 +1,8 @@
+'use client'
 import { ReactNode, useEffect } from "react"
 
 import { AuthContext } from "../contexts/AuthContext"
-import {retrieveLaunchParams} from "@telegram-apps/sdk";
+import {retrieveLaunchParams} from "@telegram-apps/sdk-react";
 import {useFetchCurrentUser} from "@/hooks/useFetchCurrentUser";
 import {useLoginUser} from "@/hooks/useLoginUser";
 
@@ -43,7 +44,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     if(isLoading) return "Loading"
 
-    if(isError) return "Error"
+    if(isError) return fetchCurrentUserError?.stack || loginUserError?.message
 
     return null
 }
