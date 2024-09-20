@@ -4,6 +4,7 @@ import { AuthContext } from "../contexts/AuthContext"
 import {retrieveLaunchParams} from "@telegram-apps/sdk-react";
 import {useFetchCurrentUser} from "@/hooks/useFetchCurrentUser";
 import {useLoginUser} from "@/hooks/useLoginUser";
+import FirstLoading from "@/components/my-ui/FirstLoading";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const { initDataRaw } = retrieveLaunchParams()
@@ -38,7 +39,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             </AuthContext.Provider>
         )
     }
-    if(isLoading) return "Loading"
+    if(isLoading) return <FirstLoading/>
     if(isError) return fetchCurrentUserError?.stack || loginUserError?.stack
 
     return null
