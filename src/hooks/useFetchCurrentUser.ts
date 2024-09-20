@@ -18,7 +18,6 @@ export const useFetchCurrentUser = () => {
             setUser(data)
         } catch (err) {
             setError(err as Error)
-            console.log(err)
         } finally {
             setIsLoading(false)
         }
