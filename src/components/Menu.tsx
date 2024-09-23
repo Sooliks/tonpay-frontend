@@ -8,19 +8,20 @@ import {
     MenubarTrigger
 } from "@/components/ui/menubar";
 import Link from "next/link";
-import {Path} from "path-scurry";
+
 
 
 type MenuItem = {
-    title: string
+    title: string | React.ReactNode
     separator?: boolean
     shortcut?: string
     path: string
+    disabled?: boolean
 }
 
 type MenuBar = {
-    title: string
-    items: MenuItem[]
+    title: string | React.ReactNode
+    items?: MenuItem[]
     path: string
 }
 
@@ -32,21 +33,26 @@ type MenuProps = {
 const Menu = ({bars}: MenuProps) => {
     return (
         <Menubar className={'rounded-t-none flex justify-between'}>
-            {bars.map(bar=>
-                <MenubarMenu key={bar.title}>
-                    <MenubarTrigger>{bar.title}</MenubarTrigger>
-                    <MenubarContent>
-                        {bar.items.map(item=>
-                            <>
-                                <Link href={`/${bar.path}/${item.path}`}>
-                                    <MenubarItem>
-                                        {item.title} {item.shortcut && <MenubarShortcut>{item.shortcut}</MenubarShortcut>}
-                                    </MenubarItem>
-                                </Link>
-                                {item.separator && <MenubarSeparator />}
-                            </>
-                        )}
-                    </MenubarContent>
+            {bars.map((bar, index)=>
+                <MenubarMenu key={index}>
+                    <MenubarTrigger value={bar.path}>{bar.title}</MenubarTrigger>
+                    {bar.items &&
+                        <MenubarContent>
+                            {bar.items.map((item, index)=>
+                                <>
+                                    <Link
+                                        key={index}
+                                        href={`/${bar.path}/${item.path}`} className={item.disabled ? 'pointer-events-none' : undefined}
+                                    >
+                                        <MenubarItem disabled={item.disabled}>
+                                            {item.title} {item.shortcut && <MenubarShortcut>{item.shortcut}</MenubarShortcut>}
+                                        </MenubarItem>
+                                    </Link>
+                                    {item.separator && <MenubarSeparator />}
+                                </>
+                            )}
+                        </MenubarContent>
+                    }
                 </MenubarMenu>
             )}
         </Menubar>

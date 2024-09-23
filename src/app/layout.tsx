@@ -36,8 +36,17 @@ export default function RootLayout({children}: Readonly<{children: React.ReactNo
                                 path: 'category'
                             },
                             {
+                                title: 'Messages',
+                                path: 'messages'
+                            },
+                            {
                                 title: 'Profile',
-                                items: [{title: 'Кошелек', shortcut: '2.3 TON', path: 'wallet'}],
+                                items: [
+                                    {title: 'Wallet', shortcut: '2.3 TON', path: 'wallet', disabled: true},
+                                    {title: 'Recharge', path: 'recharge'},
+                                    {title: 'Settings', path: 'settings', separator: true},
+                                    {title: 'My sales', path: 'mysales'}
+                                ],
                                 path: 'profile'
                             }
                         ]}
