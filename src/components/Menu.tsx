@@ -35,7 +35,13 @@ const Menu = ({bars}: MenuProps) => {
         <Menubar className={'rounded-t-none flex justify-between'}>
             {bars.map((bar, index)=>
                 <MenubarMenu key={index}>
-                    <MenubarTrigger value={bar.path}>{bar.title}</MenubarTrigger>
+                    {bar.items ?
+                        <MenubarTrigger>{bar.title}</MenubarTrigger>
+                        :
+                        <Link href={`/${bar.path}`}>
+                            <MenubarTrigger>{bar.title}</MenubarTrigger>
+                        </Link>
+                    }
                     {bar.items &&
                         <MenubarContent>
                             {bar.items.map((item, index)=>
