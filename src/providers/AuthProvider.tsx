@@ -5,6 +5,7 @@ import {retrieveLaunchParams, useInitData} from "@telegram-apps/sdk-react";
 import {useFetchCurrentUser} from "@/hooks/useFetchCurrentUser";
 import {useLoginUser} from "@/hooks/useLoginUser";
 import FirstLoading from "@/components/my-ui/FirstLoading";
+import Error from "@/app/error";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const { initDataRaw } = retrieveLaunchParams()
@@ -41,7 +42,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         )
     }
     if(isLoading) return <FirstLoading/>
-    if(isError) return fetchCurrentUserError?.stack || loginUserError?.stack
+    if(isError) return <Error error={fetchCurrentUserError || loginUserError}/>
 
     return null
 }
