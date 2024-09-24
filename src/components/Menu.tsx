@@ -32,7 +32,7 @@ type MenuProps = {
 
 const Menu = ({bars}: MenuProps) => {
     return (
-        <Menubar className={'rounded-t-none flex justify-between'}>
+        <Menubar className={'rounded-t-none flex justify-between rounded-b-lg border-b-2 border-b-blue-800 h-16'}>
             {bars.map((bar, index)=>
                 <MenubarMenu key={index}>
                     {bar.items ?

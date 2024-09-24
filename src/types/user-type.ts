@@ -3,14 +3,14 @@ export type UserType = {
     createdAt: Date
     telegramId: number
     nickname: string
-    role: Role
+    role: 'ADMIN' | 'USER' | 'CREATOR'
     refId?: string
     isPremium: boolean
     isBanned: boolean
     money: number
 }
 
-enum Role {
+export enum Role {
     ADMIN,
     USER,
     CREATOR

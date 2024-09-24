@@ -2,13 +2,23 @@
 import React from 'react';
 import {AuthProvider} from "@/providers/AuthProvider";
 import {SDKProvider} from "@telegram-apps/sdk-react";
+import {ThemeProvider} from "next-themes";
+import MyTonConnectUiProvider from "@/providers/MyTonConnectUiProvider";
 
 const Providers = ({children}:{children: React.ReactNode}) => {
     return (
         <SDKProvider acceptCustomStyles>
-            <AuthProvider>
-                {children}
-            </AuthProvider>
+            <ThemeProvider
+                attribute="class"
+                defaultTheme="dark"
+                disableTransitionOnChange
+            >
+                <AuthProvider>
+                    <MyTonConnectUiProvider>
+                        {children}
+                    </MyTonConnectUiProvider>
+                </AuthProvider>
+            </ThemeProvider>
         </SDKProvider>
     );
 };
