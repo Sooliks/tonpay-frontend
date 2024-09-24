@@ -10,9 +10,10 @@ export type LoginResponse = {
 }
 
 export const userService = {
-    login: async (initData: string) => {
+    login: async (initData: string, refId?: string) => {
         const response = await axiosInstance.post<LoginResponse>("/auth/login", {
-            initData
+            initData,
+            refId
         })
 
         return response.data

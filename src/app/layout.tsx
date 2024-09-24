@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Providers from "@/providers/Providers";
 import Menu from "@/components/Menu";
+import MenuData from "@/components/MenuData";
 
 
 const geistSans = localFont({
@@ -28,29 +29,7 @@ export default function RootLayout({children}: Readonly<{children: React.ReactNo
                 className={`${geistSans.variable} ${geistMono.variable} antialiased w-screen h-screen overflow-x-hidden`}
             >
                 <Providers>
-                    <Menu
-                        bars={[
-                            {
-                                title: 'Categories',
-                                items: [{title: 'Warface', shortcut: 'говно', path: 'warface'}],
-                                path: 'category'
-                            },
-                            {
-                                title: 'Messages',
-                                path: 'messages'
-                            },
-                            {
-                                title: 'Profile',
-                                items: [
-                                    {title: 'Wallet', shortcut: '2.3 TON', path: 'wallet', disabled: true},
-                                    {title: 'Recharge', path: 'recharge'},
-                                    {title: 'Settings', path: 'settings', separator: true},
-                                    {title: 'My sales', path: 'mysales'}
-                                ],
-                                path: 'profile'
-                            }
-                        ]}
-                    />
+                    <MenuData/>
                     {children}
                 </Providers>
             </body>

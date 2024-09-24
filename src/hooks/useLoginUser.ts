@@ -8,12 +8,12 @@ export const useLoginUser = () => {
     const [error, setError] = useState<Error | null>(null)
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
-    const loginUser = async (initData: string) => {
+    const loginUser = async (initData: string, refId?: string) => {
         setIsLoading(true)
         setError(null)
 
         try {
-            const data = await userService.login(initData)
+            const data = await userService.login(initData,refId)
             setAuthData(data)
         } catch (err) {
             setError(err as Error)
