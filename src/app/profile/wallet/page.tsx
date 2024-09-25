@@ -4,6 +4,12 @@ import {TonConnectButton, useTonConnectUI} from "@tonconnect/ui-react";
 import {beginCell, toNano} from "@ton/core";
 import {useAuth} from "@/hooks/useAuth";
 import Pay from "@/app/profile/wallet/Pay";
+import {Button} from "@/components/ui/button";
+import {Separator} from "@/components/ui/separator";
+import {Car} from "lucide-react";
+import {Card} from "@/components/ui/card";
+import Link from "next/link";
+
 
 const WalletPage = () => {
     const [tonConnectUi] = useTonConnectUI();
@@ -30,11 +36,20 @@ const WalletPage = () => {
         alert(response.boc)
     }
     return (
-        <div className={'w-full flex items-center flex-col'}>
-            <div className={'flex justify-end w-full'}>
-                <TonConnectButton/>
+        <div className={'w-full flex flex-col items-center'}>
+            <Card className={'p-4 mx-4 mt-2'}>
+                <p className={'text-xs'}>Balance: <span className={'ml-auto text-sm tracking-widest text-muted-foreground'}>{auth.user?.money} TON</span></p>
+            </Card>
+            <div className={'w-full flex items-center flex-col mt-2'}>
+                <div className={'flex justify-between w-full'}>
+                    <Link href={'/profile/wallet/history'} className={'ml-4'}>
+                        <Button variant={'outline'} className={'h-10'}>History payment</Button>
+                    </Link>
+                    <TonConnectButton className={'mr-4'}/>
+                </div>
+                <Separator className={'mt-2'}/>
+                <Pay onPay={handlePay}/>
             </div>
-            <Pay onPay={handlePay}/>
         </div>
     );
 };

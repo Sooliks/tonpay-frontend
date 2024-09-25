@@ -35,7 +35,7 @@ const Pay = ({onPay}:{onPay: (amount: number) => void}) => {
             <Button
                 variant={'secondary'}
                 onClick={()=>onPay(value)}
-                className={'mt-2'}
+                className={'mt-6'}
             >
                 Send transaction
             </Button>

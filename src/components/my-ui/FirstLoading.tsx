@@ -25,7 +25,7 @@ const FirstLoading = () => {
             </ResizablePanel>
             <ResizablePanel defaultSize={80} className={'mt-2'}>
                 <Skeleton className="flex h-full items-center justify-center flex-col">
-                    <p className={'text-muted-foreground'}>Play for airdrop</p>
+                    <p className={'text-muted-foreground'}>Pay for yourself</p>
                     <Progress value={valueLoad} className="w-[60%] mt-4"/>
                 </Skeleton>
             </ResizablePanel>
