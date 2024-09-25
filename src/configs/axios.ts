@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const axiosInstance = axios.create({
-    baseURL: true ? "http://localhost:4200/api" : 'http://sooliks-tonpay-backend-33f7.twc1.net/api'
+    baseURL: false ? "http://localhost:4200/api" : 'https://sooliks-tonpay-backend-33f7.twc1.net/api'
 })
 
 axiosInstance.interceptors.request.use(
