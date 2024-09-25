@@ -18,6 +18,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }, [])
 
     useEffect(() => {
+        if(!initDataRaw || !initData)return
         if(fetchCurrentUserError && initDataRaw) {
             loginUser(initDataRaw,initData?.startParam || undefined)
         }
