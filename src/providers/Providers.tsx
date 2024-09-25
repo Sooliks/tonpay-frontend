@@ -12,11 +12,11 @@ const Providers = ({children}:{children: React.ReactNode}) => {
                 defaultTheme="dark"
                 disableTransitionOnChange
             >
-                <AuthProvider>
-                    <MyTonConnectUiProvider>
+                <MyTonConnectUiProvider>
+                    <AuthProvider>
                         {children}
-                    </MyTonConnectUiProvider>
-                </AuthProvider>
+                    </AuthProvider>
+                </MyTonConnectUiProvider>
             </ThemeProvider>
         </SDKProvider>
     );

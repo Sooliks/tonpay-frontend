@@ -1,33 +1,49 @@
 'use client'
 import { ReactNode, useEffect } from "react"
-import { AuthContext } from "../contexts/AuthContext"
+import { AuthContext } from "@/contexts/AuthContext"
 import {retrieveLaunchParams, useInitData} from "@telegram-apps/sdk-react";
 import {useFetchCurrentUser} from "@/hooks/useFetchCurrentUser";
 import {useLoginUser} from "@/hooks/useLoginUser";
 import FirstLoading from "@/components/my-ui/FirstLoading";
 import Error from "@/app/error";
 
+
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-    const { initDataRaw } = retrieveLaunchParams()
     const initData = useInitData(true);
+    const { initDataRaw } = typeof window !== 'undefined' ? retrieveLaunchParams() : { initDataRaw: null };
     const { user, error: fetchCurrentUserError, fetchCurrentUser, setUser, isLoading: isFetchingCurrentUser } = useFetchCurrentUser()
     const { authData, error: loginUserError, loginUser, isLoading: isLoggingIn } = useLoginUser()
 
     useEffect(() => {
-        fetchCurrentUser()
+        try {
+            fetchCurrentUser()
+        }catch (e) {
+            
+        }
     }, [])
 
     useEffect(() => {
-        if(!initDataRaw || !initData)return
-        if(fetchCurrentUserError && initDataRaw) {
-            loginUser(initDataRaw,initData?.startParam || undefined)
+        try {
+            if (!initData?.user) return
+            if (!initDataRaw || !initData) return
+            if (fetchCurrentUserError && initDataRaw && initData) {
+                loginUser(initDataRaw, initData?.startParam || undefined)
+            }
+        }catch (e) {
+            
         }
-    }, [fetchCurrentUserError, initDataRaw])
+    }, [fetchCurrentUserError])
 
     useEffect(() => {
-        if(authData) {
-            setUser(authData.user)
-            localStorage.setItem("token", authData.token)
+        try {
+            if (authData) {
+                setUser(authData.user)
+                if (typeof window !== 'undefined') {
+                    localStorage.setItem("token", authData.token)
+                }
+            }
+        }catch (e) {
+            
         }
     }, [authData])
 

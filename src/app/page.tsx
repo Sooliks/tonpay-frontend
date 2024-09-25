@@ -1,27 +1,8 @@
-'use client'
-import {useAuth} from "@/hooks/useAuth";
 
 export default function Home() {
-    const auth = useAuth();
-    const user = auth.user
-
     return (
         <div>
-            {
-                user && (
-                    <div>
-                        <div>
-                            id: { user.id }
-                        </div>
-                        <div>
-                            telegramId: { user.telegramId }
-                        </div>
-                        <div>
-                            nickname: { user.nickname }
-                        </div>
-                    </div>
-                )
-            }
+            main page
         </div>
     );
 }

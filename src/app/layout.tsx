@@ -3,7 +3,6 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Providers from "@/providers/Providers";
 import MenuData from "@/components/MenuData";
-import '../configs/telegram'
 
 const geistSans = localFont({
     src: "./fonts/GeistVF.woff",
