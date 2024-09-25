@@ -1,14 +1,14 @@
 'use client'
 import React from 'react';
 import {TonConnectButton, useTonConnectUI} from "@tonconnect/ui-react";
-import {Button} from "@/components/ui/button";
 import {beginCell, toNano} from "@ton/core";
 import {useAuth} from "@/hooks/useAuth";
+import Pay from "@/app/profile/wallet/Pay";
 
 const WalletPage = () => {
     const [tonConnectUi] = useTonConnectUI();
     const auth = useAuth()
-    const handlePay = async () => {
+    const handlePay = async (amount: number) => {
         if(!tonConnectUi.wallet){
             tonConnectUi.openModal()
             return
@@ -21,7 +21,7 @@ const WalletPage = () => {
             messages: [
                 {
                     address: 'UQDFD5TTfKEKnFgJkeKiCCzrDpX_iM85JRdig3RnmPrnjjMA',
-                    amount: toNano("0.002").toString(),
+                    amount: toNano(amount.toString()).toString(),
                     payload: body.toBoc().toString("base64")
                 }
             ],
@@ -31,8 +31,10 @@ const WalletPage = () => {
     }
     return (
         <div className={'w-full flex items-center flex-col'}>
-            <TonConnectButton/>
-            <Button onClick={handlePay}>Пополнить</Button>
+            <div className={'flex justify-end w-full'}>
+                <TonConnectButton/>
+            </div>
+            <Pay onPay={handlePay}/>
         </div>
     );
 };
