@@ -2,7 +2,6 @@
 import React, {useEffect, useState} from 'react';
 import Menu from "@/components/Menu";
 import {useAuth} from "@/hooks/useAuth";
-import {Role} from "@/types/user-type";
 
 const MenuData = () => {
     const auth = useAuth();
