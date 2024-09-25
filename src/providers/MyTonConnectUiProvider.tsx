@@ -7,9 +7,9 @@ const MyTonConnectUiProvider = ({children}:{children: React.ReactNode}) => {
     const theme = useTheme();
     return (
         <TonConnectUIProvider
-            manifestUrl="https://tamaev-tma.vercel.app/tonconnect-manifest.json"
+            manifestUrl="https://payonton-tma.vercel.app/tonconnect-manifest.json"
             actionsConfiguration={{
-                twaReturnUrl: 'https://t.me/TamaevTokenBot/app',
+                twaReturnUrl: 'https://t.me/PayOnTonBot/app',
             }}
             uiPreferences={{
                 theme: theme.theme === 'light' ? THEME.LIGHT : THEME.DARK,
