@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Providers from "@/providers/Providers";
 import MenuData from "@/components/MenuData";
+import '../configs/telegram'
 
 const geistSans = localFont({
     src: "./fonts/GeistVF.woff",
@@ -23,6 +24,9 @@ export const metadata: Metadata = {
 export default function RootLayout({children}: Readonly<{children: React.ReactNode}>) {
     return (
         <html lang="en" className={'dark'}>
+            <head>
+                <script async src="https://telegram.org/js/telegram-web-app.js"></script>
+            </head>
             <body
                 className={`${geistSans.variable} ${geistMono.variable} antialiased w-screen h-screen overflow-x-hidden`}
             >
