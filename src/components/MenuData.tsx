@@ -24,7 +24,7 @@ const MenuData = () => {
             title: 'Profile',
             items: [
                 {title: 'Profile', path: auth.user!.id, separator: true},
-                {title: 'Wallet', shortcut: `${auth.user!.money} TON`, path: 'wallet'},
+                {title: 'Wallet', shortcut: `${auth.user!.money.toFixed(6)} TON`, path: 'wallet'},
                 {title: 'Settings', path: 'settings', separator: true},
                 {title: 'My sales', path: 'sales'}
             ],

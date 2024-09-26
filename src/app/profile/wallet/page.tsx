@@ -19,6 +19,10 @@ const WalletPage = () => {
             tonConnectUi.openModal()
             return
         }
+        if(!auth.user?.id){
+            alert('Error: Please reload app')
+            return
+        }
         const body = beginCell()
             .storeUint(0, 32) // write 32 zero bits to indicate that a text comment will follow
             .storeStringTail(auth.user!.id) // write our text comment
@@ -33,14 +37,13 @@ const WalletPage = () => {
             ],
             validUntil: Math.floor(Date.now() / 1000) + 360
         }, {returnStrategy: 'none'});
-        alert(response.boc)
     }
     return (
         <div className={'w-full flex flex-col items-center'}>
             <Card className={'p-4 mx-4 mt-2'}>
                 <p className={'text-xs'}>Balance: <span className={'ml-auto text-sm tracking-widest text-muted-foreground'}>{auth.user?.money} TON</span></p>
             </Card>
-            <div className={'w-full flex items-center flex-col mt-2'}>
+            <div className={'flex items-center flex-col mt-2'}>
                 <div className={'flex justify-between w-full'}>
                     <Link href={'/profile/wallet/history'} className={'ml-4'}>
                         <Button variant={'outline'} className={'h-10'}>History payment</Button>
