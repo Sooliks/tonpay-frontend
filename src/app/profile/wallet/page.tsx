@@ -48,6 +48,7 @@ const WalletPage = () => {
             <div className={'flex items-center flex-col mt-2 w-full'}>
                 <div className={'flex justify-between w-full'}>
                     <Link href={'/profile/wallet/history'} className={'ml-4'}>
+
                         <Button variant={'outline'} className={'h-10'}>History payment</Button>
                     </Link>
                     <TonConnectButton className={'mr-4'}/>
