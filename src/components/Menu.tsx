@@ -8,6 +8,8 @@ import {
     MenubarTrigger
 } from "@/components/ui/menubar";
 import Link from "next/link";
+import {Card} from "@/components/ui/card";
+import {Separator} from "@/components/ui/separator";
 
 
 
@@ -32,14 +34,18 @@ type MenuProps = {
 
 const Menu = ({bars}: MenuProps) => {
     return (
-        <Menubar className={'rounded-t-none flex justify-between rounded-b-lg border-b-2 border-b-blue-800 h-16'}>
+        <Menubar className={'rounded-t-none flex rounded-b-lg border-b-2 border-b-blue-800 h-16 justify-around'}>
             {bars.map((bar, index)=>
                 <MenubarMenu key={index}>
                     {bar.items ?
-                        <MenubarTrigger>{bar.title}</MenubarTrigger>
+                        <MenubarTrigger>
+                            {bar.title}
+                        </MenubarTrigger>
                         :
                         <Link href={`/${bar.path}`}>
-                            <MenubarTrigger>{bar.title}</MenubarTrigger>
+                            <MenubarTrigger>
+                                {bar.title}
+                            </MenubarTrigger>
                         </Link>
                     }
                     {bar.items &&

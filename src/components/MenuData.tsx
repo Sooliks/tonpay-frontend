@@ -2,9 +2,13 @@
 import React, {useEffect, useState} from 'react';
 import Menu from "@/components/Menu";
 import {useAuth} from "@/hooks/useAuth";
+import {useInitData} from "@telegram-apps/sdk-react";
+import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 
 const MenuData = () => {
     const auth = useAuth();
+    const initData = useInitData()
+    console.log(initData!.user?.photoUrl)
     const [bars,setBars] = useState([
         {
             title: 'Buy',
@@ -13,6 +17,7 @@ const MenuData = () => {
                 {title: 'Mobile', path: 'mobile_games', shortcut: 'Games'},
                 {title: 'Telegram Mini Apps', path: 'tg_mini_app_game'},
                 {title: 'Social network', path: 'social_network'},
+                {title: 'Real live', path: 'real_live', disabled: true},
             ],
             path: 'buy'
         },
@@ -21,7 +26,14 @@ const MenuData = () => {
             path: 'messages'
         },
         {
-            title: 'Profile',
+            title:
+                <div className={'flex items-center'}>
+                    <Avatar className={'h-6 w-6'}>
+                        <AvatarImage src={initData?.chat?.photoUrl}/>
+                        <AvatarFallback>{initData!.user!.firstName[0]}</AvatarFallback>
+                    </Avatar>
+                    <span className={'ml-2'}>Profile</span>
+                </div>,
             items: [
                 {title: 'Profile', path: auth.user!.id, separator: true},
                 {title: 'Wallet', shortcut: `${auth.user!.money.toFixed(6)} TON`, path: 'wallet'},
