@@ -31,9 +31,9 @@ export default function RootLayout({children}: Readonly<{children: React.ReactNo
                 className={`${geistSans.variable} ${geistMono.variable} antialiased w-screen h-screen overflow-x-hidden`}
             >
                 <Providers>
-                    <Toaster />
                     <MenuData/>
                     {children}
+                    <Toaster />
                 </Providers>
             </body>
         </html>

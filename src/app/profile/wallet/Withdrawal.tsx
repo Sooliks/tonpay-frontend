@@ -7,6 +7,7 @@ import axiosInstance from "@/configs/axios";
 import {useTonConnectUI} from "@tonconnect/ui-react";
 import {Loader2} from "lucide-react";
 import {toast} from "@/hooks/use-toast";
+import {AxiosError} from "axios";
 
 const Withdrawal = () => {
     const auth = useAuth()
@@ -20,12 +21,12 @@ const Withdrawal = () => {
         }
         setIsLoading(true)
         axiosInstance.post('/ton/withdraw', {amount: amount, address: tonConnectUi.account.address}).then(data=>{
-            if(data.status === 201){
+            if(data.status === 201) {
                 toast({description: 'Success, check your wallet'})
-            }else {
-                toast({description: `Error: ${data.statusText}`})
             }
-        }).finally(()=>setIsLoading(false))
+        }).finally(()=>setIsLoading(false)).catch((error: AxiosError)=>{
+            toast({description: `Error: ${error.message}`})
+        })
     }
     return (
         <div className={'flex flex-col items-center w-full'}>
