@@ -6,11 +6,11 @@ import {useAuth} from "@/hooks/useAuth";
 import Pay from "@/app/profile/wallet/Pay";
 import {Button} from "@/components/ui/button";
 import {Separator} from "@/components/ui/separator";
-import {Car} from "lucide-react";
 import {Card} from "@/components/ui/card";
 import Link from "next/link";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
 import Withdrawal from "@/app/profile/wallet/Withdrawal";
+import axiosInstance from "@/configs/axios";
 
 
 const WalletPage = () => {
@@ -40,6 +40,7 @@ const WalletPage = () => {
             validUntil: Math.floor(Date.now() / 1000) + 360
         }, {returnStrategy: 'none'});
     }
+
     return (
         <div className={'w-full flex flex-col items-center'}>
             <Card className={'p-4 mx-4 mt-2'}>
@@ -48,8 +49,7 @@ const WalletPage = () => {
             <div className={'flex items-center flex-col mt-2 w-full'}>
                 <div className={'flex justify-between w-full'}>
                     <Link href={'/profile/wallet/history'} className={'ml-4'}>
-
-                        <Button variant={'outline'} className={'h-10'}>History payment</Button>
+                        <Button variant={'outline'} className={'h-10'}>History transactions</Button>
                     </Link>
                     <TonConnectButton className={'mr-4'}/>
                 </div>

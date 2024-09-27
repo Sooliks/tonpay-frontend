@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Providers from "@/providers/Providers";
 import MenuData from "@/components/MenuData";
+import {Toaster} from "@/components/ui/toaster";
 
 const geistSans = localFont({
     src: "./fonts/GeistVF.woff",
@@ -30,6 +31,7 @@ export default function RootLayout({children}: Readonly<{children: React.ReactNo
                 className={`${geistSans.variable} ${geistMono.variable} antialiased w-screen h-screen overflow-x-hidden`}
             >
                 <Providers>
+                    <Toaster />
                     <MenuData/>
                     {children}
                 </Providers>

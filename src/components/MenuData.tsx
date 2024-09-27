@@ -8,7 +8,6 @@ import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 const MenuData = () => {
     const auth = useAuth();
     const initData = useInitData()
-    console.log(initData!.user?.photoUrl)
     const [bars,setBars] = useState([
         {
             title: 'Buy',
@@ -45,7 +44,15 @@ const MenuData = () => {
     ])
     useEffect(()=>{
         if(auth.user!.role === 'ADMIN' || auth.user!.role === 'CREATOR' ){
-            setBars([{title: 'Admin', path: 'admin'}, ...bars])
+            setBars([
+                {
+                    title: 'Admin',
+                    path: 'admin',
+                    items: [
+                        {title: 'Scopes', path: 'scopes'}
+                    ]
+                }, ...bars
+            ])
         }
     },[])
     return (
