@@ -43,6 +43,13 @@ const MenuData = () => {
         }
     ])
     useEffect(()=>{
+        setBars(prev=>{
+            if(prev[2].items) prev[2].items[1].title = `${auth.user!.money.toFixed(6)} TON`;
+            return prev;
+        })
+    },[auth.user?.money])
+
+    useEffect(()=>{
         if(auth.user!.role === 'ADMIN' || auth.user!.role === 'CREATOR' ){
             setBars([
                 {

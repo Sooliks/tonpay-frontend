@@ -39,7 +39,7 @@ const Withdrawal = () => {
                     className={'w-56'}
                     id={'in'}
                     type={'number'}
-                    defaultValue={auth.user?.money}
+                    defaultValue={Number(auth.user?.money.toFixed(6))}
                     value={amount}
                     onChange={(e)=>setAmount(Number(e.target.value))}
                     max={amount}

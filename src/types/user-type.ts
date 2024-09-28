@@ -8,6 +8,7 @@ export type UserType = {
     isPremium: boolean
     isBanned: boolean
     money: number
+    lastOnline: Date
 }
 
 export enum Role {
