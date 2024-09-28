@@ -25,7 +25,7 @@ const HistoryPaymentPage = () => {
     const items = data?.flat() || [];
     return (
         <div className={'w-full flex flex-col p-4'}>
-            <Button variant={'outline'} onClick={back} className={'w-24'}>Back</Button>
+            <Button variant={'outline'} onClick={back} className={'w-24 mb-4'}>Back</Button>
             {data ?
                 <InfiniteScroll
                     dataLength={items.length}

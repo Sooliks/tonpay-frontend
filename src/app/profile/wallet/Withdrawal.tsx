@@ -6,17 +6,19 @@ import {useAuth} from "@/hooks/useAuth";
 import axiosInstance from "@/configs/axios";
 import {useTonConnectUI} from "@tonconnect/ui-react";
 import {Loader2} from "lucide-react";
-import {toast} from "@/hooks/use-toast";
 import {AxiosError} from "axios";
+import {useToast} from "@/hooks/use-toast";
+import {Label} from "@/components/ui/label";
 
 const Withdrawal = () => {
     const auth = useAuth()
     const [amount,setAmount] = useState<number>(auth.user?.money || 0)
     const [isLoading,setIsLoading] = useState<boolean>(false)
     const [tonConnectUi] = useTonConnectUI()
+    const { toast } = useToast()
     const handleWithdraw = () => {
         if(!tonConnectUi.account?.address){
-            alert('Please connect your wallet')
+            toast({description: 'Please connect your wallet'})
             return
         }
         setIsLoading(true)
@@ -25,23 +27,30 @@ const Withdrawal = () => {
                 toast({description: 'Success, check your wallet'})
             }
         }).finally(()=>setIsLoading(false)).catch((error: AxiosError)=>{
-            toast({description: `Error: ${error.message}`})
+            const errorMessage = (error.response?.data as { message?: string })?.message || error.message;
+            toast({description: `Error: ${errorMessage}`})
         })
     }
     return (
         <div className={'flex flex-col items-center w-full'}>
-            <Input
-                type={'number'}
-                defaultValue={auth.user?.money}
-                value={amount}
-                onChange={(e)=>setAmount(Number(e.target.value))}
-                max={amount}
-                min={0.002}
-            />
+            <div>
+                <Label htmlFor="in">Fee {10}%</Label>
+                <Input
+                    className={'w-56'}
+                    id={'in'}
+                    type={'number'}
+                    defaultValue={auth.user?.money}
+                    value={amount}
+                    onChange={(e)=>setAmount(Number(e.target.value))}
+                    max={amount}
+                    min={0.002}
+                />
+            </div>
             <Button
                 onClick={handleWithdraw}
-                className={'mt-2'}
+                className={'mt-2 w-56'}
                 disabled={isLoading}
+                variant={'secondary'}
             >
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 Withdrawal

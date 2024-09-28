@@ -16,9 +16,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     useEffect(() => {
         try {
-            fetchCurrentUser()
+            setInterval(()=>{
+                fetchCurrentUser()
+            }, 2000)
         }catch (e) {
-            
+            console.log(e)
         }
     }, [])
 

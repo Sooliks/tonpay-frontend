@@ -34,7 +34,7 @@ type MenuProps = {
 
 const Menu = ({bars}: MenuProps) => {
     return (
-        <Menubar className={'rounded-t-none flex rounded-b-lg border-b-2 border-b-blue-800 h-16 justify-around'}>
+        <Menubar className={'z-0 rounded-t-none flex rounded-b-lg border-b-2 border-b-blue-800 h-16 justify-around'}>
             {bars.map((bar, index)=>
                 <MenubarMenu key={index}>
                     {bar.items ?
