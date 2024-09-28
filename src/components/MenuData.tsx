@@ -44,7 +44,7 @@ const MenuData = () => {
     ])
     useEffect(()=>{
         setBars(prev=>{
-            if(prev[2].items) prev[2].items[1].title = `${auth.user!.money.toFixed(6)} TON`;
+            if(prev[2].items) prev[2].items[1].shortcut = `${auth.user!.money.toFixed(6)} TON`;
             return prev;
         })
     },[auth.user?.money])
