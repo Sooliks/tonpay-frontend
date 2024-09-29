@@ -4,6 +4,7 @@ import {useRouter} from "next/navigation";
 import {Button} from "@/components/ui/button";
 
 
+
 const Error = ({error}:{error: Error | null}) => {
     const {back} = useRouter();
     return (
