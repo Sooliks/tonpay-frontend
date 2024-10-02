@@ -48,7 +48,6 @@ const MenuData = () => {
             return prev;
         })
     },[auth.user?.money])
-
     useEffect(()=>{
         if(auth.user!.role === 'ADMIN' || auth.user!.role === 'CREATOR' ){
             setBars([
