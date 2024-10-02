@@ -42,6 +42,7 @@ const CreateSubScope = ({idScope, onCreated}:{idScope: string, onCreated: () => 
                 type={'submit'}
                 className={'ml-2 w-52'}
                 disabled={isLoading}
+                variant={'secondary'}
             >
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 Add
