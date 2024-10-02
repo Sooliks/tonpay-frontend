@@ -10,7 +10,7 @@ import {Button} from "@/components/ui/button";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 import {Loader2} from "lucide-react";
 
-const CreateScope = () => {
+const CreateScope = ({onCreated}:{onCreated: () => void}) => {
     const {
         register,
         handleSubmit,
@@ -24,6 +24,7 @@ const CreateScope = () => {
         axiosInstance.post('/scopes/create', {name: data.name, type: data.type}).then(data=>{
             if(data.status === 201) {
                 toast({description: 'Success created!'})
+                onCreated()
             }
         }).finally(()=>{setIsLoading(false); reset()}).catch((error: AxiosError)=>{
             const errorMessage = (error.response?.data as { message?: string })?.message || error.message;
@@ -46,14 +47,14 @@ const CreateScope = () => {
                         value={field.value}
                         onValueChange={(e)=>field.onChange(e)}
                     >
-                        <SelectTrigger className="w-[180px]">
+                        <SelectTrigger className="w-[180px] ml-2">
                             <SelectValue placeholder="Type" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="pc_games">pc_games</SelectItem>
-                            <SelectItem value="mobile_games">mobile_games</SelectItem>
-                            <SelectItem value="tg_mini_app_game">tg_mini_app_game</SelectItem>
-                            <SelectItem value="tg_mini_app_game">social_network</SelectItem>
+                            <SelectItem value="pc_games">PC games</SelectItem>
+                            <SelectItem value="mobile_games">Mobile games</SelectItem>
+                            <SelectItem value="tg_mini_app_game">TG Mini App</SelectItem>
+                            <SelectItem value="social_network">Social network</SelectItem>
                         </SelectContent>
                     </Select>
 
