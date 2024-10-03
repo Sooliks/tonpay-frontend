@@ -14,11 +14,13 @@ import {AxiosError} from "axios";
 import {SaleType} from "@/types/sale";
 import {SubScope} from "@/types/subScope";
 import {Textarea} from "@/components/ui/textarea";
+import {Badge} from "@/components/ui/badge";
 
 const SalesAddPage = () => {
     const { data, error, isLoading } = useSWR<Scope[]>('/scopes')
     const [scopes,setScopes] = useState<Scope[]>([]);
     const [subScopes,setSubScopes] = useState<SubScope[]>([]);
+    const [products,setProducts] = useState<string[]>([]);
     const {
         register,
         handleSubmit,
@@ -26,18 +28,23 @@ const SalesAddPage = () => {
         control,
         reset,
         getValues,
-        setValue
+        watch
     } = useForm<SaleType>({mode: 'onChange'});
     const [isLoadingSubmit,setIsLoadingSubmit] = useState<boolean>(false)
     const onSubmit: SubmitHandler<SaleType> = async (data) => {
-        console.log(data)
         setIsLoadingSubmit(true)
-        axiosInstance.post('/sale', data).then(data=>{
+        axiosInstance.post('/sale', {
+            price: data.price,
+            product: products,
+            title: data.title,
+            description: data.description,
+            subScopeId: data.subScopeId
+        }).then(data=>{
             if(data.status === 201) {
                 toast({description: 'Success created!'})
                 reset()
             }
-        }).finally(()=>{setIsLoadingSubmit(false); reset()}).catch((error: AxiosError)=>{
+        }).finally(() => setIsLoadingSubmit(false)).catch((error: AxiosError)=>{
             const errorMessage = (error.response?.data as { message?: string })?.message || error.message;
             toast({description: `Error: ${errorMessage}`})
         })
@@ -50,32 +57,37 @@ const SalesAddPage = () => {
     const handleChangeType = (value: string) => setScopes(data?.filter(s=>s.type === value) || [])
     const handleChangeScope = (value: string) => setSubScopes(scopes.filter(s=>s.id === value)[0]?.subScopes || [])
 
+    const handleProductsChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        const value = event.target.value;
+        const productsArray = value.split('\n').filter(item => item.trim() !== '');
+        setProducts(productsArray);
+    };
+
     if(isLoading){
         return <SpinLoading/>
     }
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={'flex flex-col'}>
-            <label htmlFor="text" className={'text-muted-foreground text-sm'}>Enter title</label>
+            <label htmlFor="title" className={'text-muted-foreground text-sm'}>Enter title</label>
             <Input
-                id={'text'}
+                id={'title'}
                 type={"text"}
                 placeholder={'Title'}
                 {...register('title', {required: 'Please enter title'})}
             />
             {errors.title?.message && <p className="text-sm text-muted-foreground text-red-500">{errors.title.message}</p>}
-            <label htmlFor="type" className={'text-muted-foreground text-sm'}>Select type</label>
+            <label htmlFor="type" className={'text-muted-foreground text-sm mt-2'}>Select type</label>
             <Controller
                 name="type"
                 control={control}
-                defaultValue={'pc_games'}
                 render={({ field }) => (
                     <Select
                         {...register('type', {required: 'Please select type'})}
                         value={field.value}
-                        onValueChange={(e)=>{field.onChange(e); reset({subScopeId: undefined}); handleChangeType(e);}}
+                        onValueChange={(e)=>{field.onChange(e); reset({subScopeId: undefined, scopeId: undefined}); handleChangeType(e);}}
                     >
                         <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Type" />
+                            <SelectValue/>
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem value="pc_games">PC games</SelectItem>
@@ -88,7 +100,7 @@ const SalesAddPage = () => {
                 )}
             />
             {errors.type?.message && <p className="text-sm text-muted-foreground text-red-500">{errors.type.message}</p>}
-            <label htmlFor="scopeId" className={'text-muted-foreground text-sm'}>Select category</label>
+            <label htmlFor="scopeId" className={'text-muted-foreground text-sm mt-2'}>Select category</label>
             <Controller
                 name="scopeId"
                 control={control}
@@ -96,7 +108,7 @@ const SalesAddPage = () => {
                     <Select
                         {...register('scopeId', {required: 'Please select category'})}
                         value={field.value}
-                        onValueChange={(e)=>{field.onChange(e); handleChangeScope(e);}}
+                        onValueChange={(e)=>{field.onChange(e); handleChangeScope(e); reset({subScopeId: undefined})}}
                     >
                         <SelectTrigger className="w-[180px]">
                             <SelectValue />
@@ -111,7 +123,7 @@ const SalesAddPage = () => {
                 )}
             />
             {errors.scopeId?.message && <p className="text-sm text-muted-foreground text-red-500">{errors.scopeId.message}</p>}
-            <label htmlFor="subScopeId" className={'text-muted-foreground text-sm'}>Select sub category</label>
+            <label htmlFor="subScopeId" className={'text-muted-foreground text-sm mt-2'}>Select sub category</label>
             <Controller
                 name="subScopeId"
                 control={control}
@@ -134,7 +146,7 @@ const SalesAddPage = () => {
                 )}
             />
             {errors.subScopeId?.message && <p className="text-sm text-muted-foreground text-red-500">{errors.subScopeId.message}</p>}
-            <label htmlFor="description" className={'text-muted-foreground text-sm'}>Description</label>
+            <label htmlFor="description" className={'text-muted-foreground text-sm mt-2'}>Description</label>
             <Textarea
                 placeholder="Enter description"
                 id="description"
@@ -142,6 +154,35 @@ const SalesAddPage = () => {
                 maxLength={500}
             />
             {errors.description?.message && <p className="text-sm text-muted-foreground text-red-500">{errors.description.message}</p>}
+            <label htmlFor="price" className={'text-muted-foreground text-sm mt-2 flex items-center'}>Price in <Badge className={'bg-blue-400 h-4 ml-1'}>TON</Badge></label>
+            <Input
+                id={'price'}
+                type={"number"}
+                step="0.01"
+                placeholder={'Enter price per piece'}
+                {...register('price', {required: 'Please enter price', validate: () => {
+                        if (watch('price') < 0.05) {
+                            return 'The price cannot be less than 0.05';
+                        }
+                        if (watch('price') > 1000) {
+                            return 'The price cannot be more than 1000 TON';
+                        }
+                    }})}
+            />
+            {errors.price?.message && <p className="text-sm text-muted-foreground text-red-500">{errors.price.message}</p>}
+            <div className={'flex justify-between mt-2'}>
+                <label htmlFor="product" className={'text-muted-foreground text-sm'}>Products (no requirement)</label>
+                <p className={'text-sm'}>Count: {products.length}</p>
+            </div>
+            <Textarea
+                placeholder="Enter products from each new line"
+                id="product"
+                {...register('product')}
+                maxLength={500}
+                onChange={handleProductsChange}
+                className={'h-52'}
+            />
+            {errors.product?.message && <p className="text-sm text-muted-foreground text-red-500">{errors.product.message}</p>}
             <Button
                 type={'submit'}
                 className={'w-52 mt-2'}

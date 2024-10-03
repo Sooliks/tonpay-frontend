@@ -1,6 +1,6 @@
 export type SaleType = {
     price: number
-    product: string[]
+    product: string
     title: string
     description: string
     subScopeId: string
