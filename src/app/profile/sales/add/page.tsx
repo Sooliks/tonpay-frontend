@@ -13,6 +13,7 @@ import {toast} from "@/hooks/use-toast";
 import {AxiosError} from "axios";
 import {SaleType} from "@/types/sale";
 import {SubScope} from "@/types/subScope";
+import {Textarea} from "@/components/ui/textarea";
 
 const SalesAddPage = () => {
     const { data, error, isLoading } = useSWR<Scope[]>('/scopes')
@@ -29,6 +30,7 @@ const SalesAddPage = () => {
     } = useForm<SaleType>({mode: 'onChange'});
     const [isLoadingSubmit,setIsLoadingSubmit] = useState<boolean>(false)
     const onSubmit: SubmitHandler<SaleType> = async (data) => {
+        console.log(data)
         setIsLoadingSubmit(true)
         axiosInstance.post('/sale', data).then(data=>{
             if(data.status === 201) {
@@ -45,11 +47,8 @@ const SalesAddPage = () => {
             setScopes(data.filter(s=>s.type === getValues('type')))
         }
     },[data])
-    /*useEffect(()=>{
-        setSubScopes(scopes?.filter(s=>s.id === getValues('scopeId'))[0].subScopes || []);
-    },[scopes])*/
     const handleChangeType = (value: string) => setScopes(data?.filter(s=>s.type === value) || [])
-    const handleChangeScope = (value: string) => setSubScopes(scopes?.filter(s=>s.id === value)[0].subScopes || [])
+    const handleChangeScope = (value: string) => setSubScopes(scopes.filter(s=>s.id === value)[0]?.subScopes || [])
 
     if(isLoading){
         return <SpinLoading/>
@@ -63,6 +62,7 @@ const SalesAddPage = () => {
                 placeholder={'Title'}
                 {...register('title', {required: 'Please enter title'})}
             />
+            {errors.title?.message && <p className="text-sm text-muted-foreground text-red-500">{errors.title.message}</p>}
             <label htmlFor="type" className={'text-muted-foreground text-sm'}>Select type</label>
             <Controller
                 name="type"
@@ -70,8 +70,9 @@ const SalesAddPage = () => {
                 defaultValue={'pc_games'}
                 render={({ field }) => (
                     <Select
+                        {...register('type', {required: 'Please select type'})}
                         value={field.value}
-                        onValueChange={(e)=>{field.onChange(e); handleChangeType(e);}}
+                        onValueChange={(e)=>{field.onChange(e); reset({subScopeId: undefined}); handleChangeType(e);}}
                     >
                         <SelectTrigger className="w-[180px]">
                             <SelectValue placeholder="Type" />
@@ -86,12 +87,14 @@ const SalesAddPage = () => {
 
                 )}
             />
+            {errors.type?.message && <p className="text-sm text-muted-foreground text-red-500">{errors.type.message}</p>}
             <label htmlFor="scopeId" className={'text-muted-foreground text-sm'}>Select category</label>
             <Controller
                 name="scopeId"
                 control={control}
                 render={({ field }) => (
                     <Select
+                        {...register('scopeId', {required: 'Please select category'})}
                         value={field.value}
                         onValueChange={(e)=>{field.onChange(e); handleChangeScope(e);}}
                     >
@@ -107,12 +110,14 @@ const SalesAddPage = () => {
 
                 )}
             />
+            {errors.scopeId?.message && <p className="text-sm text-muted-foreground text-red-500">{errors.scopeId.message}</p>}
             <label htmlFor="subScopeId" className={'text-muted-foreground text-sm'}>Select sub category</label>
             <Controller
                 name="subScopeId"
                 control={control}
                 render={({ field }) => (
                     <Select
+                        {...register('subScopeId', {required: 'Please select sub category'})}
                         value={field.value}
                         onValueChange={(e)=>field.onChange(e)}
                     >
@@ -128,6 +133,15 @@ const SalesAddPage = () => {
 
                 )}
             />
+            {errors.subScopeId?.message && <p className="text-sm text-muted-foreground text-red-500">{errors.subScopeId.message}</p>}
+            <label htmlFor="description" className={'text-muted-foreground text-sm'}>Description</label>
+            <Textarea
+                placeholder="Enter description"
+                id="description"
+                {...register('description', {required: 'Please enter description'})}
+                maxLength={500}
+            />
+            {errors.description?.message && <p className="text-sm text-muted-foreground text-red-500">{errors.description.message}</p>}
             <Button
                 type={'submit'}
                 className={'w-52 mt-2'}
