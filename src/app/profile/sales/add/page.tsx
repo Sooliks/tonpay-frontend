@@ -28,12 +28,13 @@ const SalesAddPage = () => {
         control,
         reset,
         getValues,
-        watch
+        watch,
+        setValue
     } = useForm<SaleType>({mode: 'onChange'});
     const [isLoadingSubmit,setIsLoadingSubmit] = useState<boolean>(false)
     const onSubmit: SubmitHandler<SaleType> = async (data) => {
         setIsLoadingSubmit(true)
-        axiosInstance.post('/sale', {
+        axiosInstance.post('/sales', {
             price: data.price,
             product: products,
             title: data.title,
@@ -42,6 +43,7 @@ const SalesAddPage = () => {
         }).then(data=>{
             if(data.status === 201) {
                 toast({description: 'Success created!'})
+                reset({type: '', scopeId: '', subScopeId: ''})
                 reset()
             }
         }).finally(() => setIsLoadingSubmit(false)).catch((error: AxiosError)=>{
@@ -54,8 +56,16 @@ const SalesAddPage = () => {
             setScopes(data.filter(s=>s.type === getValues('type')))
         }
     },[data])
-    const handleChangeType = (value: string) => setScopes(data?.filter(s=>s.type === value) || [])
-    const handleChangeScope = (value: string) => setSubScopes(scopes.filter(s=>s.id === value)[0]?.subScopes || [])
+    const handleChangeType = (value: string) => {
+        setScopes(data?.filter(s => s.type === value) || [])
+        setValue('subScopeId', '');
+        setValue('scopeId', '')
+        setSubScopes([])
+    }
+    const handleChangeScope = (value: string) => {
+        setSubScopes(scopes.filter(s=>s.id === value)[0]?.subScopes || [])
+        setValue('subScopeId', '');
+    }
 
     const handleProductsChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const value = event.target.value;
@@ -78,13 +88,13 @@ const SalesAddPage = () => {
             {errors.title?.message && <p className="text-sm text-muted-foreground text-red-500">{errors.title.message}</p>}
             <label htmlFor="type" className={'text-muted-foreground text-sm mt-2'}>Select type</label>
             <Controller
-                name="type"
+                name={'type'}
                 control={control}
                 render={({ field }) => (
                     <Select
                         {...register('type', {required: 'Please select type'})}
                         value={field.value}
-                        onValueChange={(e)=>{field.onChange(e); reset({subScopeId: undefined, scopeId: undefined}); handleChangeType(e);}}
+                        onValueChange={(e)=>{field.onChange(e); handleChangeType(e)}}
                     >
                         <SelectTrigger className="w-[180px]">
                             <SelectValue/>
@@ -108,7 +118,7 @@ const SalesAddPage = () => {
                     <Select
                         {...register('scopeId', {required: 'Please select category'})}
                         value={field.value}
-                        onValueChange={(e)=>{field.onChange(e); handleChangeScope(e); reset({subScopeId: undefined})}}
+                        onValueChange={(e)=>{field.onChange(e); handleChangeScope(e);}}
                     >
                         <SelectTrigger className="w-[180px]">
                             <SelectValue />
@@ -131,7 +141,7 @@ const SalesAddPage = () => {
                     <Select
                         {...register('subScopeId', {required: 'Please select sub category'})}
                         value={field.value}
-                        onValueChange={(e)=>field.onChange(e)}
+                        onValueChange={(e)=>{field.onChange(e);setValue('subScopeId', e)}}
                     >
                         <SelectTrigger className="w-[180px]">
                             <SelectValue />
