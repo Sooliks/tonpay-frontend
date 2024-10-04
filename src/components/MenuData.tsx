@@ -55,7 +55,8 @@ const MenuData = () => {
                     title: 'Admin',
                     path: 'admin',
                     items: [
-                        {title: 'Categories', path: 'scopes'}
+                        {title: 'Categories', path: 'scopes'},
+                        {title: 'Admins', path: 'admins'}
                     ]
                 }, ...bars
             ])

@@ -18,9 +18,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         try {
             setInterval(()=>{
                 fetchCurrentUser()
-            }, 2000)
+            }, 2500)
         }catch (e) {
-            console.log(e)
+
         }
     }, [])
 

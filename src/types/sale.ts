@@ -26,5 +26,5 @@ export type Sale = {
     adminId?: string
     title: string
     description: string
-    feedback: Feedback
+    feedbacks: Feedback[]
 }
