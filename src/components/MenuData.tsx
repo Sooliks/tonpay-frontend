@@ -10,7 +10,7 @@ const MenuData = () => {
     const initData = useInitData()
     const [bars,setBars] = useState([
         {
-            title: 'Buy',
+            title: 'Categories',
             items: [
                 {title: 'PC', path: 'pc_games', shortcut: 'Games'},
                 {title: 'Mobile', path: 'mobile_games', shortcut: 'Games'},
@@ -55,7 +55,7 @@ const MenuData = () => {
                     title: 'Admin',
                     path: 'admin',
                     items: [
-                        {title: 'Scopes', path: 'scopes'}
+                        {title: 'Categories', path: 'scopes'}
                     ]
                 }, ...bars
             ])

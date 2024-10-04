@@ -25,6 +25,7 @@ const BuyPage = ({params}: BuyLayoutProps) => {
     const filteredData = data?.filter(item =>
         item.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
+    //TODO добавить тут в каком типе категории
     return (
         <div className={'flex flex-col p-4'}>
             <Input
@@ -40,7 +41,7 @@ const BuyPage = ({params}: BuyLayoutProps) => {
                             <AccordionTrigger>{scope.name}</AccordionTrigger>
                             <AccordionContent>
                                 {scope.subScopes.map(subScope=>
-                                    <Link href={`/buy/${scope.type}/${subScope.id}`} key={subScope.id}>
+                                    <Link className={'mr-1'} href={`/buy/${scope.type}/${subScope.id}`} key={subScope.id}>
                                         <Badge variant={'secondary'}>{subScope.name}</Badge>
                                     </Link>
                                 )}

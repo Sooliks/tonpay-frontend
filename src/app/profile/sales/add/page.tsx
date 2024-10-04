@@ -1,6 +1,6 @@
 'use client'
 import React, {useEffect, useState} from 'react';
-import {CreateScope as CreateScopeType, Scope} from "@/types/scope";
+import {Scope} from "@/types/scope";
 import SpinLoading from "@/components/my-ui/SpinLoading";
 import useSWR from "swr";
 import {Input} from "@/components/ui/input";
@@ -11,10 +11,10 @@ import {Loader2} from "lucide-react";
 import axiosInstance from "@/configs/axios";
 import {toast} from "@/hooks/use-toast";
 import {AxiosError} from "axios";
-import {SaleType} from "@/types/sale";
 import {SubScope} from "@/types/subScope";
 import {Textarea} from "@/components/ui/textarea";
 import {Badge} from "@/components/ui/badge";
+import {CreateSaleType} from "@/types/sale";
 
 const SalesAddPage = () => {
     const { data, error, isLoading } = useSWR<Scope[]>('/scopes')
@@ -30,9 +30,9 @@ const SalesAddPage = () => {
         getValues,
         watch,
         setValue
-    } = useForm<SaleType>({mode: 'onChange'});
+    } = useForm<CreateSaleType>({mode: 'onChange'});
     const [isLoadingSubmit,setIsLoadingSubmit] = useState<boolean>(false)
-    const onSubmit: SubmitHandler<SaleType> = async (data) => {
+    const onSubmit: SubmitHandler<CreateSaleType> = async (data) => {
         setIsLoadingSubmit(true)
         axiosInstance.post('/sales', {
             price: data.price,
@@ -119,6 +119,13 @@ const SalesAddPage = () => {
                         {...register('scopeId', {required: 'Please select category'})}
                         value={field.value}
                         onValueChange={(e)=>{field.onChange(e); handleChangeScope(e);}}
+                        onOpenChange={(e)=>{
+                            if(e) {
+                                if(scopes.length === 0) {
+                                    toast({description: 'First, select the type'})
+                                }
+                            }
+                        }}
                     >
                         <SelectTrigger className="w-[180px]">
                             <SelectValue />
@@ -142,6 +149,13 @@ const SalesAddPage = () => {
                         {...register('subScopeId', {required: 'Please select sub category'})}
                         value={field.value}
                         onValueChange={(e)=>{field.onChange(e);setValue('subScopeId', e)}}
+                        onOpenChange={(e)=>{
+                            if(e) {
+                                if(subScopes.length === 0) {
+                                    toast({description: 'First, select the category'})
+                                }
+                            }
+                        }}
                     >
                         <SelectTrigger className="w-[180px]">
                             <SelectValue />
@@ -182,7 +196,7 @@ const SalesAddPage = () => {
             {errors.price?.message && <p className="text-sm text-muted-foreground text-red-500">{errors.price.message}</p>}
             <div className={'flex justify-between mt-2'}>
                 <label htmlFor="product" className={'text-muted-foreground text-sm'}>Products (no requirement)</label>
-                <p className={'text-sm'}>Count: {products.length}</p>
+                <p className={'text-sm mr-2'}>Count: {products.length}</p>
             </div>
             <Textarea
                 placeholder="Enter products from each new line"
@@ -195,8 +209,9 @@ const SalesAddPage = () => {
             {errors.product?.message && <p className="text-sm text-muted-foreground text-red-500">{errors.product.message}</p>}
             <Button
                 type={'submit'}
-                className={'w-52 mt-2'}
+                className={'w-full mt-2'}
                 disabled={isLoadingSubmit}
+                variant={'secondary'}
             >
                 {isLoadingSubmit && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 Add
