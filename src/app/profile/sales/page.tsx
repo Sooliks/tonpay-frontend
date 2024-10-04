@@ -5,6 +5,7 @@ import {Sale} from "@/types/sale";
 import {useAuth} from "@/hooks/useAuth";
 import {Card} from "@/components/ui/card";
 import SpinLoading from "@/components/my-ui/SpinLoading";
+import SalePreview from "@/components/SalePreview";
 
 const SalesPage = () => {
     const auth = useAuth()
@@ -14,7 +15,10 @@ const SalesPage = () => {
     }
     return (
         <Card className={'p-4 mt-2'}>
-            продажи тут
+            {data && data.length > 0 ? data.map(sale=> <SalePreview sale={sale} key={sale.id}/>)
+                :
+                <p>Nothing</p>
+            }
         </Card>
     );
 };

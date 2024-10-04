@@ -15,7 +15,7 @@ const MenuData = () => {
                 {title: 'PC', path: 'pc_games', shortcut: 'Games'},
                 {title: 'Mobile', path: 'mobile_games', shortcut: 'Games'},
                 {title: 'Telegram Mini Apps', path: 'tg_mini_app_game'},
-                {title: 'Social network', path: 'social_network'},
+                {title: 'Social networks', path: 'social_network'},
                 {title: 'Real live', path: 'real_live', disabled: true},
             ],
             path: 'buy'
@@ -31,7 +31,7 @@ const MenuData = () => {
                         <AvatarImage src={initData?.chat?.photoUrl}/>
                         <AvatarFallback>{initData!.user!.firstName[0]}</AvatarFallback>
                     </Avatar>
-                    <span className={'ml-2'}>Profile</span>
+                    <span className={'ml-2'}>Me</span>
                 </div>,
             items: [
                 {title: 'Profile', path: auth.user!.id, separator: true},
