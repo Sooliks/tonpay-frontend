@@ -5,4 +5,5 @@ export type Transaction = {
     confirmed: boolean
     countTon: number
     type: 'PAYMENT' | 'WITHDRAWAL'
+    createdAt: Date
 }

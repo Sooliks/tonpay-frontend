@@ -6,7 +6,7 @@ import {Badge} from "@/components/ui/badge";
 
 const buttons: number[] = [0.5, 1, 5, 10, 20, 100]
 
-const Pay = ({onPay}:{onPay: (amount: number) => void}) => {
+const Pay = ({onPay, isLoading}:{onPay: (amount: number) => void, isLoading: boolean}) => {
     const [value,setValue] = useState<number>(0.5);
     return (
         <div className={'flex flex-col items-center w-full'}>

@@ -24,8 +24,8 @@ const HistoryPaymentPage = () => {
     }
     const items = data?.flat() || [];
     return (
-        <div className={'w-full flex flex-col p-4'}>
-            <Button variant={'outline'} onClick={back} className={'w-24 mb-4'}>Back</Button>
+        <div className={'w-full flex flex-col'}>
+            <Button variant={'outline'} onClick={back} className={'w-24 m-4'}>Back</Button>
             {data ?
                 <InfiniteScroll
                     dataLength={items.length}
@@ -34,24 +34,26 @@ const HistoryPaymentPage = () => {
                     loader={<Skeleton/>}
                     scrollableTarget="scrollableDiv"
                 >
-                    <Table>
+                    <Table className={'p-4'}>
                         <TableCaption>Transactions</TableCaption>
                         <TableHeader>
                             <TableRow>
-                                <TableHead>Transaction</TableHead>
-                                <TableHead>Confirmed</TableHead>
+                                <TableHead>Tx</TableHead>
+                                <TableHead>Success</TableHead>
                                 <TableHead>Amount</TableHead>
-                                <TableHead className="text-right">Type</TableHead>
+                                <TableHead>Date</TableHead>
+                                <TableHead>Type</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                             {data.map(transactions=> (
                                 transactions.map(tx=>
                                     <TableRow key={tx.id} className={'h-16'}>
-                                        <TableCell className="font-medium"><Link className={'text-blue-800 flex items-center'} target={'_blank'} href={`https://tonviewer.com/transaction/${tx.transactionId}`}>Tonviewer <LinkIco className={'ml-1'} size={10}/></Link></TableCell>
+                                        <TableCell className="font-medium"><Link className={'text-blue-800 flex items-center'} target={'_blank'} href={`https://tonviewer.com/transaction/${tx.transactionId}`}>View<LinkIco className={'ml-1'} size={10}/></Link></TableCell>
                                         <TableCell>{tx.confirmed ? <Check color={'green'}/> : <Ban color={'red'}/>}</TableCell>
-                                        <TableCell><span className={'ml-auto text-sm tracking-widest text-muted-foreground'}>{tx.countTon.toFixed(5)} TON</span></TableCell>
-                                        <TableCell className="text-right">{tx.type}</TableCell>
+                                        <TableCell><span className={'ml-auto text-sm tracking-widest text-muted-foreground'}>{tx.countTon.toFixed(2)} TON</span></TableCell>
+                                        <TableCell><p className={'text-sm'}>{new Date(tx.createdAt).toLocaleDateString()}</p><p className={'text-sm'}>{new Date(tx.createdAt).toLocaleTimeString()}</p></TableCell>
+                                        <TableCell>{tx.type === 'PAYMENT' ? 'PAY' : 'OUT'}</TableCell>
                                     </TableRow>
                                 )
                             ))}

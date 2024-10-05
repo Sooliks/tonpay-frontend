@@ -1,5 +1,5 @@
 'use client'
-import React from 'react';
+import React, {useRef, useState} from 'react';
 import {TonConnectButton, useTonConnectUI} from "@tonconnect/ui-react";
 import {beginCell, toNano} from "@ton/core";
 import {useAuth} from "@/hooks/useAuth";
@@ -13,7 +13,9 @@ import Withdrawal from "@/app/profile/wallet/Withdrawal";
 
 const WalletPage = () => {
     const [tonConnectUi] = useTonConnectUI();
+    const [isLoading,setIsLoading] = useState<boolean>(false);
     const auth = useAuth()
+    const balance= useRef<number>(auth.user!.money)
     const handlePay = async (amount: number) => {
         if(!tonConnectUi.wallet){
             tonConnectUi.openModal()
@@ -23,6 +25,7 @@ const WalletPage = () => {
             alert('Error: Please reload app')
             return
         }
+        setIsLoading(true)
         const body = beginCell()
             .storeUint(0, 32) // write 32 zero bits to indicate that a text comment will follow
             .storeStringTail(auth.user!.id) // write our text comment
@@ -37,6 +40,9 @@ const WalletPage = () => {
             ],
             validUntil: Math.floor(Date.now() / 1000) + 360
         }, {returnStrategy: 'none'});
+    }
+    if(balance.current !== auth.user?.money){
+        setIsLoading(true)
     }
 
     return (
@@ -57,7 +63,7 @@ const WalletPage = () => {
                         <TabsTrigger value="payment">Payment</TabsTrigger>
                         <TabsTrigger value="withdrawal">Withdrawal</TabsTrigger>
                     </TabsList>
-                    <TabsContent value="payment"><Pay onPay={handlePay}/></TabsContent>
+                    <TabsContent value="payment"><Pay isLoading={isLoading} onPay={handlePay}/></TabsContent>
                     <TabsContent value="withdrawal"><Withdrawal/></TabsContent>
                 </Tabs>
             </div>
