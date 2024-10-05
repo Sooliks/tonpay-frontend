@@ -14,9 +14,9 @@ import {
 import {Slash} from "lucide-react";
 import {getNameByPath} from "@/services/navService";
 
-const SalePreview = ({sale}:{sale: Sale}) => {
+const SalePreview = ({sale, isProfile}:{sale: Sale, isProfile: boolean}) => {
     return (
-        <Card className={'flex flex-col w-full p-4'}>
+        <Card className={'flex flex-col w-full p-4 mb-2'}>
             <Link href={`/sale/${sale.id}`}>
                 <div>
                     <p>{sale.title}</p>
@@ -24,25 +24,27 @@ const SalePreview = ({sale}:{sale: Sale}) => {
                     <p className={'text-muted-foreground text-sm'}>{sale.description}</p>
                 </div>
             </Link>
-            <Breadcrumb className={'mt-4'}>
-                <BreadcrumbList>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href={`/buy/${sale.subScope.scope.type}`}>{getNameByPath(sale.subScope.scope.type)}</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator>
-                        <Slash />
-                    </BreadcrumbSeparator>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href={`/buy/${sale.subScope.scope.type}?open=${sale.subScope.scope.name}`}>{sale.subScope.scope.name}</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator>
-                        <Slash />
-                    </BreadcrumbSeparator>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href={`/buy/${sale.subScope.scope.type}/${sale.subScope.id}`}>{sale.subScope.name}</BreadcrumbLink>
-                    </BreadcrumbItem>
-                </BreadcrumbList>
-            </Breadcrumb>
+            {isProfile &&
+                <Breadcrumb className={'mt-4'}>
+                    <BreadcrumbList>
+                        <BreadcrumbItem>
+                            <BreadcrumbLink className={'text-blue-800'} href={`/buy/${sale.subScope.scope.type}`}>{getNameByPath(sale.subScope.scope.type)}</BreadcrumbLink>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator>
+                            <Slash />
+                        </BreadcrumbSeparator>
+                        <BreadcrumbItem>
+                            <BreadcrumbLink className={'text-blue-800'} href={`/buy/${sale.subScope.scope.type}?open=${sale.subScope.scope.name}`}>{sale.subScope.scope.name}</BreadcrumbLink>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator>
+                            <Slash />
+                        </BreadcrumbSeparator>
+                        <BreadcrumbItem>
+                            <BreadcrumbLink className={'text-blue-800'} href={`/buy/${sale.subScope.scope.type}/${sale.subScope.id}`}>{sale.subScope.name}</BreadcrumbLink>
+                        </BreadcrumbItem>
+                    </BreadcrumbList>
+                </Breadcrumb>
+            }
         </Card>
     );
 };

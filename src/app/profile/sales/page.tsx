@@ -14,12 +14,15 @@ const SalesPage = () => {
         return <SpinLoading/>
     }
     return (
-        <Card className={'p-4 mt-2'}>
-            {data && data.length > 0 ? data.map(sale=> <SalePreview sale={sale} key={sale.id}/>)
+        <div className={'mt-2'}>
+            <h4 className={'text-center scroll-m-20 text-xl font-semibold tracking-tight mb-2'}>My sales</h4>
+            {data && data.length > 0 ? data.map(sale=>
+                    <SalePreview sale={sale} key={sale.id}/>
+                )
                 :
-                <p>Nothing</p>
+                <p className={'text-center text-muted-foreground text-2xl mt-24'}>Nothing</p>
             }
-        </Card>
+        </div>
     );
 };
 

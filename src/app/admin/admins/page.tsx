@@ -12,7 +12,7 @@ const AdminsPage = () => {
         return <SpinLoading/>
     }
     return (
-        <Table>
+        <Table className={'p-4'}>
             <TableCaption>Admins</TableCaption>
             <TableHeader>
                 <TableRow>
