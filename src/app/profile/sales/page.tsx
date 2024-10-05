@@ -3,7 +3,6 @@ import React from 'react';
 import useSWR from "swr";
 import {Sale} from "@/types/sale";
 import {useAuth} from "@/hooks/useAuth";
-import {Card} from "@/components/ui/card";
 import SpinLoading from "@/components/my-ui/SpinLoading";
 import SalePreview from "@/components/SalePreview";
 
@@ -17,7 +16,7 @@ const SalesPage = () => {
         <div className={'mt-2'}>
             <h4 className={'text-center scroll-m-20 text-xl font-semibold tracking-tight mb-2'}>My sales</h4>
             {data && data.length > 0 ? data.map(sale=>
-                    <SalePreview sale={sale} key={sale.id}/>
+                    <SalePreview sale={sale} key={sale.id} isProfile/>
                 )
                 :
                 <p className={'text-center text-muted-foreground text-2xl mt-24'}>Nothing</p>

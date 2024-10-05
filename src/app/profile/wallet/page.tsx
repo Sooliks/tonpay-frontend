@@ -10,8 +10,6 @@ import {Card} from "@/components/ui/card";
 import Link from "next/link";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
 import Withdrawal from "@/app/profile/wallet/Withdrawal";
-import axiosInstance from "@/configs/axios";
-
 
 const WalletPage = () => {
     const [tonConnectUi] = useTonConnectUI();
@@ -55,7 +53,7 @@ const WalletPage = () => {
                 </div>
                 <Separator className={'mt-2'}/>
                 <Tabs defaultValue="payment" className={'flex flex-col items-center mt-2 w-full'}>
-                    <TabsList className="grid w-full grid-cols-2">
+                    <TabsList className="grid w-full grid-cols-2 bg-[#09090b]">
                         <TabsTrigger value="payment">Payment</TabsTrigger>
                         <TabsTrigger value="withdrawal">Withdrawal</TabsTrigger>
                     </TabsList>

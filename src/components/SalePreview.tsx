@@ -8,13 +8,13 @@ import {
     Breadcrumb,
     BreadcrumbItem,
     BreadcrumbLink,
-    BreadcrumbList, BreadcrumbPage,
+    BreadcrumbList,
     BreadcrumbSeparator
 } from "@/components/ui/breadcrumb";
 import {Slash} from "lucide-react";
 import {getNameByPath} from "@/services/navService";
 
-const SalePreview = ({sale, isProfile}:{sale: Sale, isProfile: boolean}) => {
+const SalePreview = ({sale, isProfile}:{sale: Sale, isProfile?: boolean}) => {
     return (
         <Card className={'flex flex-col w-full p-4 mb-2'}>
             <Link href={`/sale/${sale.id}`}>
