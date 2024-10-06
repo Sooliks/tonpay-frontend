@@ -2,13 +2,11 @@
 import React from 'react';
 import useSWR from "swr";
 import {Sale} from "@/types/sale";
-import {useAuth} from "@/hooks/useAuth";
 import SpinLoading from "@/components/my-ui/SpinLoading";
 import SalePreview from "@/components/SalePreview";
 
 const SalesPage = () => {
-    const auth = useAuth()
-    const { data, error, isLoading } = useSWR<Sale[]>(`/sales/?userId=${auth.user?.id}`)
+    const { data, error, isLoading } = useSWR<Sale[]>(`/sales/my`)
     if(isLoading){
         return <SpinLoading/>
     }

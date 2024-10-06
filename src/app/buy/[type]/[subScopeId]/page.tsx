@@ -21,7 +21,7 @@ type BuyLayoutProps = {
     }
 }
 const SalesPage = ({params}: BuyLayoutProps) => {
-    const { data, error, isLoading } = useSWR<Sale[]>(`/sales/?subScopeId=${params.subScopeId}`)
+    const { data, error, isLoading } = useSWR<Sale[]>(`/sales/bysubscope/${params.subScopeId}`)
     if(isLoading){
         return <SpinLoading/>
     }

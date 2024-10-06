@@ -12,7 +12,7 @@ type ProfileLayoutProps = {
 }
 
 const SalePage = ({params}: ProfileLayoutProps) => {
-    const { data, error, isLoading } = useSWR<Sale>(`/sales/?id=${params.id}`)
+    const { data, error, isLoading } = useSWR<Sale>(`/sales/one/${params.id}`)
     if(isLoading){
         return <SpinLoading/>
     }
