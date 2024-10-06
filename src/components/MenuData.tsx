@@ -4,11 +4,17 @@ import Menu from "@/components/Menu";
 import {useAuth} from "@/hooks/useAuth";
 import {useInitData} from "@telegram-apps/sdk-react";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
+import {Badge} from "@/components/ui/badge";
+import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip";
 
 const MenuData = () => {
     const auth = useAuth();
     const initData = useInitData()
     const [bars,setBars] = useState([
+        {
+            title: 'Home',
+            path: '/'
+        },
         {
             title: 'Categories',
             items: [
@@ -52,7 +58,13 @@ const MenuData = () => {
         if(auth.user!.role === 'ADMIN' || auth.user!.role === 'CREATOR' ){
             setBars([
                 {
-                    title: 'Admin',
+                    title:
+                        <Tooltip delayDuration={200}>
+                            <TooltipTrigger>A</TooltipTrigger>
+                            <TooltipContent>
+                                <p>Admin panel</p>
+                            </TooltipContent>
+                        </Tooltip>,
                     path: 'admin',
                     items: [
                         {title: 'Categories', path: 'scopes'},

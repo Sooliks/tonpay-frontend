@@ -6,6 +6,7 @@ import {ThemeProvider} from "next-themes";
 import MyTonConnectUiProvider from "@/providers/MyTonConnectUiProvider";
 import {SWRConfig} from "swr";
 import axiosInstance from "@/configs/axios";
+import {TooltipProvider} from "@/components/ui/tooltip";
 
 const fetcher = async (url: string) => {
     const response = await axiosInstance.get(url);
@@ -22,7 +23,9 @@ const Providers = ({children}:{children: React.ReactNode}) => {
                 <MyTonConnectUiProvider>
                     <AuthProvider>
                         <SWRConfig value={{fetcher: fetcher}}>
-                            {children}
+                            <TooltipProvider>
+                                {children}
+                            </TooltipProvider>
                         </SWRConfig>
                     </AuthProvider>
                 </MyTonConnectUiProvider>
