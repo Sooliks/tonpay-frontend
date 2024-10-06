@@ -1,4 +1,14 @@
 import Link from "next/link";
+import {
+    Drawer, DrawerClose,
+    DrawerContent,
+    DrawerDescription, DrawerFooter,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerTrigger
+} from "@/components/ui/drawer";
+import {Button} from "@/components/ui/button";
+import {BarChart} from "lucide-react";
 
 export default function Home() {
     return (
@@ -9,13 +19,39 @@ export default function Home() {
             </p>
             <div className="space-x-4">
                 <Link href={'/profile/sales'}>
-                    <button className="bg-black dark:bg-white text-white dark:text-black py-2 px-6 rounded-full hover:bg-gray-800 dark:hover:bg-gray-300 transition">
+                    <Button>
                         Start Trading
-                    </button>
+                    </Button>
                 </Link>
-                <button className="bg-gray-200 dark:bg-gray-800 text-black dark:text-white py-2 px-6 rounded-full hover:bg-gray-300 dark:hover:bg-gray-700 transition">
-                    Learn More
-                </button>
+                <Drawer>
+                    <DrawerTrigger asChild>
+                        <Button variant={'secondary'}>
+                            Learn More
+                        </Button>
+                    </DrawerTrigger>
+                    <DrawerContent>
+                        <div className="mx-auto w-full max-w-sm">
+                            <DrawerHeader>
+                                <DrawerTitle>Is Drawer</DrawerTitle>
+                                <DrawerDescription>Description</DrawerDescription>
+                            </DrawerHeader>
+                            <div className="p-4 pb-0">
+                                <div className="flex items-center justify-center space-x-2">
+
+                                </div>
+                                <div className="mt-3 h-[120px]">
+
+                                </div>
+                            </div>
+                            <DrawerFooter>
+                                <Button>Submit</Button>
+                                <DrawerClose asChild>
+                                    <Button variant="outline">Cancel</Button>
+                                </DrawerClose>
+                            </DrawerFooter>
+                        </div>
+                    </DrawerContent>
+                </Drawer>
             </div>
         </section>
 
