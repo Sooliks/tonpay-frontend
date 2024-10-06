@@ -22,6 +22,7 @@ const SalesAddPage = () => {
     const { data, error, isLoading } = useSWR<Scope[]>('/scopes')
     const [scopes,setScopes] = useState<Scope[]>([]);
     const [subScopes,setSubScopes] = useState<SubScope[]>([]);
+    const [currentSubScope,setCurrentSubScope] = useState<SubScope | undefined>(undefined);
     const [products,setProducts] = useState<string[]>([]);
     const {
         register,
@@ -41,7 +42,8 @@ const SalesAddPage = () => {
             product: products,
             title: data.title,
             description: data.description,
-            subScopeId: data.subScopeId
+            subScopeId: data.subScopeId,
+            currency: currentSubScope?.isCurrency ? data.currency : undefined
         }).then(data=>{
             if(data.status === 201) {
                 toast({description: 'Success created!'})
@@ -153,7 +155,11 @@ const SalesAddPage = () => {
                         <Select
                             {...register('subScopeId', {required: 'Please select sub category'})}
                             value={field.value}
-                            onValueChange={(e)=>{field.onChange(e);setValue('subScopeId', e)}}
+                            onValueChange={(e)=>{
+                                field.onChange(e);
+                                setValue('subScopeId', e);
+                                setCurrentSubScope(subScopes.filter(s=>s.id === e)[0] || undefined);
+                            }}
                             onOpenChange={(e)=>{
                                 if(e) {
                                     if(subScopes.length === 0) {
@@ -174,6 +180,21 @@ const SalesAddPage = () => {
 
                     )}
                 />
+                {currentSubScope?.isCurrency &&
+                    <>
+                        <label htmlFor="currency" className={'text-muted-foreground text-sm mt-2 flex items-center'}>
+                            Count {currentSubScope.name.toLowerCase()} on sale
+                        </label>
+                        <Input
+                            id={'currency'}
+                            type={"number"}
+                            step="0.01"
+                            placeholder={`Enter count ${currentSubScope.name.toLowerCase()}`}
+                            {...register('currency', {required: `Please enter count ${currentSubScope.name.toLowerCase()}`})}
+                        />
+                        {errors.currency?.message && <p className="text-sm text-muted-foreground text-red-500">{errors.currency?.message}</p>}
+                    </>
+                }
                 {errors.subScopeId?.message && <p className="text-sm text-muted-foreground text-red-500">{errors.subScopeId.message}</p>}
                 <label htmlFor="description" className={'text-muted-foreground text-sm mt-2'}>Description</label>
                 <Textarea

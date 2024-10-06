@@ -39,7 +39,7 @@ const AdminScopesPage = () => {
                                         {scope.subScopes.length > 0 ?
                                             <div className={'flex'}>
                                                 {scope.subScopes.map(subScope=>
-                                                    <Badge key={subScope.id} className={'mr-1 mt-2'}>{subScope.name}</Badge>
+                                                    <Badge key={subScope.id} className={'mr-1 mt-2'}>{subScope.name}{subScope.isCurrency && ' $'}</Badge>
                                                 )}
                                             </div>
                                             :

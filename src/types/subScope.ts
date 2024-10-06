@@ -5,6 +5,7 @@ export type SubScope = {
     scopeId: string
     name: string
     scope: Scope
+    isCurrency: boolean
 }
 
 export type CreateSubScope = {

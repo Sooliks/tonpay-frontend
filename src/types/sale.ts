@@ -10,6 +10,7 @@ export type CreateSaleType = {
     subScopeId: string
     scopeId: string
     type: string
+    currency?: number
 }
 
 export type Sale = {
@@ -27,4 +28,5 @@ export type Sale = {
     title: string
     description: string
     feedbacks: Feedback[]
+    currency?: number
 }

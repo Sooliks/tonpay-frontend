@@ -59,7 +59,7 @@ const WalletPage = () => {
                 </div>
                 <Separator className={'mt-2'}/>
                 <Tabs defaultValue="payment" className={'flex flex-col items-center mt-2 w-full'}>
-                    <TabsList className="grid w-full grid-cols-2 bg-[#09090b]">
+                    <TabsList className="grid w-full grid-cols-2">
                         <TabsTrigger value="payment">Payment</TabsTrigger>
                         <TabsTrigger value="withdrawal">Withdrawal</TabsTrigger>
                     </TabsList>
