@@ -35,7 +35,7 @@ const AdminScopesPage = () => {
                                 <AccordionTrigger>{scope.name}<span className={'ml-auto text-sm tracking-widest text-muted-foreground mr-4'}>{scope.type}</span></AccordionTrigger>
                                 <AccordionContent>
                                     <CreateSubScope idScope={scope.id} onCreated={mutate}/>
-                                    <p className={'text-1xl text-center'}>Sub categories: </p>
+                                    <p className={'text-1xl text-center mt-2'}>Sub categories: </p>
                                         {scope.subScopes.length > 0 ?
                                             <div className={'flex'}>
                                                 {scope.subScopes.map(subScope=>
