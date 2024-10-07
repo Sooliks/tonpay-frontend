@@ -34,7 +34,7 @@ const MenuData = () => {
             title:
                 <div className={'flex items-center'}>
                     <Avatar className={'h-6 w-6'}>
-                        <AvatarImage src={initData?.chat?.photoUrl}/>
+                        <AvatarImage src={auth.user?.photoUrl}/>
                         <AvatarFallback>{initData!.user!.firstName[0]}</AvatarFallback>
                     </Avatar>
                     <span className={'ml-2'}>Me</span>

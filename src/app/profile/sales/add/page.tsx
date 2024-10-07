@@ -90,6 +90,7 @@ const SalesAddPage = () => {
                     id={'title'}
                     type={"text"}
                     placeholder={'Title'}
+                    maxLength={30}
                     {...register('title', {required: 'Please enter title'})}
                 />
                 {errors.title?.message && <p className="text-sm text-muted-foreground text-red-500">{errors.title.message}</p>}

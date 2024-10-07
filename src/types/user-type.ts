@@ -9,6 +9,7 @@ export type UserType = {
     isBanned: boolean
     money: number
     lastOnline: Date
+    photoUrl: string
 }
 
 export enum Role {

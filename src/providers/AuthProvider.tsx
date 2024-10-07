@@ -13,7 +13,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const { initDataRaw } = typeof window !== 'undefined' ? retrieveLaunchParams() : { initDataRaw: null };
     const { user, error: fetchCurrentUserError, fetchCurrentUser, setUser, isLoading: isFetchingCurrentUser } = useFetchCurrentUser()
     const { authData, error: loginUserError, loginUser, isLoading: isLoggingIn } = useLoginUser()
-
     useEffect(() => {
         try {
             setInterval(()=>{
@@ -23,7 +22,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
         }
     }, [])
-
     useEffect(() => {
         try {
             if (!initData?.user) return
@@ -35,7 +33,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             
         }
     }, [fetchCurrentUserError])
-
     useEffect(() => {
         try {
             if (authData) {
