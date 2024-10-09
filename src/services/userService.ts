@@ -18,8 +18,8 @@ export const userService = {
 
         return response.data
     },
-    getCurrentUser: async () => {
-        const response = await axiosInstance.get<UserType>("/auth/me")
+    getCurrentUser: async (initData: string) => {
+        const response = await axiosInstance.get<UserType>("/auth/me", {headers: {"initData": initData}})
 
         return response.data
     }

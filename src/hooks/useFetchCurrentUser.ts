@@ -2,19 +2,21 @@
 import { useState } from "react"
 import {UserType} from "@/types/user-type";
 import {userService} from "@/services/userService";
+import {retrieveLaunchParams} from "@telegram-apps/sdk-react";
 
 
 export const useFetchCurrentUser = () => {
     const [user, setUser] = useState<UserType | undefined>(undefined)
     const [error, setError] = useState<Error | null>(null)
     const [isLoading, setIsLoading] = useState<boolean>(false)
+    const { initDataRaw } = typeof window !== 'undefined' ? retrieveLaunchParams() : { initDataRaw: null };
 
     const fetchCurrentUser = async () => {
         setIsLoading(true)
         setError(null)
 
         try {
-            const data = await userService.getCurrentUser()
+            const data = await userService.getCurrentUser(initDataRaw || "")
             setUser(data)
         } catch (err) {
             setError(err as Error)
