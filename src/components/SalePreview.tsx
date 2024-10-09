@@ -4,17 +4,11 @@ import {Sale} from "@/types/sale";
 import {Card} from "@/components/ui/card";
 import Link from "next/link";
 import {Separator} from "@/components/ui/separator";
-import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbList,
-    BreadcrumbSeparator
-} from "@/components/ui/breadcrumb";
-import {Loader2, Slash} from "lucide-react";
+import {Loader2} from "lucide-react";
 import {getNameByPath} from "@/services/navService";
 import {HoverCard, HoverCardContent, HoverCardTrigger} from "@/components/ui/hover-card";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
+import Tree from "@/components/my-ui/Tree";
 
 const SalePreview = ({sale, isProfile}:{sale: Sale, isProfile?: boolean}) => {
     return (
@@ -25,8 +19,8 @@ const SalePreview = ({sale, isProfile}:{sale: Sale, isProfile?: boolean}) => {
                         <div>
                             <div className={'flex items-center'}>
                                 <Avatar className={'h-6 w-6'}>
-                                    <AvatarImage src={sale.user.photoUrl}/>
-                                    <AvatarFallback>{sale.user.nickname}</AvatarFallback>
+                                    <AvatarImage src={sale.user?.photoUrl}/>
+                                    <AvatarFallback>{sale.user.nickname[0]}</AvatarFallback>
                                 </Avatar>
                                 <p className={'text-muted-foreground text-sm ml-2'}>@{sale.user.nickname}</p>
                             </div>
@@ -48,25 +42,12 @@ const SalePreview = ({sale, isProfile}:{sale: Sale, isProfile?: boolean}) => {
                 </div>
             </Link>
             {isProfile &&
-                <Breadcrumb className={'mt-4'}>
-                    <BreadcrumbList>
-                        <BreadcrumbItem>
-                            <BreadcrumbLink className={'text-blue-800'} href={`/buy/${sale.subScope.scope.type}`}>{getNameByPath(sale.subScope.scope.type)}</BreadcrumbLink>
-                        </BreadcrumbItem>
-                        <BreadcrumbSeparator>
-                            <Slash />
-                        </BreadcrumbSeparator>
-                        <BreadcrumbItem>
-                            <BreadcrumbLink className={'text-blue-800'} href={`/buy/${sale.subScope.scope.type}?open=${sale.subScope.scope.name}`}>{sale.subScope.scope.name}</BreadcrumbLink>
-                        </BreadcrumbItem>
-                        <BreadcrumbSeparator>
-                            <Slash />
-                        </BreadcrumbSeparator>
-                        <BreadcrumbItem>
-                            <BreadcrumbLink className={'text-blue-800'} href={`/buy/${sale.subScope.scope.type}/${sale.subScope.id}`}>{sale.subScope.name}</BreadcrumbLink>
-                        </BreadcrumbItem>
-                    </BreadcrumbList>
-                </Breadcrumb>
+                <Tree
+                    forPreview
+                    type={{href: `/buy/${sale.subScope.scope.type}`, name: getNameByPath(sale.subScope.scope.type) || ''}}
+                    scope={{href: `/buy/${sale.subScope.scope.type}?open=${sale.subScope.scope.name}`, name: sale.subScope.scope.name}}
+                    subScope={{href: `/buy/${sale.subScope.scope.type}/${sale.subScope.id}`, name: sale.subScope.name}}
+                />
             }
         </Card>
     );

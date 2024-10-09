@@ -37,14 +37,31 @@ const SalesAddPage = () => {
     const [isLoadingSubmit,setIsLoadingSubmit] = useState<boolean>(false)
     const onSubmit: SubmitHandler<CreateSaleType> = async (data) => {
         setIsLoadingSubmit(true)
-        axiosInstance.post('/sales', {
+        const formData = new FormData();
+        formData.append("title", data.title);
+        formData.append("description", data.description);
+        formData.append("price", data.price.toString());
+        formData.append("subScopeId", data.subScopeId);
+
+        if(currentSubScope?.isCurrency) formData.append('currency', data!.currency!.toString())
+
+        products.forEach((item) => {
+            formData.append("product[]", item);  // Важно добавить каждый элемент массива
+        });
+        if (data.images) {
+            for (let i = 0; i < data.images.length; i++) {
+                formData.append("files", data.images[i]);  // Добавляем файлы в formData
+            }
+        }
+        axiosInstance.post('/sales', formData /*{
             price: data.price,
             product: products,
             title: data.title,
             description: data.description,
             subScopeId: data.subScopeId,
-            currency: currentSubScope?.isCurrency ? data.currency : undefined
-        }).then(data=>{
+            currency: currentSubScope?.isCurrency ? data.currency : undefined,
+            files: data.images
+        }*/).then(data=>{
             if(data.status === 201) {
                 toast({description: 'Success created!'})
                 reset({type: '', scopeId: '', subScopeId: ''})
@@ -80,6 +97,7 @@ const SalesAddPage = () => {
     if(isLoading){
         return <SpinLoading/>
     }
+    //TODO вместо селектов добавить Combobox
     return (
         <Card className={'p-4 mt-2'}>
             <h1 className={'text-center'}>Add new product</h1>
@@ -221,6 +239,20 @@ const SalesAddPage = () => {
                         }})}
                 />
                 {errors.price?.message && <p className="text-sm text-muted-foreground text-red-500">{errors.price.message}</p>}
+                <label htmlFor="images" className={'text-muted-foreground text-sm mt-2 flex items-center'}>
+                    Upload Images (max 3):
+                </label>
+                <Input
+                    type="file"
+                    id="images"
+                    {...register("images", {
+                        validate: {
+                            maxFiles: files => files.length <= 3 || "Maximum 3 images."
+                        }
+                    })}
+                    multiple
+                />
+                {errors.images?.message && <p className="text-sm text-muted-foreground text-red-500">{errors.images.message}</p>}
                 <div className={'flex justify-between mt-2'}>
                     <label htmlFor="product" className={'text-muted-foreground text-sm'}>Products (no requirement)</label>
                     <p className={'text-sm mr-2'}>Count: {products.length}</p>
