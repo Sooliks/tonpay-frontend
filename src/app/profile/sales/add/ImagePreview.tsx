@@ -1,9 +1,7 @@
 import React from 'react';
 import {useDrag, useDrop} from "react-dnd";
-import {Simulate} from "react-dom/test-utils";
-import drag = Simulate.drag;
 import {Button} from "@/components/ui/button";
-import {DeleteIcon, Trash2} from "lucide-react";
+import {Trash2} from "lucide-react";
 
 interface FormData {
     title: string;

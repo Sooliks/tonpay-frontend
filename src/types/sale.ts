@@ -11,7 +11,6 @@ export type CreateSaleType = {
     scopeId: string
     type: string
     currency?: number
-    /*images: FileList*/
 }
 
 export type Sale = {
@@ -30,4 +29,5 @@ export type Sale = {
     description: string
     feedbacks: Feedback[]
     currency?: number
+    screenUrls: string[]
 }

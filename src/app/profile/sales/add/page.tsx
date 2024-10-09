@@ -268,13 +268,13 @@ const SalesAddPage = () => {
                     accept="image/*"
                     className="hidden"
                 />
-                <Button type={'button'} variant={'outline'}>
-                    <label
-                        htmlFor="images"
-                        className="rounded cursor-pointer"
-                    >
-                        Select screens
-                    </label>
+                <Button type={'button'} variant={'outline'} onClick={()=>{
+                    const fileInput = document.getElementById("images") as HTMLInputElement;
+                    if (fileInput) {
+                        fileInput.click();
+                    }
+                }}>
+                    Select screens
                 </Button>
                 <DndProvider backend={HTML5Backend}>
                     <div className="flex flex-wrap">
