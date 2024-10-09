@@ -1,5 +1,5 @@
 'use client'
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Scope} from "@/types/scope";
 import SpinLoading from "@/components/my-ui/SpinLoading";
 import useSWR from "swr";
@@ -17,6 +17,10 @@ import {Badge} from "@/components/ui/badge";
 import {CreateSaleType} from "@/types/sale";
 import {Separator} from "@/components/ui/separator";
 import {Card} from "@/components/ui/card";
+import ImagePreview, {PreviewFile} from "@/app/profile/sales/add/ImagePreview";
+import update from "immutability-helper";
+import {DndProvider} from "react-dnd";
+import {HTML5Backend} from "react-dnd-html5-backend";
 
 const SalesAddPage = () => {
     const { data, error, isLoading } = useSWR<Scope[]>('/scopes')
@@ -35,6 +39,33 @@ const SalesAddPage = () => {
         setValue
     } = useForm<CreateSaleType>({mode: 'onChange'});
     const [isLoadingSubmit,setIsLoadingSubmit] = useState<boolean>(false)
+    const [files, setFiles] = useState<PreviewFile[]>([]);
+
+    const onFilesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if(files.length >= 3 || e.target!.files!.length > 3){
+            toast({description: 'Maximum 3 images.'})
+            return
+        }
+        const selectedFiles = Array.from(e.target.files || []);
+        const previewFiles = selectedFiles.map((file) => ({
+            file,
+            preview: URL.createObjectURL(file),
+        }));
+        setFiles((prevFiles) => [...prevFiles, ...previewFiles]);
+    };
+    const removeImage = (index: number) => {
+        setFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
+    };
+    const moveImage = useCallback((dragIndex: number, hoverIndex: number) => {
+        setFiles((prevFiles) =>
+            update(prevFiles, {
+                $splice: [
+                    [dragIndex, 1],
+                    [hoverIndex, 0, prevFiles[dragIndex]],
+                ],
+            })
+        );
+    }, []);
     const onSubmit: SubmitHandler<CreateSaleType> = async (data) => {
         setIsLoadingSubmit(true)
         const formData = new FormData();
@@ -42,26 +73,14 @@ const SalesAddPage = () => {
         formData.append("description", data.description);
         formData.append("price", data.price.toString());
         formData.append("subScopeId", data.subScopeId);
-
         if(currentSubScope?.isCurrency) formData.append('currency', data!.currency!.toString())
-
         products.forEach((item) => {
             formData.append("product[]", item);  // Важно добавить каждый элемент массива
         });
-        if (data.images) {
-            for (let i = 0; i < data.images.length; i++) {
-                formData.append("files", data.images[i]);  // Добавляем файлы в formData
-            }
-        }
-        axiosInstance.post('/sales', formData /*{
-            price: data.price,
-            product: products,
-            title: data.title,
-            description: data.description,
-            subScopeId: data.subScopeId,
-            currency: currentSubScope?.isCurrency ? data.currency : undefined,
-            files: data.images
-        }*/).then(data=>{
+        files.forEach((fileObj, index) => {
+            formData.append("files", fileObj.file);
+        });
+        axiosInstance.post('/sales', formData).then(data=>{
             if(data.status === 201) {
                 toast({description: 'Success created!'})
                 reset({type: '', scopeId: '', subScopeId: ''})
@@ -87,7 +106,6 @@ const SalesAddPage = () => {
         setSubScopes(scopes.filter(s=>s.id === value)[0]?.subScopes || [])
         setValue('subScopeId', '');
     }
-
     const handleProductsChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const value = event.target.value;
         const productsArray = value.split('\n').filter(item => item.trim() !== '');
@@ -245,14 +263,32 @@ const SalesAddPage = () => {
                 <Input
                     type="file"
                     id="images"
-                    {...register("images", {
-                        validate: {
-                            maxFiles: files => files.length <= 3 || "Maximum 3 images."
-                        }
-                    })}
+                    onChange={onFilesChange}
                     multiple
+                    accept="image/*"
+                    className="hidden"
                 />
-                {errors.images?.message && <p className="text-sm text-muted-foreground text-red-500">{errors.images.message}</p>}
+                <Button type={'button'} variant={'outline'}>
+                    <label
+                        htmlFor="images"
+                        className="rounded cursor-pointer"
+                    >
+                        Select screens
+                    </label>
+                </Button>
+                <DndProvider backend={HTML5Backend}>
+                    <div className="flex flex-wrap">
+                        {files.map((file, index) => (
+                            <ImagePreview
+                                key={index}
+                                file={file}
+                                index={index}
+                                moveImage={moveImage}
+                                removeImage={removeImage}
+                            />
+                        ))}
+                    </div>
+                </DndProvider>
                 <div className={'flex justify-between mt-2'}>
                     <label htmlFor="product" className={'text-muted-foreground text-sm'}>Products (no requirement)</label>
                     <p className={'text-sm mr-2'}>Count: {products.length}</p>
