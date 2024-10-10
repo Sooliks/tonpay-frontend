@@ -9,6 +9,7 @@ import {getNameByPath} from "@/services/navService";
 import {HoverCard, HoverCardContent, HoverCardTrigger} from "@/components/ui/hover-card";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import Tree from "@/components/my-ui/Tree";
+import UserAvatar from "@/components/my-ui/UserAvatar";
 
 const SalePreview = ({sale, isProfile}:{sale: Sale, isProfile?: boolean}) => {
     return (
@@ -17,13 +18,7 @@ const SalePreview = ({sale, isProfile}:{sale: Sale, isProfile?: boolean}) => {
                 <div>
                     <div className={'flex items-center justify-between'}>
                         <div>
-                            <div className={'flex items-center'}>
-                                <Avatar className={'h-6 w-6'}>
-                                    <AvatarImage src={sale.user?.photoUrl}/>
-                                    <AvatarFallback>{sale.user.nickname[0]}</AvatarFallback>
-                                </Avatar>
-                                <p className={'text-muted-foreground text-sm ml-2'}>@{sale.user.nickname}</p>
-                            </div>
+                            <UserAvatar photoUrl={sale.user.photoUrl || ""} nickname={sale.user.nickname} id={sale.userId}/>
                             <p className={'mt-1 leading-7'}>{sale.title}</p>
                         </div>
                         {isProfile && sale.isModerating &&
