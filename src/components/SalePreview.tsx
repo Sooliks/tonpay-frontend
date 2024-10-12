@@ -14,7 +14,7 @@ import UserAvatar from "@/components/my-ui/UserAvatar";
 const SalePreview = ({sale, isProfile, forAdmin = false}:{sale: Sale, isProfile?: boolean, forAdmin?: boolean}) => {
     return (
         <Card className={'flex flex-col w-full p-4 mb-2'}>
-            <Link href={`/sale/${sale.id}${forAdmin && '?forAdmin=true'}`}>
+            <Link href={`/sale/${sale.id}${forAdmin ? '?forAdmin=true' : '?forAdmin=false'}`}>
                 <div>
                     <div className={'flex items-center justify-between'}>
                         <div>

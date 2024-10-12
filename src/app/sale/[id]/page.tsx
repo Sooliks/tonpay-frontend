@@ -1,5 +1,5 @@
 'use client'
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import useSWR from "swr";
 import {Sale} from "@/types/sale";
 import SpinLoading from "@/components/my-ui/SpinLoading";
@@ -13,6 +13,8 @@ import BuyMenu from "@/app/sale/[id]/BuyMenu";
 import {useSearchParams} from "next/navigation";
 import AdminSaleAction from "@/app/sale/[id]/AdminSaleAction";
 import {useAuth} from "@/hooks/useAuth";
+import Tree from "@/components/my-ui/Tree";
+import {getNameByPath} from "@/services/navService";
 type ProfileLayoutProps = {
     params: {
         id: string
@@ -21,14 +23,18 @@ type ProfileLayoutProps = {
 
 const SalePage = ({params}: ProfileLayoutProps) => {
     const { data, error, isLoading } = useSWR<Sale>(`/sales/one/${params.id}`)
+    const [isForAdmin,setIsForAdmin] = useState<boolean>(false)
     const auth = useAuth()
     const searchParams = useSearchParams();
-    const isForAdmin = searchParams.get('forAdmin') as boolean | null
-    if(isForAdmin){
-        if(auth.user?.role === 'USER') return <NotFound/>
-    }
+    useEffect(() => {
+        const forAdmin = searchParams.get('forAdmin');
+        setIsForAdmin(forAdmin === 'true')
+    },[searchParams])
     if(isLoading){
         return <SpinLoading/>
+    }
+    if(auth.user?.role === 'USER'){
+        if(isForAdmin)return <NotFound/>
     }
     if(!data){
         return <NotFound/>
@@ -37,6 +43,12 @@ const SalePage = ({params}: ProfileLayoutProps) => {
         <div className={'p-4'}>
             <Card className={'p-4'}>
                 <h1 className={'scroll-m-20 text-2xl font-semibold tracking-tight'}>{data.title.charAt(0).toUpperCase() + data.title.slice(1)}</h1>
+                <Tree
+                    forPreview
+                    type={{href: `/buy/${data.subScope.scope.type}`, name: getNameByPath(data.subScope.scope.type) || ''}}
+                    scope={{href: `/buy/${data.subScope.scope.type}?open=${data.subScope.scope.name}`, name: data.subScope.scope.name}}
+                    subScope={{href: `/buy/${data.subScope.scope.type}/${data.subScope.id}`, name: data.subScope.name}}
+                />
             </Card>
             {data.screenUrls.length > 0 &&
                 <Card className={'p-4 mt-2'}>
