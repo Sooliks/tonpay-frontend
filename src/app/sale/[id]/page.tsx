@@ -55,7 +55,7 @@ const SalePage = ({params}: ProfileLayoutProps) => {
                 <Button variant={'secondary'}>To write</Button>
                 <BuyMenu sale={data}/>
             </Card>
-            {isForAdmin && <AdminSaleAction/>}
+            {isForAdmin && <AdminSaleAction id={data.id}/>}
         </div>
     );
 };
