@@ -11,10 +11,10 @@ import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import Tree from "@/components/my-ui/Tree";
 import UserAvatar from "@/components/my-ui/UserAvatar";
 
-const SalePreview = ({sale, isProfile}:{sale: Sale, isProfile?: boolean}) => {
+const SalePreview = ({sale, isProfile, forAdmin = false}:{sale: Sale, isProfile?: boolean, forAdmin?: boolean}) => {
     return (
         <Card className={'flex flex-col w-full p-4 mb-2'}>
-            <Link href={`/sale/${sale.id}`}>
+            <Link href={`/sale/${sale.id}${forAdmin && '?forAdmin=true'}`}>
                 <div>
                     <div className={'flex items-center justify-between'}>
                         <div>

@@ -10,7 +10,9 @@ import UserAvatar from "@/components/my-ui/UserAvatar";
 import {Star} from "lucide-react";
 import {Button} from "@/components/ui/button";
 import BuyMenu from "@/app/sale/[id]/BuyMenu";
-
+import {useSearchParams} from "next/navigation";
+import AdminSaleAction from "@/app/sale/[id]/AdminSaleAction";
+import {useAuth} from "@/hooks/useAuth";
 type ProfileLayoutProps = {
     params: {
         id: string
@@ -19,6 +21,12 @@ type ProfileLayoutProps = {
 
 const SalePage = ({params}: ProfileLayoutProps) => {
     const { data, error, isLoading } = useSWR<Sale>(`/sales/one/${params.id}`)
+    const auth = useAuth()
+    const searchParams = useSearchParams();
+    const isForAdmin = searchParams.get('forAdmin') as boolean | null
+    if(isForAdmin){
+        if(auth.user?.role === 'USER') return <NotFound/>
+    }
     if(isLoading){
         return <SpinLoading/>
     }
@@ -47,6 +55,7 @@ const SalePage = ({params}: ProfileLayoutProps) => {
                 <Button variant={'secondary'}>To write</Button>
                 <BuyMenu sale={data}/>
             </Card>
+            {isForAdmin && <AdminSaleAction/>}
         </div>
     );
 };
