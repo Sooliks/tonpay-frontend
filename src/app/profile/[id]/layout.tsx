@@ -1,3 +1,12 @@
+'use client'
+import React from 'react';
+import ProfileMenu from "@/app/profile/[id]/ProfileMenu";
+import {Card} from "@/components/ui/card";
+import UserAvatar from "@/components/my-ui/UserAvatar";
+import {UserType} from "@/types/user-type";
+import SpinLoading from "@/components/my-ui/SpinLoading";
+import useSWR from "swr";
+
 type ProfileLayoutProps = {
     params: {
         id: string
@@ -6,12 +15,24 @@ type ProfileLayoutProps = {
 }
 
 
-import React from 'react';
 
 const ProfileLayout = ({params, children}: ProfileLayoutProps) => {
+    const { data, error, isLoading } = useSWR<UserType>(`/profile/${params.id}`)
+    if(isLoading){
+        return <SpinLoading/>
+    }
     return (
         <div className={'p-4'}>
-            <h4 className={'text-center scroll-m-20 text-xl font-semibold tracking-tight'}>{params.id}</h4>
+            <Card className={'p-4'}>
+                <UserAvatar photoUrl={data?.photoUrl || ''} nickname={data!.nickname} id={params.id} link={false}/>
+            </Card>
+            <ProfileMenu
+                tabs={[
+                    {title: 'Sales', key: 'sales'},
+                    {title: 'Feedbacks', key: 'feedbacks'}
+                ]}
+                idProfile={params.id}
+            />
             {children}
         </div>
     );
