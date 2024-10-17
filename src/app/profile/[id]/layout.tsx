@@ -6,6 +6,7 @@ import UserAvatar from "@/components/my-ui/UserAvatar";
 import {UserType} from "@/types/user-type";
 import SpinLoading from "@/components/my-ui/SpinLoading";
 import useSWR from "swr";
+import {Separator} from "@/components/ui/separator";
 
 type ProfileLayoutProps = {
     params: {
@@ -24,14 +25,18 @@ const ProfileLayout = ({params, children}: ProfileLayoutProps) => {
     return (
         <div className={'p-4'}>
             <Card className={'p-4'}>
+                <h1>User</h1>
+                <Separator className={'mt-2 mb-4'}/>
                 <UserAvatar photoUrl={data?.photoUrl || ''} nickname={data!.nickname} id={params.id} link={false}/>
             </Card>
             <ProfileMenu
                 tabs={[
-                    {title: 'Sales', key: 'sales'},
-                    {title: 'Feedbacks', key: 'feedbacks'}
+                    {title: 'View', key: '/'},
+                    {title: 'Sales', key: '/sales'},
+                    {title: 'Feedbacks', key: '/feedbacks'}
                 ]}
                 idProfile={params.id}
+                defaultKey={'/'}
             />
             {children}
         </div>

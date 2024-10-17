@@ -15,17 +15,17 @@ type ProfileMenuProps = {
 }
 
 const ProfileMenu = ({idProfile, tabs, defaultKey} : ProfileMenuProps) => {
-    const [value,setValue] = useState<string>(defaultKey || '');
+    const [value,setValue] = useState<string>(defaultKey || '/');
     const {push} = useRouter();
     const pathname = usePathname()
     useEffect(()=>{
         setValue(pathname)
     },[pathname])
     const handleValueChange = (key: string) => {
-        push(`/profile/${idProfile}/${key}`)
+        push(`/profile/${idProfile}${key}`)
     }
     return (
-        <Tabs value={value} defaultValue={defaultKey} className={'w-full mb-2 mt-2'} onValueChange={handleValueChange}>
+        <Tabs value={value} defaultValue={value} className={'w-full my-2'} onValueChange={handleValueChange}>
             <TabsList className={'flex justify-center'}>
                 {tabs.map(tab=>
                     <TabsTrigger
