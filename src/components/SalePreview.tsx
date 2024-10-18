@@ -4,10 +4,9 @@ import {Sale} from "@/types/sale";
 import {Card} from "@/components/ui/card";
 import Link from "next/link";
 import {Separator} from "@/components/ui/separator";
-import {Loader2} from "lucide-react";
+import {Loader2, Star} from "lucide-react";
 import {getNameByPath} from "@/services/navService";
 import {HoverCard, HoverCardContent, HoverCardTrigger} from "@/components/ui/hover-card";
-import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import Tree from "@/components/my-ui/Tree";
 import UserAvatar from "@/components/my-ui/UserAvatar";
 
@@ -18,7 +17,10 @@ const SalePreview = ({sale, isProfile, forAdmin = false}:{sale: Sale, isProfile?
                 <div>
                     <div className={'flex items-center justify-between'}>
                         <div>
-                            <UserAvatar photoUrl={sale.user.photoUrl || ""} nickname={sale.user.nickname} id={sale.userId}/>
+                            <div className={'flex items-center justify-between'}>
+                                <UserAvatar photoUrl={sale.user.photoUrl || ""} nickname={sale.user.nickname} id={sale.userId}/>
+                                {sale.rate && <p className={'flex items-center'}>Rating: <Star className={'w-4 h-4 ml-1'}/> {sale.rate}</p>}
+                            </div>
                             <p className={'mt-1 leading-7'}>{sale.title}</p>
                         </div>
                         {isProfile && sale.isModerating &&

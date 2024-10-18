@@ -30,4 +30,5 @@ export type Sale = {
     feedbacks: Feedback[]
     currency?: number
     screenUrls: string[]
+    rate?: number
 }

@@ -23,7 +23,6 @@ const HistoryPaymentPage = () => {
         return <SpinLoading/>
     }
     const items = data?.flat() || [];
-    console.log(items)
     return (
         <div className={'w-full flex flex-col'}>
             <Button variant={'outline'} onClick={back} className={'w-24 m-4'}>Back</Button>

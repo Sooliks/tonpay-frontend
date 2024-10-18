@@ -7,15 +7,13 @@ import {UserType} from "@/types/user-type";
 import SpinLoading from "@/components/my-ui/SpinLoading";
 import useSWR from "swr";
 import {Separator} from "@/components/ui/separator";
-
+import {Star} from "lucide-react";
 type ProfileLayoutProps = {
     params: {
         id: string
     }
     children: React.ReactNode
 }
-
-
 
 const ProfileLayout = ({params, children}: ProfileLayoutProps) => {
     const { data, error, isLoading } = useSWR<UserType>(`/profile/${params.id}`)
@@ -27,7 +25,10 @@ const ProfileLayout = ({params, children}: ProfileLayoutProps) => {
             <Card className={'p-4'}>
                 <h1>User</h1>
                 <Separator className={'mt-2 mb-4'}/>
-                <UserAvatar photoUrl={data?.photoUrl || ''} nickname={data!.nickname} id={params.id} link={false}/>
+                <div className={'flex items-center justify-between'}>
+                    <UserAvatar photoUrl={data?.photoUrl || ''} nickname={data!.nickname} id={params.id} link={false}/>
+                    {data && data.rate && <p className={'flex items-center'}>Rating: <Star className={'w-4 h-4 ml-1'}/> {data.rate}</p>}
+                </div>
             </Card>
             <ProfileMenu
                 tabs={[
