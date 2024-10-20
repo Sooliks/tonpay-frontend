@@ -17,7 +17,7 @@ const fetcher = async (url: string) => {
 const Providers = ({children}:{children: React.ReactNode}) => {
     const {notification} = useNotification()
     useEffect(()=>{
-        toast({description: notification})
+        if(notification) toast({description: notification})
     },[notification])
     return (
         <SDKProvider acceptCustomStyles>
