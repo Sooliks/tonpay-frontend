@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const axiosInstance = axios.create({
-    baseURL: false ? "http://localhost:4200/api" : 'https://sooliks-tonpay-backend-8ff0.twc1.net/api'
+    baseURL: process.env.MODE === 'PRODUCTION' ? "https://sooliks-tonpay-backend-8ff0.twc1.net/api" : 'http://localhost:4200/api'
 })
 
 axiosInstance.interceptors.request.use(
