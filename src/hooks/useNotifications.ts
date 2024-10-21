@@ -4,7 +4,7 @@ import {SocketService} from "@/services/socketService";
 const useNotification = () => {
     const [notification, setNotification] = useState<string>();
     useEffect(() => {
-        const socket = SocketService.createConnection();
+        const socket = SocketService.createConnection('notifications');
         socket.on('notification', (data) => {
             setNotification(data.message);
         });
