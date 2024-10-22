@@ -28,11 +28,11 @@ const SalesPage = ({params}: BuyLayoutProps) => {
     const items = data?.flat() || [];
     return (
         <div className={'p-4'}>
-            {data && data.length > 0 &&
+            {items.length > 0 &&
                 <Tree
-                    type={{href: `/buy/${data[0][0].subScope.scope.type}`, name: getNameByPath(data[0][0].subScope.scope.type) || ''}}
-                    scope={{href: `/buy/${data[0][0].subScope.scope.type}?open=${data[0][0].subScope.scope.name}`, name: data[0][0].subScope.scope.name}}
-                    subScope={{href: `/buy/${data[0][0].subScope.scope.type}/${data[0][0].subScope.id}`, name: data[0][0].subScope.name}}
+                    type={{href: `/buy/${items[0].subScope.scope.type}`, name: getNameByPath(items[0].subScope.scope.type) || ''}}
+                    scope={{href: `/buy/${items[0].subScope.scope.type}?open=${items[0].subScope.scope.name}`, name: items[0].subScope.scope.name}}
+                    subScope={{href: `/buy/${items[0].subScope.scope.type}/${items[0].subScope.id}`, name: items[0].subScope.name}}
                 />
             }
             {data ?
