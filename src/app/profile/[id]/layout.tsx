@@ -8,6 +8,7 @@ import SpinLoading from "@/components/my-ui/SpinLoading";
 import useSWR from "swr";
 import {Separator} from "@/components/ui/separator";
 import {Star} from "lucide-react";
+import {Button} from "@/components/ui/button";
 type ProfileLayoutProps = {
     params: {
         id: string
@@ -29,6 +30,7 @@ const ProfileLayout = ({params, children}: ProfileLayoutProps) => {
                     <UserAvatar photoUrl={data?.photoUrl || ''} nickname={data!.nickname} id={params.id} link={false}/>
                     {data && data.rate && <p className={'flex items-center'}>Rating: <Star className={'w-4 h-4 ml-1'}/> {data.rate}</p>}
                 </div>
+                <Button size={'sm'} className={'mt-2'}>Send message</Button>
             </Card>
             <ProfileMenu
                 tabs={[

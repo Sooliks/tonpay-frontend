@@ -71,6 +71,7 @@ const MenuData = () => {
                         {title: 'Admins', path: 'admins'},
                         {title: 'Users', path: 'users'},
                         {title: 'Sales', path: 'sales'},
+                        {title: 'Statistic', path: 'stats'},
                     ]
                 }, ...bars
             ])
