@@ -10,7 +10,8 @@ export type UserType = {
     money: number
     lastOnline: Date
     photoUrl?: string
-    rate?: number
+    rate?: number,
+    isOnline?: boolean
 }
 
 export enum Role {

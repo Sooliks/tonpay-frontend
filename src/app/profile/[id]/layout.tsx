@@ -27,10 +27,18 @@ const ProfileLayout = ({params, children}: ProfileLayoutProps) => {
                 <h1>User</h1>
                 <Separator className={'mt-2 mb-4'}/>
                 <div className={'flex items-center justify-between'}>
-                    <UserAvatar photoUrl={data?.photoUrl || ''} nickname={data!.nickname} id={params.id} link={false}/>
+                    <div>
+                        <UserAvatar photoUrl={data?.photoUrl || ''} nickname={data!.nickname} id={params.id} link={false}/>
+                        {data?.isOnline ?
+                            <p className={'text-muted-foreground text-sm'}>Online</p>
+                            :
+                            data && <p className={'text-muted-foreground text-sm'}>{data.lastOnline.toLocaleDateString() + ' ' + data.lastOnline.toLocaleTimeString()}</p>
+                        }
+                    </div>
                     {data && data.rate && <p className={'flex items-center'}>Rating: <Star className={'w-4 h-4 ml-1'}/> {data.rate}</p>}
                 </div>
-                <Button size={'sm'} className={'mt-2'}>Send message</Button>
+                <Separator className={'my-2'}/>
+                <Button size={'sm'}>Send message</Button>
             </Card>
             <ProfileMenu
                 tabs={[
