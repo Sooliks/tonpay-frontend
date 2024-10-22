@@ -35,7 +35,7 @@ const SalesPage = ({params}: BuyLayoutProps) => {
                     subScope={{href: `/buy/${items[0].subScope.scope.type}/${items[0].subScope.id}`, name: items[0].subScope.name}}
                 />
             }
-            {data ?
+            {data && items.length > 0 ?
                 <InfiniteScroll
                     dataLength={items.length}
                     next={()=>setSize(size+1)}
