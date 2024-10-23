@@ -33,11 +33,13 @@ const ChatPage = ({params}: ProfileLayoutProps) => {
         if(message){
             if(message.chatId === params.id){
                 if(message.senderId !== auth.user?.id) {
-                    setMessages([...messages, message])
+                    if(!messages.find(m=>m.id === message.id)) {
+                        setMessages([...messages, message])
+                    }
                 }
             }
         }
-    },[])
+    },[message])
     useEffect(()=>{
         if (scrollableDivRef.current) {
             scrollableDivRef.current.scrollTop = scrollableDivRef.current.scrollHeight; // Скроллим до самого низа после нового сообщения
@@ -58,6 +60,8 @@ const ChatPage = ({params}: ProfileLayoutProps) => {
         return () => {
             setMessages([])
             setChat(undefined)
+            setPage(0)
+            setHasMore(true)
         };
     },[])
     useEffect(()=>{
