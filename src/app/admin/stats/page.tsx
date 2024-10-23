@@ -1,8 +1,6 @@
 'use client'
-
 import React from 'react';
 import useSWR from "swr";
-import {UserType} from "@/types/user-type";
 import SpinLoading from "@/components/my-ui/SpinLoading";
 
 const Page = () => {

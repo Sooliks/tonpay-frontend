@@ -9,6 +9,7 @@ import useSWR from "swr";
 import {Separator} from "@/components/ui/separator";
 import {Star} from "lucide-react";
 import {Button} from "@/components/ui/button";
+import FirstSendMessageDialog from "@/components/my-ui/FirstSendMessageDialog";
 type ProfileLayoutProps = {
     params: {
         id: string
@@ -38,7 +39,7 @@ const ProfileLayout = ({params, children}: ProfileLayoutProps) => {
                     {data && data.rate && <p className={'flex items-center'}>Rating: <Star className={'w-4 h-4 ml-1'}/> {data.rate}</p>}
                 </div>
                 <Separator className={'my-2'}/>
-                <Button size={'sm'}>Send message</Button>
+                <FirstSendMessageDialog recipientId={data!.id}/>
             </Card>
             <ProfileMenu
                 tabs={[
