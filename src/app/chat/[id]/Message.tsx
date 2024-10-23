@@ -3,6 +3,7 @@ import React from 'react';
 import {Message as MessageType} from "@/types/chat/message";
 import Image from "next/image";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
+import Link from "next/link";
 
 const MessageUi = ({message, meId}:{message: MessageType, meId: string}) => {
     return (
@@ -23,14 +24,15 @@ const MessageUi = ({message, meId}:{message: MessageType, meId: string}) => {
                 {message.screens.length > 0 && (
                     <div className="flex space-x-2 mt-2">
                         {message.screens.map((screen, index) =>
-                            <Image
-                                key={index}
-                                src={`https://res.cloudinary.com/dqggb6cgz/image/upload/${screen}`}
-                                alt="photo"
-                                width={100}
-                                height={100}
-                                className="rounded-md"
-                            />
+                            <Link target={'_blank'} href={`https://res.cloudinary.com/dqggb6cgz/image/upload/${screen}`} key={index}>
+                                <Image
+                                    src={`https://res.cloudinary.com/dqggb6cgz/image/upload/${screen}`}
+                                    alt="photo"
+                                    width={100}
+                                    height={100}
+                                    className="rounded-md"
+                                />
+                            </Link>
                         )}
                     </div>
                 )}

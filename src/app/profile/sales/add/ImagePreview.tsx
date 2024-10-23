@@ -3,13 +3,6 @@ import {useDrag, useDrop} from "react-dnd";
 import {Button} from "@/components/ui/button";
 import {Trash2} from "lucide-react";
 
-interface FormData {
-    title: string;
-    description: string;
-    price: number;
-    images: FileList;
-}
-
 // Интерфейс для файла с превью
 export interface PreviewFile {
     file: File;
@@ -27,8 +20,8 @@ const ImagePreview: React.FC<{
     index: number;
     moveImage: (dragIndex: number, hoverIndex: number) => void;
     removeImage: (index: number) => void;
-    small?: boolean
-}> = ({ file, index, moveImage, removeImage, small = false }) => {
+    small?: boolean;
+}> = ({ file, index, moveImage, removeImage, small = false}) => {
     const ref = React.useRef<HTMLDivElement>(null);
     const [, drag] = useDrag({
         type: "image",

@@ -54,6 +54,10 @@ const SendMessageForm = ({recipientId, onMessage}:{recipientId: string, onMessag
         );
     }, []);
     const onSubmit: SubmitHandler<CreateMessage> = async (data) => {
+        if(!data.content && files.length === 0){
+            toast({description: 'The message must contain text or files'})
+            return
+        }
         setIsLoadingSubmit(true)
         const formData = new FormData();
         formData.append("recipientId", recipientId);
