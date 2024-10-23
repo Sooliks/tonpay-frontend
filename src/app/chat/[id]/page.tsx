@@ -20,6 +20,7 @@ type ProfileLayoutProps = {
     }
 }
 const limit = 10; // Количество сообщений на страницу
+export const revalidate = 0;
 const ChatPage = ({params}: ProfileLayoutProps) => {
     const auth = useAuth()
     const scrollableDivRef = useRef<HTMLDivElement>(null);
