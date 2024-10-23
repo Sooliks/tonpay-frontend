@@ -57,7 +57,7 @@ const FirstSendMessageDialog = ({recipientId}:{recipientId: string}) => {
                         </div>
                     </div>
                     <DrawerFooter>
-                        <Button onClick={handleSendMessage}>
+                        <Button onClick={handleSendMessage} disabled={isLoading}>
                             {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                             Send
                         </Button>

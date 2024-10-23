@@ -27,7 +27,8 @@ const ImagePreview: React.FC<{
     index: number;
     moveImage: (dragIndex: number, hoverIndex: number) => void;
     removeImage: (index: number) => void;
-}> = ({ file, index, moveImage, removeImage }) => {
+    small?: boolean
+}> = ({ file, index, moveImage, removeImage, small = false }) => {
     const ref = React.useRef<HTMLDivElement>(null);
     const [, drag] = useDrag({
         type: "image",
@@ -45,13 +46,14 @@ const ImagePreview: React.FC<{
     drag(drop(ref)); // Объединяем drag и drop через ref
     return (
         <div ref={ref} className="relative m-2">
-            <img src={file.preview} alt="preview" className="w-32 h-32 object-cover" />
+            <img src={file.preview} alt="preview" className={`${small ? 'w-4 h-4' : 'w-32 h-32'} object-cover`} />
             <Button
                 onClick={() => removeImage(index)}
                 variant={'secondary'}
-                className={'absolute top-0 right-0'}
+                className={'absolute top-0 right-0' + small && 'h-2 w-2'}
+                size={'icon'}
             >
-                <Trash2 />
+                <Trash2 className={small ? 'h-2 w-2' : undefined} />
             </Button>
         </div>
     );
