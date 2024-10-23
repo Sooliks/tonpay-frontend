@@ -16,9 +16,11 @@ import axiosInstance from "@/configs/axios";
 import {AxiosError} from "axios";
 import {useAuth} from "@/hooks/useAuth";
 import {Loader2} from "lucide-react";
+import {useRouter} from "next/navigation";
 
 const FirstSendMessageDialog = ({recipientId}:{recipientId: string}) => {
     const [message,setMessage] = useState<string>("");
+    const {push} = useRouter()
     const [isLoading,setIsLoading] = useState<boolean>(false)
     const auth = useAuth();
     const handleSendMessage = () => {
@@ -27,9 +29,11 @@ const FirstSendMessageDialog = ({recipientId}:{recipientId: string}) => {
             return
         }
         setIsLoading(true)
-        axiosInstance.post('/chat/createmessage', {recipientId: recipientId, senderId: auth.user?.id, message: message}).then(data=>{
-            if(data.status === 201) {
-                console.log(data)
+        axiosInstance.post('/chat/createmessage', {recipientId: recipientId, senderId: auth.user?.id, message: message}).then(res=>{
+            if(res.status === 201) {
+                if(res.data.chatId){
+                    push(`/chat/${res.data.chatId}`)
+                }
             }
         }).finally(() => setIsLoading(false)).catch((error: AxiosError)=>{
             const errorMessage = (error.response?.data as { message?: string })?.message || error.message;

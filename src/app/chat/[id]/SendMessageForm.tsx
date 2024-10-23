@@ -94,7 +94,6 @@ const SendMessageForm = ({recipientId, onMessage}:{recipientId: string, onMessag
                     />
                     <Button
                         type={'button'}
-                        variant={'outline'}
                         onClick={()=>{
                             const fileInput = document.getElementById("images") as HTMLInputElement;
                             if (fileInput) {
@@ -103,13 +102,13 @@ const SendMessageForm = ({recipientId, onMessage}:{recipientId: string, onMessag
                         }}
                         className={'ml-1'}
                         size="icon"
+                        variant={'outline'}
                     >
                         <Paperclip />
                     </Button>
                     <Button
                         type={'submit'}
                         disabled={isLoadingSubmit}
-                        variant={'secondary'}
                         className={'ml-1'}
                         size="icon"
                     >

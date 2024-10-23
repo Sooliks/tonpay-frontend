@@ -28,7 +28,7 @@ const ChatPreview = ({chat, meUserId}:{chat: Chat, meUserId: string}) => {
                         link={false}
                         small={true}
                     />
-                    <p className={'ml-1 text-sm'}>{chat.lastMessage.content || 'File'}</p>
+                    <p className={'ml-1 text-sm text-ellipsis max-w-56 truncate whitespace-nowrap overflow-hidden'}>{chat.lastMessage.content || 'File'}</p>
                 </div>
             </Card>
         </Link>

@@ -10,6 +10,7 @@ import {useAuth} from "@/hooks/useAuth";
 import MessageUi from "@/app/chat/[id]/Message";
 import UserAvatar from "@/components/my-ui/UserAvatar";
 import {Card} from "@/components/ui/card";
+import useChatSocket from "@/hooks/useChatSocket";
 
 
 
@@ -27,6 +28,16 @@ const ChatPage = ({params}: ProfileLayoutProps) => {
     const [hasMore, setHasMore] = useState(true);
     const [page, setPage] = useState(0);
     const { data, error, isLoading } = useSWR<Chat>(`/chat/dialogs/${params.id}/messages?skip=${page * limit}&count=${limit}`, {revalidateOnFocus: false})
+    const {message} = useChatSocket();
+    useEffect(()=>{
+        if(message){
+            if(message.chatId === params.id){
+                if(message.senderId !== auth.user?.id) {
+                    setMessages([...messages, message])
+                }
+            }
+        }
+    },[])
     useEffect(() => {
         if (data && data.messages.length > 0) {
             setMessages((prev) => [...data.messages.reverse(),...prev]);
@@ -37,8 +48,13 @@ const ChatPage = ({params}: ProfileLayoutProps) => {
         if(data){
             setChat(data)
         }
-
     }, [data]);
+    useEffect(()=>{
+        return () => {
+            setMessages([])
+            setChat(undefined)
+        };
+    },[])
     useEffect(()=>{
         if (scrollableDivRef.current) {
             scrollableDivRef.current.scrollTop = scrollableDivRef.current.scrollHeight; // Скроллим до самого низа после нового сообщения
@@ -50,7 +66,7 @@ const ChatPage = ({params}: ProfileLayoutProps) => {
     const handleAddNewMessage = (message: Message) => {
         setMessages((prev) => [...prev,message])
         if (scrollableDivRef.current) {
-            scrollableDivRef.current.scrollTop = scrollableDivRef.current.scrollHeight; // Скроллим до самого низа после нового сообщения
+            scrollableDivRef.current.scrollTop = scrollableDivRef.current.scrollHeight + 40; // Скроллим до самого низа после нового сообщения
         }
     }
     const handleScroll = () => {

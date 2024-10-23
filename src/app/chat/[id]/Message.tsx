@@ -13,13 +13,13 @@ const MessageUi = ({message, meId}:{message: MessageType, meId: string}) => {
             <div
                 className={`p-3 mt-1 rounded-lg max-w-xs ${message.senderId === meId ? 'bg-blue-500 text-white' : 'bg-gray-300 text-black'}`}
             >
-                <p className={'flex items-center'}>
+                <div className={'flex items-center max-w-56'}>
                     <Avatar className={'h-5 w-5 mr-1'}>
                         <AvatarImage src={message.sender?.photoUrl || ""}/>
                         <AvatarFallback>{message.sender?.nickname[0]}</AvatarFallback>
                     </Avatar>
-                    {message.content}
-                </p>
+                    <p className={'break-all'}>{message.content}</p>
+                </div>
                 {message.screens.length > 0 && (
                     <div className="flex space-x-2 mt-2">
                         {message.screens.map((screen, index) =>
@@ -34,7 +34,7 @@ const MessageUi = ({message, meId}:{message: MessageType, meId: string}) => {
                         )}
                     </div>
                 )}
-                <p className={'text-sm text-muted-foreground'}>{new Date(message.createdAt).toLocaleTimeString()}</p>
+                <p className={'text-sm text-gray-900'}>{new Date(message.createdAt).toLocaleTimeString()}</p>
             </div>
         </div>
     );
