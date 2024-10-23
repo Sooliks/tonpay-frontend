@@ -34,6 +34,7 @@ const MessageUi = ({message, meId}:{message: MessageType, meId: string}) => {
                         )}
                     </div>
                 )}
+                <p className={'text-sm text-muted-foreground'}>{new Date(message.createdAt).toLocaleTimeString()}</p>
             </div>
         </div>
     );
