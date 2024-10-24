@@ -27,7 +27,8 @@ const ChatPage = ({params}: ProfileLayoutProps) => {
     const [chat,setChat] = useState<Chat | undefined>(undefined)
     const [hasMore, setHasMore] = useState(true);
     const [page, setPage] = useState(0);
-    const { data, error, isLoading } = useSWR<Chat>(`/chat/dialogs/${params.id}/messages?skip=${page * limit}&count=${limit}`, {revalidateOnFocus: false})
+    const prevMessagesLength = useRef(messages.length);
+    const { data, error, isLoading } = useSWR<Chat>(`/chat/dialogs/${params.id}/messages?skip=${page * limit}&count=${limit}`, {revalidateOnFocus: false, revalidateOnReconnect: false})
     const {message} = useChatSocket();
     useEffect(()=>{
         if(message){
@@ -40,14 +41,44 @@ const ChatPage = ({params}: ProfileLayoutProps) => {
             }
         }
     },[message])
-    useEffect(()=>{
+    /*useEffect(() => {
         if (scrollableDivRef.current) {
-            scrollableDivRef.current.scrollTop = scrollableDivRef.current.scrollHeight; // Скроллим до самого низа после нового сообщения
+            scrollableDivRef.current.scrollTop = scrollableDivRef.current.scrollHeight;
         }
-    },[messages])
+    }, [messages]);*/
+    useEffect(()=>{
+        setTimeout(() => {
+            if (scrollableDivRef.current) scrollableDivRef.current.scrollTop = scrollableDivRef.current!.scrollHeight;
+        }, 100);
+    },[scrollableDivRef.current])
+    useEffect(() => {
+        if (scrollableDivRef.current) {
+            // Если добавились новые сообщения в конец
+            if (messages.length > prevMessagesLength.current) {
+                const isAtBottom =
+                    scrollableDivRef.current.scrollTop + scrollableDivRef.current.clientHeight >=
+                    scrollableDivRef.current.scrollHeight - 100; // Погрешность в 100px
+
+                if (isAtBottom) {
+                    // Прокручиваем вниз через небольшую задержку, чтобы успела обновиться высота контейнера
+                    setTimeout(() => {
+                        scrollableDivRef.current!.scrollTop = scrollableDivRef.current!.scrollHeight;
+                    }, 100); // 100ms задержка
+                }
+            }
+
+            // Обновляем предыдущее количество сообщений
+            prevMessagesLength.current = messages.length;
+        }
+    }, [messages]);
     useEffect(() => {
         if (data && data.messages.length > 0) {
-            setMessages((prev) => [...data.messages.reverse(),...prev]);
+            setMessages((prev) => {
+                const newMessages = data.messages.filter(newMessage =>
+                    !prev.some(existingMessage => existingMessage.id === newMessage.id)
+                );
+                return [...newMessages.reverse(), ...prev];
+            });
         }
         if (data && data.messages.length < limit) {
             setHasMore(false);
@@ -56,21 +87,8 @@ const ChatPage = ({params}: ProfileLayoutProps) => {
             setChat(data)
         }
     }, [data]);
-    useEffect(()=>{
-        return () => {
-            setMessages([])
-            setChat(undefined)
-            setPage(0)
-            setHasMore(true)
-        };
-    },[])
-    useEffect(()=>{
-        if (scrollableDivRef.current) {
-            scrollableDivRef.current.scrollTop = scrollableDivRef.current.scrollHeight; // Скроллим до самого низа после нового сообщения
-        }
-    },[chat?.id])
     const loadMoreMessages = () => {
-        setPage((prev) => prev + 1); // Увеличиваем страницу для следующей подгрузки
+        setPage((prev) => prev + 1);
     };
     const handleAddNewMessage = (message: Message) => {
         setMessages((prev) => [...prev,message])
@@ -78,7 +96,7 @@ const ChatPage = ({params}: ProfileLayoutProps) => {
     const handleScroll = () => {
         const scrollElement = scrollableDivRef.current;
         if (scrollElement) {
-            if (scrollElement.scrollTop === 1 && hasMore) {
+            if (scrollElement.scrollTop === 0 && hasMore) {
                 loadMoreMessages(); // Подгружаем новые сообщения, если скролл на верхней позиции
             }
         }
