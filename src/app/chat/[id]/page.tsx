@@ -63,11 +63,12 @@ const ChatPage = ({params}: ProfileLayoutProps) => {
     useEffect(() => {
         if (data && data.messages.length > 0) {
             setMessages((prev) => {
-                const newMessages = data.messages.filter(newMessage =>
+                let newMessages = data.messages.filter(newMessage =>
                     !prev.some(existingMessage => existingMessage.id === newMessage.id)
                 );
                 return [...newMessages.reverse(), ...prev];
             });
+            setMessages((prev)=>[...prev].sort((a, b) => {return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()}))
         }
         if (data && data.messages.length < limit) {
             setHasMore(false);
