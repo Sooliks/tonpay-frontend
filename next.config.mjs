@@ -10,7 +10,18 @@ const nextConfig = {
                 pathname: '/dqggb6cgz/image/upload/**'
             }
         ]
-    }
+    },
+    headers: () => [
+        {
+            source: '/:path*',
+            headers: [
+                {
+                    key: 'Cache-Control',
+                    value: 'no-store',
+                },
+            ],
+        },
+    ]
 };
 
 export default nextConfig;
