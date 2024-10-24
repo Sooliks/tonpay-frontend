@@ -13,7 +13,7 @@ const nextConfig = {
     },
     headers: () => [
         {
-            source: '/chat/:path*',
+            source: '/chat/:id*',
             headers: [
                 {
                     key: 'Cache-Control',
