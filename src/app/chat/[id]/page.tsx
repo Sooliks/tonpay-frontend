@@ -78,7 +78,7 @@ const ChatPage = ({params}: ProfileLayoutProps) => {
     const handleScroll = () => {
         const scrollElement = scrollableDivRef.current;
         if (scrollElement) {
-            if (scrollElement.scrollTop === 0 && hasMore) {
+            if (scrollElement.scrollTop === 1 && hasMore) {
                 loadMoreMessages(); // Подгружаем новые сообщения, если скролл на верхней позиции
             }
         }
