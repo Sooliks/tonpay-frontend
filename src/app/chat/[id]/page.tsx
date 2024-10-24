@@ -19,7 +19,7 @@ type ProfileLayoutProps = {
         id: string
     }
 }
-const limit = 10; // Количество сообщений на страницу
+const limit = 5; // Количество сообщений на страницу
 const ChatPage = ({params}: ProfileLayoutProps) => {
     const auth = useAuth()
     const scrollableDivRef = useRef<HTMLDivElement>(null);
