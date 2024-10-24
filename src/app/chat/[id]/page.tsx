@@ -12,8 +12,6 @@ import UserAvatar from "@/components/my-ui/UserAvatar";
 import {Card} from "@/components/ui/card";
 import useChatSocket from "@/hooks/useChatSocket";
 
-
-
 type ProfileLayoutProps = {
     params: {
         id: string
