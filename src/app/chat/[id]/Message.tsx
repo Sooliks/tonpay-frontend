@@ -4,6 +4,7 @@ import {Message as MessageType} from "@/types/chat/message";
 import Image from "next/image";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import Link from "next/link";
+import {Badge} from "@/components/ui/badge";
 
 const MessageUi = ({message, meId}:{message: MessageType, meId: string}) => {
     return (
@@ -19,7 +20,14 @@ const MessageUi = ({message, meId}:{message: MessageType, meId: string}) => {
                         <AvatarImage src={message.sender?.photoUrl || ""}/>
                         <AvatarFallback>{message.sender?.nickname[0]}</AvatarFallback>
                     </Avatar>
-                    <p className={'break-all'}>{message.content}</p>
+                    <div>
+                        {message.isSystemMessage &&
+                            <div className={'flex justify-center'}>
+                                <Badge variant={'secondary'}>System message</Badge>
+                            </div>
+                        }
+                        <p className={'break-all'}>{message.content}</p>
+                    </div>
                 </div>
                 {message.screens.length > 0 && (
                     <div className="flex space-x-2 mt-2">
@@ -36,7 +44,7 @@ const MessageUi = ({message, meId}:{message: MessageType, meId: string}) => {
                         )}
                     </div>
                 )}
-                <p className={'text-sm text-gray-900'}>{new Date(message.createdAt).toLocaleTimeString()}</p>
+                <Badge className={'mt-2'}>{new Date(message.createdAt).toLocaleTimeString()}</Badge>
             </div>
         </div>
     );
