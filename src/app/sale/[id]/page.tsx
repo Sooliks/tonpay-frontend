@@ -15,6 +15,7 @@ import AdminSaleAction from "@/app/sale/[id]/AdminSaleAction";
 import {useAuth} from "@/hooks/useAuth";
 import Tree from "@/components/my-ui/Tree";
 import {getNameByPath} from "@/services/navService";
+import FirstSendMessageDialog from "@/components/my-ui/FirstSendMessageDialog";
 type ProfileLayoutProps = {
     params: {
         id: string
@@ -64,8 +65,8 @@ const SalePage = ({params}: ProfileLayoutProps) => {
                 <p className={'flex items-center'}>Seller rating: <Star className={'w-4 h-4 ml-1'}/> {6}</p>
             </Card>
             <Card className={'flex p-4 mt-2 justify-between'}>
-                <Button variant={'secondary'}>To write</Button>
                 <BuyMenu sale={data}/>
+                <FirstSendMessageDialog recipientId={data.userId} small={false}/>
             </Card>
             {isForAdmin && <AdminSaleAction id={data.id}/>}
         </div>

@@ -18,7 +18,7 @@ import {useAuth} from "@/hooks/useAuth";
 import {Loader2} from "lucide-react";
 import {useRouter} from "next/navigation";
 
-const FirstSendMessageDialog = ({recipientId}:{recipientId: string}) => {
+const FirstSendMessageDialog = ({recipientId, small = true}:{recipientId: string, small?: boolean}) => {
     const [message,setMessage] = useState<string>("");
     const {push} = useRouter()
     const [isLoading,setIsLoading] = useState<boolean>(false)
@@ -43,7 +43,12 @@ const FirstSendMessageDialog = ({recipientId}:{recipientId: string}) => {
     return (
         <Drawer>
             <DrawerTrigger asChild>
-                <Button size={'sm'}>Send message</Button>
+                <Button
+                    size={small ? 'sm' : 'default'}
+                    variant={'secondary'}
+                >
+                    Send message
+                </Button>
             </DrawerTrigger>
             <DrawerContent>
                 <div className="mx-auto w-full max-w-sm">

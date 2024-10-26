@@ -1,5 +1,5 @@
 'use client'
-import React from 'react';
+import React, {useState} from 'react';
 import {
     Drawer,
     DrawerClose,
@@ -12,8 +12,24 @@ import {
 } from "@/components/ui/drawer";
 import {Button} from "@/components/ui/button";
 import {Sale} from "@/types/sale";
+import axiosInstance from "@/configs/axios";
+import {toast} from "@/hooks/use-toast";
+import {AxiosError} from "axios";
+import {Loader2} from "lucide-react";
 
 const BuyMenu = ({sale}:{sale: Sale}) => {
+    const [isLoading, setIsLoading] = useState(false);
+    const handleSubmit = () => {
+        setIsLoading(true)
+        axiosInstance.post(`/orders/create`, {saleId: sale.id}).then(res=>{
+            if(res.status === 201) {
+                toast({description: 'Order created'})
+            }
+        }).catch((error: AxiosError)=>{
+            const errorMessage = (error.response?.data as { message?: string })?.message || error.message;
+            toast({description: `Error: ${errorMessage}`})
+        }).finally(()=>setIsLoading(false))
+    }
     return (
         <Drawer>
             <DrawerTrigger asChild>
@@ -34,7 +50,13 @@ const BuyMenu = ({sale}:{sale: Sale}) => {
                         </div>
                     </div>
                     <DrawerFooter>
-                        <Button>Submit</Button>
+                        <Button
+                            onClick={handleSubmit}
+                            disabled={isLoading}
+                        >
+                            {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                            Buy <span className={'text-muted-foreground text-sm ml-2'}>[{sale.price} TON]</span>
+                        </Button>
                         <DrawerClose asChild>
                             <Button variant="outline">Cancel</Button>
                         </DrawerClose>

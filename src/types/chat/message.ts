@@ -8,4 +8,5 @@ export type Message = {
     senderId: string
     sender: UserType
     screens: string[]
+    isSystemMessage?: boolean
 }

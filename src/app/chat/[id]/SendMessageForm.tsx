@@ -14,7 +14,6 @@ import axiosInstance from "@/configs/axios";
 import {CreateMessage} from "@/types/chat/create-message";
 import {useAuth} from "@/hooks/useAuth";
 import {AxiosError} from "axios";
-import message from "@/app/chat/[id]/Message";
 import {Message} from "@/types/chat/message";
 
 const SendMessageForm = ({recipientId, onMessage}:{recipientId: string, onMessage: (message: Message) => void}) => {
@@ -116,7 +115,7 @@ const SendMessageForm = ({recipientId, onMessage}:{recipientId: string, onMessag
                         className={'ml-1'}
                         size="icon"
                     >
-                        {isLoadingSubmit ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <SendHorizontal />}
+                        {isLoadingSubmit ? <Loader2 className="h-4 w-4 animate-spin" /> : <SendHorizontal />}
                     </Button>
                 </div>
             </form>
