@@ -11,13 +11,14 @@ import MessageUi from "@/app/chat/[id]/Message";
 import UserAvatar from "@/components/my-ui/UserAvatar";
 import {Card} from "@/components/ui/card";
 import useChatSocket from "@/hooks/useChatSocket";
+import {Skeleton} from "@/components/ui/skeleton";
 
 type ProfileLayoutProps = {
     params: {
         id: string
     }
 }
-const limit = 5; // Количество сообщений на страницу
+const limit = 8; // Количество сообщений на страницу
 const ChatPage = ({params}: ProfileLayoutProps) => {
     const auth = useAuth()
     const scrollableDivRef = useRef<HTMLDivElement>(null);
@@ -104,17 +105,23 @@ const ChatPage = ({params}: ProfileLayoutProps) => {
                 <UserAvatar photoUrl={interlocutor.photoUrl || ""} nickname={interlocutor.nickname} id={interlocutor.id}/>
             </Card>
             <Card className={'mb-2 p-4 mt-2'}>
-                <div id="scrollableDiv" className="flex-1 overflow-auto h-[300px] flex-col-reverse" ref={scrollableDivRef} onScroll={handleScroll}>
+                <div id="scrollableDiv" className="flex-1 overflow-auto h-80 flex-col-reverse" ref={scrollableDivRef} onScroll={handleScroll}>
                     <InfiniteScroll
                         dataLength={messages.length}
                         next={loadMoreMessages}
                         hasMore={hasMore}
-                        loader={isLoading && <h4>Loading...</h4>}
+                        loader={<h4>Loading...</h4>}
                         scrollableTarget="scrollableDiv"
                         inverse
                     >
+                        {isLoading &&
+                            <div className="space-y-2 my-2">
+                                <Skeleton className="h-4 w-full"/>
+                                <Skeleton className="h-4 w-full"/>
+                            </div>
+                        }
                         {messages.map(message => <MessageUi key={message.id} message={message} meId={auth.user!.id}/>)}
-                        <div ref={scrollableDivRef} />
+                        <div ref={scrollableDivRef}/>
                     </InfiniteScroll>
                 </div>
             </Card>

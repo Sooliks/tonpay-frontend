@@ -7,6 +7,27 @@ import Link from "next/link";
 import {Badge} from "@/components/ui/badge";
 
 const MessageUi = ({message, meId}:{message: MessageType, meId: string}) => {
+    function formatMessageDate(createdAt: Date): string {
+        const now = new Date();
+        const today = now.toDateString() === createdAt.toDateString();
+
+        if (today) {
+            // Показываем только время, если сообщение отправлено сегодня
+            return new Intl.DateTimeFormat('en-GB', {
+                hour: '2-digit',
+                minute: '2-digit'
+            }).format(createdAt);
+        } else {
+            // Показываем дату и время, если сообщение отправлено раньше
+            return new Intl.DateTimeFormat('en-GB', {
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            }).format(createdAt);
+        }
+    }
     return (
         <div
             key={message.id}
@@ -26,7 +47,7 @@ const MessageUi = ({message, meId}:{message: MessageType, meId: string}) => {
                                 <Badge variant={'secondary'}>System message</Badge>
                             </div>
                         }
-                        <p className={'break-all'}>{message.content}</p>
+                        <p className={'break-all leading-7 [&:not(:first-child)]:mt-6'}>{message.content}</p>
                     </div>
                 </div>
                 {message.screens.length > 0 && (
@@ -44,7 +65,7 @@ const MessageUi = ({message, meId}:{message: MessageType, meId: string}) => {
                         )}
                     </div>
                 )}
-                <Badge className={'mt-2'}>{new Date(message.createdAt).toLocaleTimeString()}</Badge>
+                <Badge className={'mt-2'}>{formatMessageDate(new Date(message.createdAt))}</Badge>
             </div>
         </div>
     );
