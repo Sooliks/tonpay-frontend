@@ -1,9 +1,7 @@
 'use client'
 import React, {useEffect, useState} from 'react';
 import {usePathname, useRouter} from "next/navigation";
-import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
-import Pay from "@/app/profile/wallet/Pay";
-import Withdrawal from "@/app/profile/wallet/Withdrawal";
+import {Tabs, TabsList, TabsTrigger} from "@/components/ui/tabs";
 
 export type TabType = {
     title: string | React.ReactNode
@@ -40,9 +38,6 @@ const ProfileMenu = ({idProfile, tabs, defaultKey} : ProfileMenuProps) => {
                     </TabsTrigger>
                 )}
             </TabsList>
-            {tabs.map(tab =>
-                <TabsContent key={tab.key} value={tab.key}></TabsContent>
-            )}
         </Tabs>
     );
 };

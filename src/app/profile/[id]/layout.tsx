@@ -8,7 +8,6 @@ import SpinLoading from "@/components/my-ui/SpinLoading";
 import useSWR from "swr";
 import {Separator} from "@/components/ui/separator";
 import {Star} from "lucide-react";
-import {Button} from "@/components/ui/button";
 import FirstSendMessageDialog from "@/components/my-ui/FirstSendMessageDialog";
 type ProfileLayoutProps = {
     params: {
