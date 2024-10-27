@@ -44,14 +44,14 @@ const BuyMenu = ({sale}:{sale: Sale}) => {
                         <DrawerTitle>Buy {sale.title}</DrawerTitle>
                         <DrawerDescription>{sale.description}</DrawerDescription>
                     </DrawerHeader>
-                    <div className="p-4 pb-0">
+                    {/*<div className="p-4 pb-0">
                         <div className="flex items-center justify-center space-x-2">
 
                         </div>
                         <div className="mt-3 h-[120px]">
 
                         </div>
-                    </div>
+                    </div>*/}
                     <DrawerFooter>
                         <Button
                             onClick={handleSubmit}

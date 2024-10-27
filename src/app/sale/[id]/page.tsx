@@ -16,6 +16,7 @@ import {useAuth} from "@/hooks/useAuth";
 import Tree from "@/components/my-ui/Tree";
 import {getNameByPath} from "@/services/navService";
 import FirstSendMessageDialog from "@/components/my-ui/FirstSendMessageDialog";
+import parseTextWithLinks from "@/services/linkDetectService";
 type ProfileLayoutProps = {
     params: {
         id: string
@@ -58,11 +59,15 @@ const SalePage = ({params}: ProfileLayoutProps) => {
             }
             <Card className={'p-4 mt-2'}>
                 <p className={'text-muted-foreground'}>Description</p>
-                <p>{data.description}</p>
+                <p className={'text-ellipsis'}>{parseTextWithLinks(data.description)}</p>
             </Card>
             <Card className={'p-4 mt-2 flex justify-between'}>
                 <UserAvatar photoUrl={data.user.photoUrl || ""} nickname={data.user.nickname} id={data.userId}/>
-                <p className={'flex items-center'}>Seller rating: <Star className={'w-4 h-4 ml-1'}/> {6}</p>
+                {data.user?.rate &&
+                    <p className={'flex items-center'}>
+                        Seller rating: <Star className={'w-4 h-4 ml-1'}/> {data.user.rate}
+                    </p>
+                }
             </Card>
             <Card className={'flex p-4 mt-2 justify-between'}>
                 <BuyMenu sale={data}/>

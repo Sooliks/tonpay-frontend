@@ -43,7 +43,8 @@ const MenuData = () => {
                 {title: 'Profile', path: auth.user!.id, separator: true},
                 {title: 'Wallet', shortcut: `${auth.user!.money.toFixed(6)} TON`, path: 'wallet'},
                 {title: 'Settings', path: 'settings', separator: true},
-                {title: 'My sales', path: 'sales'}
+                {title: 'My sales', path: 'sales'},
+                {title: 'Orders', path: 'orders'}
             ],
             path: 'profile'
         }
