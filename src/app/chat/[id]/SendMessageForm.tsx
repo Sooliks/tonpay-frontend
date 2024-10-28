@@ -75,15 +75,25 @@ const SendMessageForm = ({recipientId, onMessage}:{recipientId: string, onMessag
             toast({description: `Error: ${errorMessage}`})
         })
     }
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        if (event.key === 'Enter' && event.shiftKey) {
+            event.preventDefault();
+            handleSubmit(onSubmit)();
+        }
+    };
     return (
         <>
-            <form className={'flex justify-between items-center'} onSubmit={handleSubmit(onSubmit)} >
+            <form
+                className={'flex justify-between items-center'}
+                onSubmit={handleSubmit(onSubmit)}
+            >
                 <Textarea
                     placeholder="Enter message"
                     id="description"
                     {...register('content')}
                     maxLength={500}
                     className="resize-none"
+                    onKeyDown={handleKeyDown}
                 />
                 <div className={'flex items-center'}>
                     <Input

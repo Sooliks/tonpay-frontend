@@ -18,7 +18,6 @@ const getKey = (pageIndex: number, previousPageData: Transaction[] | null) => {
     return `/orders/mysales/?count=${COUNT_ON_PAGE}&skip=${pageIndex * COUNT_ON_PAGE}`;
 };
 const MySales = () => {
-    const {back} = useRouter();
     const { data, error, isLoading, size, setSize } = useSWRInfinite<Order[]>(getKey)
     if(isLoading){
         return <SpinLoading/>

@@ -39,7 +39,7 @@ const ImagePreview: React.FC<{
     drag(drop(ref)); // Объединяем drag и drop через ref
     return (
         <div ref={ref} className="relative m-2">
-            <img src={file.preview} alt="preview" className={`${small ? 'w-4 h-4' : 'w-32 h-32'} object-cover`} />
+            <img src={file.preview} alt="preview" className={`${small ? 'w-5 h-5' : 'w-32 h-32'} object-cover`} />
             <Button
                 onClick={() => removeImage(index)}
                 variant={'secondary'}
