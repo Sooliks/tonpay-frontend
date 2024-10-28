@@ -12,6 +12,8 @@ import UserAvatar from "@/components/my-ui/UserAvatar";
 import {Card} from "@/components/ui/card";
 import useChatSocket from "@/hooks/useChatSocket";
 import {Skeleton} from "@/components/ui/skeleton";
+import {Badge} from "@/components/ui/badge";
+import Link from "next/link";
 type ProfileLayoutProps = {
     params: {
         id: string
@@ -100,8 +102,13 @@ const ChatPage = ({params}: ProfileLayoutProps) => {
     if(!interlocutor)interlocutor = chat!.users[0]
     return (
         <div className="flex flex-col overflow-y-hidden p-4">
-            <Card className={'p-4'}>
+            <Card className={'p-4 flex items-center justify-between'}>
                 <UserAvatar photoUrl={interlocutor.photoUrl || ""} nickname={interlocutor.nickname} id={interlocutor.id}/>
+                {data?.sale &&
+                    <Badge className={'text-sm text-ellipsis max-w-56 truncate whitespace-nowrap overflow-hidden'} variant={'outline'}>
+                        Wathing <Link href={`/sale/${data.sale.id}`} className={'text-blue-800 ml-2'}>{data.sale.title}</Link>
+                    </Badge>
+                }
             </Card>
             <Card className={'mb-2 p-4 mt-2'}>
                 <div id="scrollableDiv" className="flex-1 overflow-auto h-80 flex-col-reverse" ref={scrollableDivRef} onScroll={handleScroll}>

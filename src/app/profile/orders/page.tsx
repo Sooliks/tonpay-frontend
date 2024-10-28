@@ -7,13 +7,13 @@ import MySales from "@/app/profile/orders/MySales";
 const OrdersPage = () => {
     return (
         <div className={'w-full p-4'}>
-            <Tabs defaultValue="payment" className={'flex flex-col items-center mt-2 w-full'}>
+            <Tabs defaultValue="purchases" className={'flex flex-col items-center mt-2 w-full'}>
                 <TabsList className="grid w-full grid-cols-2">
-                    <TabsTrigger value="payment">My purchases</TabsTrigger>
-                    <TabsTrigger value="withdrawal">My sales</TabsTrigger>
+                    <TabsTrigger value="purchases">My purchases</TabsTrigger>
+                    <TabsTrigger value="sales">My sales</TabsTrigger>
                 </TabsList>
-                <TabsContent value="payment"><MyPurchases/></TabsContent>
-                <TabsContent value="withdrawal"><MySales/></TabsContent>
+                <TabsContent value="purchases"><MyPurchases/></TabsContent>
+                <TabsContent value="sales"><MySales/></TabsContent>
             </Tabs>
         </div>
     );

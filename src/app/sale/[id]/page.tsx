@@ -17,6 +17,9 @@ import Tree from "@/components/my-ui/Tree";
 import {getNameByPath} from "@/services/navService";
 import FirstSendMessageDialog from "@/components/my-ui/FirstSendMessageDialog";
 import parseTextWithLinks from "@/services/linkDetectService";
+import axiosInstance from "@/configs/axios";
+import {AxiosError} from "axios";
+import {toast} from "@/hooks/use-toast";
 type ProfileLayoutProps = {
     params: {
         id: string
@@ -32,6 +35,14 @@ const SalePage = ({params}: ProfileLayoutProps) => {
         const forAdmin = searchParams.get('forAdmin');
         setIsForAdmin(forAdmin === 'true')
     },[searchParams])
+    useEffect(() => {
+        axiosInstance.post('/sales/setlastwatchingsale', {saleId: params.id}).then(res=>{
+
+        }).catch((error: AxiosError)=>{
+            const errorMessage = (error.response?.data as { message?: string })?.message || error.message;
+            toast({description: `Error: ${errorMessage}`})
+        })
+    }, []);
     if(isLoading){
         return <SpinLoading/>
     }
@@ -59,7 +70,7 @@ const SalePage = ({params}: ProfileLayoutProps) => {
             }
             <Card className={'p-4 mt-2'}>
                 <p className={'text-muted-foreground'}>Description</p>
-                <p className={'text-ellipsis'}>{parseTextWithLinks(data.description)}</p>
+                <p className={'whitespace-pre-line'}>{parseTextWithLinks(data.description)}</p>
             </Card>
             <Card className={'p-4 mt-2 flex justify-between'}>
                 <UserAvatar photoUrl={data.user.photoUrl || ""} nickname={data.user.nickname} id={data.userId}/>

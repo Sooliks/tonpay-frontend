@@ -1,9 +1,69 @@
+'use client'
 import React from 'react';
+import {useRouter} from "next/navigation";
+import {Button} from "@/components/ui/button";
+import {Transaction} from "@/types/transaction";
+import useSWRInfinite from "swr/infinite";
+import {Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
+import InfiniteScroll from "react-infinite-scroll-component";
+import {Skeleton} from "@/components/ui/skeleton";
+import SpinLoading from "@/components/my-ui/SpinLoading";
+import {Order} from "@/types/order";
+import Link from "next/link";
+import NotFound from "@/app/not-found";
 
+const COUNT_ON_PAGE = 10;
+const getKey = (pageIndex: number, previousPageData: Transaction[] | null) => {
+    if (previousPageData && !previousPageData.length) return null;
+    return `/orders/mysales/?count=${COUNT_ON_PAGE}&skip=${pageIndex * COUNT_ON_PAGE}`;
+};
 const MySales = () => {
+    const {back} = useRouter();
+    const { data, error, isLoading, size, setSize } = useSWRInfinite<Order[]>(getKey)
+    if(isLoading){
+        return <SpinLoading/>
+    }
+    if(!data){
+        return <NotFound/>
+    }
+    const items = data?.flat() || [];
     return (
-        <div>
-            MySales
+        <div className={'w-full flex flex-col'}>
+            {data ?
+                <InfiniteScroll
+                    dataLength={items.length}
+                    next={()=>setSize(size+1)}
+                    hasMore={data[data.length - 1]?.length === COUNT_ON_PAGE}
+                    loader={<Skeleton/>}
+                    scrollableTarget="scrollableDiv"
+                >
+                    <Table>
+                        <TableCaption>My sales</TableCaption>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead>Created at</TableHead>
+                                <TableHead>Sale</TableHead>
+                                <TableHead>Is completed</TableHead>
+                                <TableHead>Amount</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {data.map(orders=> (
+                                orders.map(order=>
+                                    <TableRow key={order.id} className={'h-16'}>
+                                        <TableCell><p>{new Date(order.createdAt).toLocaleDateString()}</p><p>{new Date(order.createdAt).toLocaleTimeString()}</p></TableCell>
+                                        <TableCell><Link href={`/sale/${order.sale.id}`} className={'text-blue-800'}>Sale</Link></TableCell>
+                                        <TableCell>{order.isCompleted ? '+' : '-'}</TableCell>
+                                        <TableCell>{order.amount}</TableCell>
+                                    </TableRow>
+                                )
+                            ))}
+                        </TableBody>
+                    </Table>
+                </InfiniteScroll>
+                :
+                <p>Nothing</p>
+            }
         </div>
     );
 };
