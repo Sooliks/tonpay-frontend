@@ -10,17 +10,19 @@ import {HoverCard, HoverCardContent, HoverCardTrigger} from "@/components/ui/hov
 import Tree from "@/components/my-ui/Tree";
 import UserAvatar from "@/components/my-ui/UserAvatar";
 
-const SalePreview = ({sale, isProfile, forAdmin = false}:{sale: Sale, isProfile?: boolean, forAdmin?: boolean}) => {
+const SalePreview = ({sale, isProfile, forAdmin = false, avatar = true}:{sale: Sale, isProfile?: boolean, forAdmin?: boolean, avatar?: boolean}) => {
     return (
         <Card className={'flex flex-col w-full p-4 mb-2'}>
             <Link href={`/sale/${sale.id}${forAdmin ? '?forAdmin=true' : '?forAdmin=false'}`}>
                 <div>
                     <div className={'flex items-center justify-between'}>
                         <div>
-                            <div className={'flex items-center justify-between'}>
-                                <UserAvatar photoUrl={sale.user.photoUrl || ""} nickname={sale.user.nickname} id={sale.userId}/>
-                                {sale.rate && <p className={'flex items-center'}>Rating: <Star className={'w-4 h-4 ml-1'}/> {sale.rate}</p>}
-                            </div>
+                            {avatar &&
+                                <div className={'flex items-center justify-between'}>
+                                    <UserAvatar photoUrl={sale.user.photoUrl || ""} nickname={sale.user.nickname} id={sale.userId}/>
+                                    {sale.rate && <p className={'flex items-center'}>Rating: <Star className={'w-4 h-4 ml-1'}/> {sale.rate}</p>}
+                                </div>
+                            }
                             <p className={'mt-1 leading-7'}>{sale.title}</p>
                         </div>
                         {isProfile && sale.isModerating &&

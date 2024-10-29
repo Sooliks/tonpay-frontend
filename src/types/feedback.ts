@@ -1,11 +1,17 @@
 import {UserType} from "@/types/user-type";
+import {Order} from "@/types/order";
+
 
 export type Feedback = {
     id: string
     createdAt: Date
-    saleId: string
-    user: UserType
+
     userId: string
+    user: UserType
+
+    recipientId: string
+    recipient: UserType
     rate: number
     text?: string
+    order: Order
 }

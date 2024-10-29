@@ -8,6 +8,7 @@ export type Order = {
     customer: UserType
     customerId: string
     isCompleted: boolean
+    isCancelled: boolean
     amount: number
     product?: string
     seller: UserType

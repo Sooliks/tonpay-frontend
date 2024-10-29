@@ -65,7 +65,7 @@ const SendMessageForm = ({recipientId, onMessage}:{recipientId: string, onMessag
         files.forEach((fileObj, index) => {
             formData.append("files", fileObj.file);
         });
-        axiosInstance.post('/chat/createmessage', formData).then(res=>{
+        axiosInstance.post('/chat/createmessage', formData).then(res=> {
             if(res.status === 201) {
                 reset()
                 onMessage(res.data)
