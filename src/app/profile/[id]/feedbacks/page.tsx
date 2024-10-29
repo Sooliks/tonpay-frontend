@@ -1,8 +1,8 @@
 'use client'
 import React from 'react';
 import useSWR from "swr";
-import SpinLoading from "@/components/my-ui/SpinLoading";
 import {Feedback} from "@/types/feedback";
+import {Skeleton} from "@/components/ui/skeleton";
 
 
 type ProfilePageProps = {
@@ -13,7 +13,15 @@ type ProfilePageProps = {
 const FeedbacksPage = ({params}: ProfilePageProps) => {
     const { data, error, isLoading } = useSWR<Feedback[]>(`/feedbacks/byuserid/${params.id}`)
     if(isLoading){
-        return <SpinLoading/>
+        return(
+            <div className="flex flex-col space-y-3 mt-2">
+                <Skeleton className="h-[125px] w-full rounded-xl"/>
+                <div className="space-y-2">
+                    <Skeleton className="h-4 w-96"/>
+                    <Skeleton className="h-4 w-80"/>
+                </div>
+            </div>
+        )
     }
     return (
         <div className={'mt-2'}>

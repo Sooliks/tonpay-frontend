@@ -50,7 +50,7 @@ const MySales = () => {
                             {data.map(orders=> (
                                 orders.map(order=>
                                     <TableRow key={order.id} className={'h-16'}>
-                                        <TableCell><Link href={`/orders/${order.id}`} className={'text-blue-800'}>Details</Link></TableCell>
+                                        <TableCell><Link href={`/profile/orders/${order.id}`} className={'text-blue-800'}>Details</Link></TableCell>
                                         <TableCell><p>{new Date(order.createdAt).toLocaleDateString()}</p><p>{new Date(order.createdAt).toLocaleTimeString()}</p></TableCell>
                                         <TableCell><Link href={`/sale/${order.sale.id}`} className={'text-blue-800'}>Sale</Link></TableCell>
                                         <TableCell>{order.isCompleted ? <Check color={'green'}/> : order.isCancelled ? 'Cancelled' : <Ban color={'red'}/>}</TableCell>

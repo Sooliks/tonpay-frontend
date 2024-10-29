@@ -8,6 +8,7 @@ import Link from "next/link";
 import {Ban, Check} from "lucide-react";
 import {Button} from "@/components/ui/button";
 import {useAuth} from "@/hooks/useAuth";
+import CreateFeedbackForm from "@/app/profile/orders/[id]/CreateFeedbackForm";
 
 
 type OrderPageProps = {
@@ -25,20 +26,20 @@ const OrderPage = ({params}: OrderPageProps) => {
         return <NotFound/>
     }
     return (
-        <div className={'p-4'}>
+        <div className={'p-4 flex flex-col'}>
             <h1 className={'text-center'}>Order #{data.id}</h1>
-            <p>Created at {new Date(data.createdAt).toLocaleDateString()}</p>
+            <p>Created at {new Date(data.createdAt).toLocaleTimeString()}</p>
             <Link href={`/sale/${data.sale.id}`} className={'text-blue-800'}>Sale</Link>
             <Link href={`/profile/${data.customerId}`} className={'text-blue-800'}>Customer</Link>
             <Link href={`/profile/${data.sellerId}`} className={'text-blue-800'}>Seller</Link>
-            <p>Status: {data.isCompleted ? <Check color={'green'}/> : data.isCancelled ? 'Cancelled' : <Ban color={'red'}/>}</p>
+            <p className={'flex items-center'}>Status: {data.isCompleted ? <Check color={'green'} className={'ml-2'}/> : data.isCancelled ? ' Cancelled' : <Ban color={'red'} className={'ml-2'}/>}</p>
             <p>Amount: <span className={'ml-auto text-sm tracking-widest text-muted-foreground'}>{data.amount.toFixed(2)} TON</span></p>
             <p>Feedback:
                 {data.feedback ?
                 <Link href={`/feedbacks/${data.feedbackId}`}>Feedback</Link>
                 :
                 auth.user?.id === data.customerId ?
-                    <Button>Create feedback</Button>
+                    <CreateFeedbackForm/>
                     :
                     'Nothing'
                 }
