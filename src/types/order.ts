@@ -1,5 +1,6 @@
 import {Sale} from "@/types/sale";
 import {UserType} from "@/types/user-type";
+import {Feedback} from "@/types/feedback";
 
 export type Order = {
     id: string
@@ -13,4 +14,6 @@ export type Order = {
     product?: string
     seller: UserType
     sellerId: string
+    feedback?: Feedback
+    feedbackId?: string
 }

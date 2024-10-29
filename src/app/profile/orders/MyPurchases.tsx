@@ -1,7 +1,5 @@
 'use client'
 import React from 'react';
-import {useRouter} from "next/navigation";
-import {Button} from "@/components/ui/button";
 import {Transaction} from "@/types/transaction";
 import useSWRInfinite from "swr/infinite";
 import {Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
@@ -11,6 +9,7 @@ import SpinLoading from "@/components/my-ui/SpinLoading";
 import {Order} from "@/types/order";
 import Link from "next/link";
 import NotFound from "@/app/not-found";
+import {Ban, Check} from "lucide-react";
 
 const COUNT_ON_PAGE = 10;
 const getKey = (pageIndex: number, previousPageData: Transaction[] | null) => {
@@ -40,6 +39,7 @@ const MyPurchases = () => {
                         <TableCaption>My purchases</TableCaption>
                         <TableHeader>
                             <TableRow>
+                                <TableHead></TableHead>
                                 <TableHead>Created at</TableHead>
                                 <TableHead>Sale</TableHead>
                                 <TableHead>Is completed</TableHead>
@@ -50,10 +50,11 @@ const MyPurchases = () => {
                             {data.map(orders=> (
                                 orders.map(order=>
                                     <TableRow key={order.id} className={'h-16'}>
+                                        <TableCell><Link href={`/orders/${order.id}`} className={'text-blue-800'}>Details</Link></TableCell>
                                         <TableCell><p>{new Date(order.createdAt).toLocaleDateString()}</p><p>{new Date(order.createdAt).toLocaleTimeString()}</p></TableCell>
                                         <TableCell><Link href={`/sale/${order.sale.id}`} className={'text-blue-800'}>Sale</Link></TableCell>
-                                        <TableCell>{order.isCompleted ? '+' : '-'}</TableCell>
-                                        <TableCell>{order.amount}</TableCell>
+                                        <TableCell>{order.isCompleted ? <Check color={'green'}/> : order.isCancelled ? 'Cancelled' : <Ban color={'red'}/>}</TableCell>
+                                        <TableCell><span className={'ml-auto text-sm tracking-widest text-muted-foreground'}>{order.amount.toFixed(2)} TON</span></TableCell>
                                     </TableRow>
                                 )
                             ))}
