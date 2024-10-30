@@ -66,7 +66,7 @@ const OrderPage = ({params}: OrderPageProps) => {
                     <Link href={`/feedbacks/${data.feedbackId}`}>Feedback</Link>
                     :
                     auth.user?.id === data.customerId ?
-                        <CreateFeedbackForm saleId={data.sale.id}/>
+                        <CreateFeedbackForm orderId={data.id}/>
                         :
                         'Nothing'
                     }

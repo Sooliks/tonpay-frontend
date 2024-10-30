@@ -17,13 +17,13 @@ import {Loader2, Star} from "lucide-react";
 import {Slider} from "@/components/ui/slider";
 
 
-const CreateFeedbackForm = ({saleId}:{saleId: string}) => {
+const CreateFeedbackForm = ({orderId}:{orderId: string}) => {
     const [feedback,setFeedback] = useState<string>("");
     const [stars,setStars] = useState<number>(5);
     const [isLoading,setIsLoading] = useState<boolean>(false)
     const handleSendFeedback = () => {
         setIsLoading(true)
-        axiosInstance.post('/feedbacks', {saleId: saleId, rate: stars, feedback: feedback || undefined}).then(res=>{
+        axiosInstance.post('/feedbacks', {orderId: orderId, rate: stars, feedback: feedback || undefined}).then(res=>{
             if(res.status === 201) {
                 toast({description: `Feedback created`})
 
