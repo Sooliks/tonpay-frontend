@@ -36,22 +36,13 @@ const BuyMenu = ({sale}:{sale: Sale}) => {
     return (
         <Drawer>
             <DrawerTrigger asChild>
-                <Button className={'w-24'}>Buy</Button>
+                <Button className={'w-36'}>Buy <span className={'text-muted-foreground text-sm ml-2'}>[{sale.price} TON]</span></Button>
             </DrawerTrigger>
             <DrawerContent>
                 <div className="mx-auto w-full max-w-sm">
                     <DrawerHeader>
                         <DrawerTitle>Buy {sale.title}</DrawerTitle>
-                        <DrawerDescription>{sale.description}</DrawerDescription>
                     </DrawerHeader>
-                    {/*<div className="p-4 pb-0">
-                        <div className="flex items-center justify-center space-x-2">
-
-                        </div>
-                        <div className="mt-3 h-[120px]">
-
-                        </div>
-                    </div>*/}
                     <DrawerFooter>
                         <Button
                             onClick={handleSubmit}

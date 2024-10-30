@@ -57,7 +57,7 @@ const OrderPage = ({params}: OrderPageProps) => {
                     {data.isCompleted ?
                         <Check color={'green'} className={'ml-2'}/>
                         :
-                        data.isCancelled ? ' Cancelled' : <Ban color={'red'} className={'ml-2'}/>
+                        data.isCancelled ? ' Cancelled' : <span className={'ml-2 flex items-center'}>not completed <Ban color={'red'} className={'ml-2'}/></span>
                     }
                 </p>
                 <p>Amount: <span className={'ml-auto text-sm tracking-widest text-muted-foreground'}>{data.amount.toFixed(2)} TON</span></p>
