@@ -26,6 +26,7 @@ const CreateFeedbackForm = ({saleId}:{saleId: string}) => {
         axiosInstance.post('/feedbacks', {saleId: saleId, rate: stars, feedback: feedback || undefined}).then(res=>{
             if(res.status === 201) {
                 toast({description: `Feedback created`})
+
             }
         }).finally(() => setIsLoading(false)).catch((error: AxiosError)=>{
             const errorMessage = (error.response?.data as { message?: string })?.message || error.message;
