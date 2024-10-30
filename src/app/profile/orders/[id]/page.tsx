@@ -63,7 +63,7 @@ const OrderPage = ({params}: OrderPageProps) => {
                 <p>Amount: <span className={'ml-auto text-sm tracking-widest text-muted-foreground'}>{data.amount.toFixed(2)} TON</span></p>
                 <p>Feedback:
                     {data.feedback ?
-                    <Link href={`/feedbacks/${data.feedbackId}`}>Feedback</Link>
+                    <Link className={'text-blue-800 ml-2'} href={`/profile/${data.sellerId}/feedbacks`}>Feedback</Link>
                     :
                     auth.user?.id === data.customerId ?
                         <CreateFeedbackForm orderId={data.id}/>

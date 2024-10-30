@@ -22,17 +22,37 @@ const CreateFeedbackForm = ({orderId}:{orderId: string}) => {
     const [stars,setStars] = useState<number>(5);
     const [isLoading,setIsLoading] = useState<boolean>(false)
     const handleSendFeedback = () => {
+        if(feedback.length > 100) {
+            toast({description: `The review must be no more than 100 characters long`})
+            return
+        }
         setIsLoading(true)
-        axiosInstance.post('/feedbacks', {orderId: orderId, rate: stars, feedback: feedback || undefined}).then(res=>{
+        axiosInstance.post('/feedbacks', {orderId: orderId, rate: stars, text: feedback}).then(res=>{
             if(res.status === 201) {
                 toast({description: `Feedback created`})
-
             }
         }).finally(() => setIsLoading(false)).catch((error: AxiosError)=>{
             const errorMessage = (error.response?.data as { message?: string })?.message || error.message;
             toast({description: `Error: ${errorMessage}`})
         })
     }
+    const maxLines = 3; // Максимальное количество строк
+    const maxCharsPerLine = 30; // Максимальное количество символов на строку
+    const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        const value = event.target.value;
+        const lines = value.split('\n');
+        // Проверка на количество строк
+        if (lines.length > maxLines) {
+            return; // Игнорируем ввод, если превышено количество строк
+        }
+        // Проверка на количество символов в каждой строке
+        for (const line of lines) {
+            if (line.length > maxCharsPerLine) {
+                return; // Игнорируем ввод, если превышено количество символов на строку
+            }
+        }
+        setFeedback(value); // Устанавливаем текст, если ограничения не нарушены
+    };
     return (
         <Drawer>
             <DrawerTrigger asChild>
@@ -46,9 +66,10 @@ const CreateFeedbackForm = ({orderId}:{orderId: string}) => {
                     <div className="p-4 pb-0">
                         <div className="flex items-center justify-center space-x-2">
                             <Textarea
-                                onChange={(e)=>setFeedback(e.target.value)}
+                                onChange={handleChange}
                                 value={feedback}
                                 placeholder="Enter text"
+                                maxLength={100}
                             />
                         </div>
                         <div className={'mt-2 flex items-center'}>

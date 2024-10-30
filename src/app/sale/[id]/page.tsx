@@ -62,6 +62,7 @@ const SalePage = ({params}: ProfileLayoutProps) => {
                     scope={{href: `/buy/${data.subScope.scope.type}?open=${data.subScope.scope.name}`, name: data.subScope.scope.name}}
                     subScope={{href: `/buy/${data.subScope.scope.type}/${data.subScope.id}`, name: data.subScope.name}}
                 />
+                {!data.isPublished && <p className={'text-sm text-muted-foreground mt-1'}>Not published</p>}
             </Card>
             {data.screenUrls.length > 0 &&
                 <Card className={'p-4 mt-2'}>
