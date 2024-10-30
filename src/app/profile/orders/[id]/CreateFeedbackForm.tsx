@@ -35,7 +35,7 @@ const CreateFeedbackForm = ({saleId}:{saleId: string}) => {
     return (
         <Drawer>
             <DrawerTrigger asChild>
-                <Button size={'sm'} className={'ml-2'}>Create feedback</Button>
+                <Button size={'sm'} className={'ml-2'} variant={'secondary'}>Create feedback</Button>
             </DrawerTrigger>
             <DrawerContent>
                 <div className="mx-auto w-full max-w-sm">
