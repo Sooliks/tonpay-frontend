@@ -20,7 +20,7 @@ const FeedbackPreview = ({feedback}:{feedback: Feedback}) => {
                 </div>
                 <p className={'flex items-center'}>
                     Sale:
-                    <Link className={'ml-1 text-blue-800'} href={`/sale/${feedback.order.sale.id}`}>
+                    <Link className={'ml-1 text-blue-800 text-sm text-muted-foreground'} href={`/sale/${feedback.order.sale.id}`}>
                         {feedback.order.sale.title}
                     </Link>
                 </p>
