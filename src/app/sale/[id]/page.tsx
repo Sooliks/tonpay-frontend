@@ -75,9 +75,9 @@ const SalePage = ({params}: ProfileLayoutProps) => {
             </Card>
             <Card className={'p-4 mt-2 flex justify-between'}>
                 <UserAvatar photoUrl={data.user.photoUrl || ""} nickname={data.user.nickname} id={data.userId}/>
-                {data.user?.rate &&
+                {data.user?.averageRating &&
                     <p className={'flex items-center'}>
-                        Seller rating: <Star className={'w-4 h-4 ml-1'}/> {data.user.rate}
+                        Seller rating: <Star className={'w-4 h-4 ml-1'}/> {data.user.averageRating}
                     </p>
                 }
             </Card>
