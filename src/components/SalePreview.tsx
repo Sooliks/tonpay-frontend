@@ -11,7 +11,7 @@ import Tree from "@/components/my-ui/Tree";
 import UserAvatar from "@/components/my-ui/UserAvatar";
 import EditSaleDialog from "@/components/EditSaleDialog";
 
-const SalePreview = ({sale, isProfile, forAdmin = false, avatar = true, edit = false}:{sale: Sale, isProfile?: boolean, forAdmin?: boolean, avatar?: boolean, edit?: boolean}) => {
+const SalePreview = ({sale, isProfile, forAdmin = false, avatar = true, edit = false, rate = false}:{sale: Sale, isProfile?: boolean, forAdmin?: boolean, avatar?: boolean, edit?: boolean, rate?: boolean}) => {
     return (
         <Card className={'flex flex-col w-full p-4 mb-2'}>
             <Link href={`/sale/${sale.id}${forAdmin ? '?forAdmin=true' : '?forAdmin=false'}`}>
@@ -21,19 +21,12 @@ const SalePreview = ({sale, isProfile, forAdmin = false, avatar = true, edit = f
                             {avatar &&
                                 <div className={'flex items-center justify-between w-full'}>
                                     <UserAvatar photoUrl={sale.user.photoUrl || ""} nickname={sale.user.nickname} id={sale.userId}/>
-                                    {edit && <EditSaleDialog sale={sale}/>}
+                                    {edit && !rate && <EditSaleDialog sale={sale}/>}
+                                    {rate && sale.user.averageRating && <p className={'flex items-center'}><Star className={'w-4 h-4'}/> {sale.user.averageRating}</p>}
                                 </div>
                             }
                             <p className={'mt-1 leading-7'}>{sale.title}</p>
                         </div>
-                        {isProfile && sale.isModerating &&
-                            <HoverCard openDelay={200}>
-                                <HoverCardTrigger><Loader2 className="mr-2 animate-spin"/></HoverCardTrigger>
-                                <HoverCardContent>
-                                    This sale is under moderation
-                                </HoverCardContent>
-                            </HoverCard>
-                        }
                     </div>
                     <Separator className={'my-2'}/>
                     <p className={'text-muted-foreground text-sm whitespace-pre-line overflow-hidden text-ellipsis break-words max-h-16'}>
@@ -48,6 +41,14 @@ const SalePreview = ({sale, isProfile, forAdmin = false, avatar = true, edit = f
                     scope={{href: `/buy/${sale.subScope.scope.type}?open=${sale.subScope.scope.name}`, name: sale.subScope.scope.name}}
                     subScope={{href: `/buy/${sale.subScope.scope.type}/${sale.subScope.id}`, name: sale.subScope.name}}
                 />
+            }
+            {isProfile && sale.isModerating &&
+                <HoverCard openDelay={200}>
+                    <HoverCardTrigger><Loader2 className="animate-spin mt-2"/></HoverCardTrigger>
+                    <HoverCardContent>
+                        This sale is under moderation
+                    </HoverCardContent>
+                </HoverCard>
             }
         </Card>
     );

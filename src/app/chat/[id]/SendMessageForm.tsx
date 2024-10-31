@@ -83,6 +83,20 @@ const SendMessageForm = ({recipientId, onMessage}:{recipientId: string, onMessag
     };
     return (
         <>
+            <DndProvider backend={HTML5Backend}>
+                <div className="flex flex-wrap">
+                    {files.map((file, index) => (
+                        <ImagePreview
+                            key={index}
+                            file={file}
+                            index={index}
+                            moveImage={moveImage}
+                            removeImage={removeImage}
+                            small
+                        />
+                    ))}
+                </div>
+            </DndProvider>
             <form
                 className={'flex justify-between items-center'}
                 onSubmit={handleSubmit(onSubmit)}
@@ -129,20 +143,6 @@ const SendMessageForm = ({recipientId, onMessage}:{recipientId: string, onMessag
                     </Button>
                 </div>
             </form>
-            <DndProvider backend={HTML5Backend}>
-                <div className="flex flex-wrap">
-                    {files.map((file, index) => (
-                        <ImagePreview
-                            key={index}
-                            file={file}
-                            index={index}
-                            moveImage={moveImage}
-                            removeImage={removeImage}
-                            small
-                        />
-                    ))}
-                </div>
-            </DndProvider>
         </>
     );
 };

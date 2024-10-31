@@ -21,6 +21,7 @@ import ImagePreview, {PreviewFile} from "@/app/profile/sales/add/ImagePreview";
 import update from "immutability-helper";
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
+import {useRouter} from "next/navigation";
 
 const SalesAddPage = () => {
     const { data, error, isLoading } = useSWR<Scope[]>('/scopes')
@@ -28,6 +29,7 @@ const SalesAddPage = () => {
     const [subScopes,setSubScopes] = useState<SubScope[]>([]);
     const [currentSubScope,setCurrentSubScope] = useState<SubScope | undefined>(undefined);
     const [products,setProducts] = useState<string[]>([]);
+    const {back} = useRouter()
     const {
         register,
         handleSubmit,
@@ -86,6 +88,7 @@ const SalesAddPage = () => {
                 toast({description: 'Success created!'})
                 reset({type: '', scopeId: '', subScopeId: ''})
                 reset()
+                back()
             }
         }).finally(() => setIsLoadingSubmit(false)).catch((error: AxiosError)=>{
             const errorMessage = (error.response?.data as { message?: string })?.message || error.message;

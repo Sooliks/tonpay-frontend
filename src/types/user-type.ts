@@ -10,7 +10,7 @@ export type UserType = {
     money: number
     lastOnline: Date
     photoUrl?: string
-    rate?: number,
+    averageRating?: number,
     isOnline?: boolean
 }
 
