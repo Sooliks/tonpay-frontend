@@ -74,6 +74,7 @@ const SalesAddPage = () => {
         formData.append("price", data.price.toString());
         formData.append("subScopeId", data.subScopeId);
         if(currentSubScope?.isCurrency) formData.append('currency', data!.currency!.toString())
+        if(data.autoMessage) formData.append('autoMessage', data.autoMessage)
         products.forEach((item) => {
             formData.append("product[]", item);  // Важно добавить каждый элемент массива
         });
@@ -241,6 +242,14 @@ const SalesAddPage = () => {
                     maxLength={500}
                 />
                 {errors.description?.message && <p className="text-sm text-muted-foreground text-red-500">{errors.description.message}</p>}
+                <label htmlFor="autoMessage" className={'text-muted-foreground text-sm mt-2'}>Auto message (no requirement)</label>
+                <Textarea
+                    placeholder="Enter the message that will be automatically sent after purchase"
+                    id="autoMessage"
+                    {...register('autoMessage', {required: 'Please enter description'})}
+                    maxLength={300}
+                />
+                {errors.autoMessage?.message && <p className="text-sm text-muted-foreground text-red-500">{errors.autoMessage.message}</p>}
                 <label htmlFor="price" className={'text-muted-foreground text-sm mt-2 flex items-center'}>Price in <Badge className={'bg-blue-400 h-4 ml-1'}>TON</Badge></label>
                 <Input
                     id={'price'}
@@ -290,7 +299,7 @@ const SalesAddPage = () => {
                     </div>
                 </DndProvider>
                 <div className={'flex justify-between mt-2'}>
-                    <label htmlFor="product" className={'text-muted-foreground text-sm'}>Products (no requirement)</label>
+                    <label htmlFor="product" className={'text-muted-foreground text-sm'}>Products for auto delivery (no requirement)</label>
                     <p className={'text-sm mr-2'}>Count: {products.length}</p>
                 </div>
                 <Textarea

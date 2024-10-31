@@ -4,8 +4,6 @@ import useSWR from "swr";
 import {Sale} from "@/types/sale";
 import SalePreview from "@/components/SalePreview";
 import {Skeleton} from "@/components/ui/skeleton";
-
-
 type ProfilePageProps = {
     params: {
         id: string

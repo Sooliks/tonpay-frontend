@@ -11,6 +11,7 @@ export type CreateSaleType = {
     scopeId: string
     type: string
     currency?: number
+    autoMessage?: string
 }
 
 export type Sale = {
@@ -19,7 +20,7 @@ export type Sale = {
     user: UserType
     userId: string
     price: number
-    product: string[]
+    product?: string[]
     isPublished: boolean
     isModerating: boolean
     subScopeId: string
