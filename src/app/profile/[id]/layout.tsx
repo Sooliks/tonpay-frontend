@@ -35,7 +35,7 @@ const ProfileLayout = ({params, children}: ProfileLayoutProps) => {
                             data && <p className={'text-muted-foreground text-sm'}>Last online: {new Date(data.lastOnline).toLocaleDateString() + ' ' + new Date(data.lastOnline).toLocaleTimeString()}</p>
                         }
                     </div>
-                    {data && data.rate && <p className={'flex items-center'}>Rating: <Star className={'w-4 h-4 ml-1'}/> {data.rate}</p>}
+                    {data && data.averageRating && <p className={'flex items-center'}>Rating: <Star className={'w-4 h-4 ml-1'}/> {data.averageRating}</p>}
                 </div>
                 <Separator className={'my-2'}/>
                 <FirstSendMessageDialog recipientId={data!.id}/>
