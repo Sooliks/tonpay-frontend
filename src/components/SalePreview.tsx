@@ -9,18 +9,19 @@ import {getNameByPath} from "@/services/navService";
 import {HoverCard, HoverCardContent, HoverCardTrigger} from "@/components/ui/hover-card";
 import Tree from "@/components/my-ui/Tree";
 import UserAvatar from "@/components/my-ui/UserAvatar";
+import EditSaleDialog from "@/components/EditSaleDialog";
 
-const SalePreview = ({sale, isProfile, forAdmin = false, avatar = true}:{sale: Sale, isProfile?: boolean, forAdmin?: boolean, avatar?: boolean}) => {
+const SalePreview = ({sale, isProfile, forAdmin = false, avatar = true, edit = false}:{sale: Sale, isProfile?: boolean, forAdmin?: boolean, avatar?: boolean, edit?: boolean}) => {
     return (
         <Card className={'flex flex-col w-full p-4 mb-2'}>
             <Link href={`/sale/${sale.id}${forAdmin ? '?forAdmin=true' : '?forAdmin=false'}`}>
                 <div>
                     <div className={'flex items-center justify-between'}>
-                        <div>
+                        <div className={'w-full'}>
                             {avatar &&
-                                <div className={'flex items-center justify-between'}>
+                                <div className={'flex items-center justify-between w-full'}>
                                     <UserAvatar photoUrl={sale.user.photoUrl || ""} nickname={sale.user.nickname} id={sale.userId}/>
-                                    {sale.rate && <p className={'flex items-center'}>Rating: <Star className={'w-4 h-4 ml-1'}/> {sale.rate}</p>}
+                                    {edit && <EditSaleDialog sale={sale}/>}
                                 </div>
                             }
                             <p className={'mt-1 leading-7'}>{sale.title}</p>

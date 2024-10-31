@@ -246,7 +246,7 @@ const SalesAddPage = () => {
                 <Textarea
                     placeholder="Enter the message that will be automatically sent after purchase"
                     id="autoMessage"
-                    {...register('autoMessage', {required: 'Please enter description'})}
+                    {...register('autoMessage')}
                     maxLength={300}
                 />
                 {errors.autoMessage?.message && <p className="text-sm text-muted-foreground text-red-500">{errors.autoMessage.message}</p>}
