@@ -14,7 +14,9 @@ import EditSaleDialog from "@/components/EditSaleDialog";
 const SalePreview = ({sale, isProfile, forAdmin = false, avatar = true, edit = false, rate = false}:{sale: Sale, isProfile?: boolean, forAdmin?: boolean, avatar?: boolean, edit?: boolean, rate?: boolean}) => {
     return (
         <Card className={'flex flex-col w-full p-4 mb-2'}>
-            <Link href={`/sale/${sale.id}${forAdmin ? '?forAdmin=true' : '?forAdmin=false'}`}>
+            <Link
+                href={`/sale/${sale.id}${forAdmin ? '?forAdmin=true' : '?forAdmin=false'}`}
+            >
                 <div>
                     <div className={'flex items-center justify-between'}>
                         <div className={'w-full'}>

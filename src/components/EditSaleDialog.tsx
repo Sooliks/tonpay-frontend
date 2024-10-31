@@ -33,6 +33,7 @@ const EditSaleDialog = ({sale}:{sale: Sale}) => {
             <DrawerTrigger asChild>
                 <Button
                     variant="outline" size="icon"
+                    onClick={(e)=> e.stopPropagation()}
                 >
                     <Pencil className="h-4 w-4"/>
                 </Button>
