@@ -12,6 +12,7 @@ export type UserType = {
     photoUrl?: string
     averageRating?: number,
     isOnline?: boolean
+    languageCode?: string
 }
 
 export enum Role {

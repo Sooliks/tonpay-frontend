@@ -1,5 +1,5 @@
 'use client'
-import React from 'react';
+import React, {useEffect} from 'react';
 import ProfileMenu from "@/app/profile/[id]/ProfileMenu";
 import {Card} from "@/components/ui/card";
 import UserAvatar from "@/components/my-ui/UserAvatar";
@@ -9,6 +9,8 @@ import useSWR from "swr";
 import {Separator} from "@/components/ui/separator";
 import {Star} from "lucide-react";
 import FirstSendMessageDialog from "@/components/my-ui/FirstSendMessageDialog";
+import CountryList from "country-list-with-dial-code-and-flag";
+
 type ProfileLayoutProps = {
     params: {
         id: string
@@ -16,15 +18,20 @@ type ProfileLayoutProps = {
     children: React.ReactNode
 }
 
+
 const ProfileLayout = ({params, children}: ProfileLayoutProps) => {
     const { data, error, isLoading } = useSWR<UserType>(`/profile/${params.id}`)
+    const country = CountryList.findOneByCountryCode(data?.languageCode || "")|| undefined
     if(isLoading){
         return <SpinLoading/>
     }
     return (
         <div className={'p-4'}>
             <Card className={'p-4'}>
-                <h1>User</h1>
+                <div className={'flex justify-between'}>
+                    <h1>User</h1>
+                    <p className={'text-sm text-muted-foreground'}>{country?.flag}</p>
+                </div>
                 <Separator className={'mt-2 mb-4'}/>
                 <div className={'flex items-center justify-between'}>
                     <div>
