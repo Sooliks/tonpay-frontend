@@ -25,7 +25,7 @@ const CopyButton = (
     const [isCopied, setCopied] = useState<boolean>(false);
     const handleClick = () => {
         if(isCopied)return;
-        const text = refTelegram ? `https://t.me/PayOnTonBot/app?startParam=${copyText}` : copyText;
+        const text = refTelegram ? `https://t.me/PayOnTonBot/app?startapp=${copyText}` : copyText;
         navigator.clipboard.writeText(text).then(()=>{
             setCopied(true);
             setTimeout(()=>{
