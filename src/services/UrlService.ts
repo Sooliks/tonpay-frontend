@@ -1,13 +1,9 @@
 export class UrlService {
     static parseUrl(url: string): string | null {
         try {
-            const parsedUrl = new URL(url);
-
-            // Проверка, что в URL присутствует параметр `startapp` и начинается с `url`
-            const startapp = parsedUrl.searchParams.get("startapp");
-            if (startapp && startapp.startsWith("url")) {
+            if (url.startsWith("url")) {
                 // Убираем "url" и разбиваем на название страницы и ID
-                const pageAndId = startapp.slice(3); // удаляем "url"
+                const pageAndId = url.slice(3); // удаляем "url"
 
                 // Извлекаем название страницы (например, 'sale') и ID
                 const page = pageAndId.match(/^[a-zA-Z]+/)?.[0]; // находит название страницы

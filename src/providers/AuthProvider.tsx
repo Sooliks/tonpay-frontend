@@ -50,6 +50,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }, [authData])
     useEffect(() => {
         if(initData?.startParam){
+            console.log(initData.startParam)
             const url = UrlService.parseUrl(initData.startParam)
             if(url)replace(`/${url}`)
         }
