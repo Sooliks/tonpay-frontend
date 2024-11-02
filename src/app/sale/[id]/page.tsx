@@ -20,6 +20,7 @@ import parseTextWithLinks from "@/services/linkDetectService";
 import axiosInstance from "@/configs/axios";
 import {AxiosError} from "axios";
 import {toast} from "@/hooks/use-toast";
+import CopyButton from "@/components/my-ui/CopyButton";
 type ProfileLayoutProps = {
     params: {
         id: string
@@ -72,6 +73,7 @@ const SalePage = ({params}: ProfileLayoutProps) => {
             <Card className={'p-4 mt-2'}>
                 <p className={'text-muted-foreground'}>Description</p>
                 <p className={'whitespace-pre-line'}>{parseTextWithLinks(data.description)}</p>
+                <CopyButton copyText={`?sale=${data.id}`} className={'mt-2'} textButton={'Share'}/>
             </Card>
             <Card className={'p-4 mt-2 flex justify-between'}>
                 <UserAvatar photoUrl={data.user.photoUrl || ""} nickname={data.user.nickname} id={data.userId}/>
