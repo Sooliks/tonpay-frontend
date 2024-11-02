@@ -10,15 +10,19 @@ const ChatPreview = ({chat, meUserId}:{chat: Chat, meUserId: string}) => {
     let interlocutor = chat.users.filter(u=>u.id!==meUserId)[0];
     if(!interlocutor)interlocutor = chat.users[0]
     if(!chat.lastMessage)return null;
+    const isAdmin = interlocutor.role === 'ADMIN' || interlocutor.role === 'CREATOR';
     return (
         <Link href={`/chat/${chat.id}`} className={'mb-2'}>
             <Card className={'p-4 w-full'}>
-                <UserAvatar
-                    photoUrl={interlocutor.photoUrl || ""}
-                    nickname={interlocutor.nickname}
-                    id={interlocutor.id}
-                    link={false}
-                />
+                <div className={'flex items-center justify-between'}>
+                    <UserAvatar
+                        photoUrl={interlocutor.photoUrl || ""}
+                        nickname={interlocutor.nickname}
+                        id={interlocutor.id}
+                        link={false}
+                    />
+                    {isAdmin && <p className={'text-sm text-muted-foreground'}>admin</p>}
+                </div>
                 <Separator className={'my-1'}/>
                 <div className={'ml-4'}>
                     <UserAvatar
