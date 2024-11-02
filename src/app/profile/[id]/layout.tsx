@@ -10,6 +10,8 @@ import {Separator} from "@/components/ui/separator";
 import {Star} from "lucide-react";
 import FirstSendMessageDialog from "@/components/my-ui/FirstSendMessageDialog";
 import CountryList from "country-list-with-dial-code-and-flag";
+import CopyButton from "@/components/my-ui/CopyButton";
+import NotFound from "@/app/not-found";
 
 type ProfileLayoutProps = {
     params: {
@@ -24,6 +26,9 @@ const ProfileLayout = ({params, children}: ProfileLayoutProps) => {
     const country = CountryList.findOneByCountryCode(data?.languageCode || "")|| undefined
     if(isLoading){
         return <SpinLoading/>
+    }
+    if(!data){
+        return <NotFound/>
     }
     return (
         <div className={'p-4'}>
@@ -45,7 +50,10 @@ const ProfileLayout = ({params, children}: ProfileLayoutProps) => {
                     {data && data.averageRating && <p className={'flex items-center'}>Rating: <Star className={'w-4 h-4 ml-1'}/> {data.averageRating}</p>}
                 </div>
                 <Separator className={'my-2'}/>
-                <FirstSendMessageDialog recipientId={data!.id}/>
+                <div className={'flex items-center justify-between'}>
+                    <FirstSendMessageDialog recipientId={data.id}/>
+                    <CopyButton refTelegram copyText={`profile${data.id}`} textButton={'Share'}/>
+                </div>
             </Card>
             <ProfileMenu
                 tabs={[

@@ -73,7 +73,7 @@ const SalePage = ({params}: ProfileLayoutProps) => {
             <Card className={'p-4 mt-2'}>
                 <p className={'text-muted-foreground'}>Description</p>
                 <p className={'whitespace-pre-line'}>{parseTextWithLinks(data.description)}</p>
-                <CopyButton copyText={`urlsale${data.id}`} className={'mt-2'} textButton={'Share'}/>
+                <CopyButton refTelegram copyText={`sale${data.id}`} className={'mt-2'} textButton={'Share'}/>
             </Card>
             <Card className={'p-4 mt-2 flex justify-between'}>
                 <UserAvatar photoUrl={data.user.photoUrl || ""} nickname={data.user.nickname} id={data.userId}/>

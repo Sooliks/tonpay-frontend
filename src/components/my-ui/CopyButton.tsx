@@ -2,6 +2,7 @@
 import React, {useState} from 'react';
 import {Button} from "@/components/ui/button";
 import {Copy, CopyCheck} from "lucide-react";
+import {toast} from "@/hooks/use-toast";
 
 const CopyButton = (
         {
@@ -10,7 +11,8 @@ const CopyButton = (
             variant = 'secondary',
             refTelegram = true,
             className,
-            size = 'sm'
+            size = 'sm',
+            notify = true
         }
         :
         {
@@ -19,15 +21,19 @@ const CopyButton = (
             variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link" | null | undefined,
             refTelegram?: boolean,
             className?: string,
-            size?: 'sm' | 'lg' | 'default'
+            size?: 'sm' | 'lg' | 'default',
+            notify?: boolean
         }
 ) => {
     const [isCopied, setCopied] = useState<boolean>(false);
     const handleClick = () => {
         if(isCopied)return;
-        const text = refTelegram ? `https://t.me/PayOnTonBot/app?startapp=${copyText}` : copyText;
+        const text = refTelegram ? `https://t.me/PayOnTonBot/app?startapp=url${copyText}` : copyText;
         navigator.clipboard.writeText(text).then(()=>{
             setCopied(true);
+            if(notify){
+                toast({description: 'Copied'})
+            }
             setTimeout(()=>{
                 setCopied(false)
             }, 2000)
