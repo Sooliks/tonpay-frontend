@@ -7,6 +7,7 @@ import {useLoginUser} from "@/hooks/useLoginUser";
 import FirstLoading from "@/components/my-ui/FirstLoading";
 import Error from "@/app/error";
 import {useRouter} from "next/navigation";
+import {UrlService} from "@/services/UrlService";
 
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
@@ -49,21 +50,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }, [authData])
     useEffect(() => {
         if(initData?.startParam){
-            const url = parseUrl(initData.startParam)
-            if(url)replace(url)
+            const url = UrlService.parseUrl(initData.startParam)
+            if(url)replace(`/${url}`)
         }
     }, [initData]);
-    function parseUrl(query: string): string | null {
-        if (query.startsWith('?')) {
-            const params = new URLSearchParams(query);
-            const page = params.keys().next().value;
-            const id = params.get(page || "");
-            if (page && id) {
-                return `/${page}/${id}`;
-            }
-        }
-        return null;
-    }
+
 
     const isLoading = isFetchingCurrentUser || isLoggingIn
 
