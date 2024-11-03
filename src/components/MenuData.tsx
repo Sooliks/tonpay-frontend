@@ -1,16 +1,17 @@
 'use client'
 import React, {useEffect, useState} from 'react';
-import Menu from "@/components/Menu";
+import Menu, {MenuBar} from "@/components/Menu";
 import {useAuth} from "@/hooks/useAuth";
 import {useInitData} from "@telegram-apps/sdk-react";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import {Badge} from "@/components/ui/badge";
 import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip";
+import axiosInstance from "@/configs/axios";
 
 const MenuData = () => {
     const auth = useAuth();
     const initData = useInitData()
-    const [bars,setBars] = useState([
+    const [bars,setBars] = useState<MenuBar[]>([
         {
             title: 'Home',
             path: '/'
@@ -57,26 +58,42 @@ const MenuData = () => {
     },[auth.user?.money])
     useEffect(()=>{
         if(auth.user!.role === 'ADMIN' || auth.user!.role === 'CREATOR' ){
-            setBars([
-                {
-                    title:
-                        <Tooltip delayDuration={200}>
-                            <TooltipTrigger>A</TooltipTrigger>
-                            <TooltipContent>
-                                <p>Admin panel</p>
-                            </TooltipContent>
-                        </Tooltip>,
-                    path: 'admin',
-                    items: [
-                        {title: 'Categories', path: 'scopes'},
-                        {title: 'Admins', path: 'admins'},
-                        {title: 'Users', path: 'users'},
-                        {title: 'Sales', path: 'sales'},
-                        {title: 'Statistic', path: 'stats'},
-                        {title: 'Reports', path: 'reports'}
-                    ]
-                }, ...bars
-            ])
+            axiosInstance.get('/stats/counts').then(res=>{
+                if(res?.data){
+                    setBars([
+                        {
+                            title:
+                                <Tooltip delayDuration={200}>
+                                    <TooltipTrigger>A</TooltipTrigger>
+                                    <TooltipContent>
+                                        <p>Admin panel</p>
+                                    </TooltipContent>
+                                </Tooltip>,
+                            path: 'admin',
+                            items: [
+                                {title: 'Categories', path: 'scopes'},
+                                {title: 'Admins', path: 'admins'},
+                                {title: 'Users', path: 'users'},
+                                {
+                                    title: res.data?.countSales > 0 ?
+                                            <p className={'flex items-center'}>Sales <Badge className={'ml-1'}>{res.data.countSales}</Badge></p>
+                                            :
+                                            'Sales',
+                                    path: 'sales'
+                                },
+                                {title: 'Statistic', path: 'stats'},
+                                {
+                                    title: res.data?.countReports > 0 ?
+                                        <p className={'flex items-center'}>Reports <Badge className={'ml-1'}>{res.data.countReports}</Badge></p>
+                                        :
+                                        'Reports',
+                                    path: 'reports'
+                                }
+                            ]
+                        }, ...bars
+                    ])
+                }
+            })
         }
     },[])
     return (

@@ -21,7 +21,7 @@ type MenuItem = {
     disabled?: boolean
 }
 
-type MenuBar = {
+export type MenuBar = {
     title: string | React.ReactNode
     items?: MenuItem[]
     path: string

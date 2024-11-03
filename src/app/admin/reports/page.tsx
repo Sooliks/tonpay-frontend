@@ -13,7 +13,7 @@ const ReportsPage = () => {
     }
     return (
         <div className={'p-4'}>
-            <h4 className={'text-center scroll-m-20 text-xl font-semibold tracking-tight mb-2'}>Un moderating sales</h4>
+            <h4 className={'text-center scroll-m-20 text-xl font-semibold tracking-tight mb-2'}>Active reports</h4>
             {data && data.length > 0 ? data.map(report=>
                     <ReportPreview report={report} key={report.id}/>
                 )

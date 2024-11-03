@@ -12,16 +12,33 @@ import {Button} from "@/components/ui/button";
 import {Textarea} from "@/components/ui/textarea";
 import {Loader2, MessageSquareWarning} from "lucide-react";
 import {Order} from "@/types/order";
+import {toast} from "@/hooks/use-toast";
+import axiosInstance from "@/configs/axios";
+import {AxiosError} from "axios";
 
 const ReportDialog = ({order}:{order: Order}) => {
     const [message,setMessage] = useState<string>("");
     const [isLoading,setIsLoading] = useState<boolean>(false)
+    const [isOpen,setIsOpen] = useState<boolean>(false)
 
     const handleSendReport = () => {
-
+        if(!message){
+            toast({description: 'Please enter message'})
+            return
+        }
+        setIsLoading(true)
+        axiosInstance.post('/reports/create', {orderId: order.id, text: message}).then(res=>{
+            if(res.status === 201) {
+                setIsOpen(false)
+                toast({description: 'Report created'})
+            }
+        }).finally(() => setIsLoading(false)).catch((error: AxiosError)=>{
+            const errorMessage = (error.response?.data as { message?: string })?.message || error.message;
+            toast({description: `Error: ${errorMessage}`})
+        })
     }
     return (
-        <Drawer>
+        <Drawer open={isOpen} onOpenChange={(v)=>setIsOpen(v)}>
             <DrawerTrigger asChild>
                 <Button
                     className={'mt-2'}
@@ -41,7 +58,7 @@ const ReportDialog = ({order}:{order: Order}) => {
                             <Textarea
                                 onChange={(e)=>setMessage(e.target.value)}
                                 value={message}
-                                placeholder="Enter message"
+                                placeholder="Describe your problem"
                             />
                         </div>
                     </div>

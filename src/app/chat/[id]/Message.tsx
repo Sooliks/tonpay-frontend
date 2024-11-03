@@ -5,6 +5,7 @@ import Image from "next/image";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import Link from "next/link";
 import {Badge} from "@/components/ui/badge";
+import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
 
 const MessageUi = ({message, meId}:{message: MessageType, meId: string}) => {
     function formatMessageDate(createdAt: Date): string {
@@ -36,18 +37,37 @@ const MessageUi = ({message, meId}:{message: MessageType, meId: string}) => {
             <div
                 className={`p-3 mt-1 rounded-lg max-w-xs ${message.senderId === meId ? 'bg-blue-500 text-white' : 'bg-gray-300 text-black'}`}
             >
-                <div className={'flex items-center max-w-56'}>
-                    <Avatar className={'h-5 w-5 mr-1'}>
-                        <AvatarImage src={message.sender?.photoUrl || ""}/>
-                        <AvatarFallback>{message.sender?.nickname[0]}</AvatarFallback>
-                    </Avatar>
-                    <div>
-                        {message.isSystemMessage &&
-                            <div className={'flex justify-center'}>
+                {message.isSystemMessage &&
+                    <div className={'flex justify-center'}>
+                        <Tooltip delayDuration={200}>
+                            <TooltipTrigger>
                                 <Badge variant={'secondary'}>System message</Badge>
-                            </div>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p>This message was sent automatically by the system.</p>
+                            </TooltipContent>
+                        </Tooltip>
+                    </div>
+                }
+                <div className={'flex items-center max-w-56'}>
+                    <div className={'mr-2 flex flex-col items-center'}>
+                        <Avatar className={'h-5 w-5'}>
+                            <AvatarImage src={message.sender?.photoUrl || ""}/>
+                            <AvatarFallback>{message.sender?.nickname[0]}</AvatarFallback>
+                        </Avatar>
+                        {(message.sender.role === 'ADMIN' || message.sender.role === 'CREATOR') &&
+                            <Tooltip delayDuration={200}>
+                                <TooltipTrigger>
+                                    <Badge className={'w-5 h-5 text-sm flex justify-center items-center p-0 mt-1'} variant={'destructive'}>A</Badge>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>This is the administrator</p>
+                                </TooltipContent>
+                            </Tooltip>
                         }
-                        <p className={'break-all leading-7 [&:not(:first-child)]:mt-6'}>{message.content}</p>
+                    </div>
+                    <div>
+                        <p className={'break-words leading-7 [&:not(:first-child)]:mt-6'}>{message.content}</p>
                     </div>
                 </div>
                 {message.screens.length > 0 && (
