@@ -72,14 +72,21 @@ const ReportPreview = ({report, onConfirm, isArchive = false}: {report: Report, 
                         Confirm report
                     </Button>
                 }
-                <div>
-                    {report.admin &&
-                        <div className={'flex items-center'}>
-                            <p className={'text-sm text-muted-foreground'}>Admin:</p>
-                            <UserAvatar small className={'ml-2'} photoUrl={report.admin.photoUrl || ""} nickname={report.admin.nickname}
-                                        id={report.admin.id}/>
-                        </div>
-                    }
+                <div className={'flex justify-between'}>
+                    <div className={'flex items-center'}>
+                        {report.admin &&
+                            <div className={'flex items-center'}>
+                                <p className={'text-sm text-muted-foreground'}>Admin:</p>
+                                <UserAvatar
+                                    small
+                                    className={'ml-2'}
+                                    photoUrl={report.admin.photoUrl || ""}
+                                    nickname={report.admin.nickname}
+                                    id={report.admin.id}
+                                />
+                            </div>
+                        }
+                    </div>
                     <p className={'self-end'}>{new Date(report.createdAt).toLocaleDateString() + " " + new Date(report.createdAt).toLocaleTimeString()}</p>
                 </div>
             </div>
