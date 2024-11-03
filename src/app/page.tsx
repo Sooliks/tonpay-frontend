@@ -26,13 +26,13 @@ export default function Home() {
                 <Drawer>
                     <DrawerTrigger asChild>
                         <Button variant={'secondary'}>
-                            Learn More
+                            Rules
                         </Button>
                     </DrawerTrigger>
                     <DrawerContent>
                         <div className="mx-auto w-full max-w-sm">
                             <DrawerHeader>
-                                <DrawerTitle>Is Drawer</DrawerTitle>
+                                <DrawerTitle>Rules</DrawerTitle>
                                 <DrawerDescription>Description</DrawerDescription>
                             </DrawerHeader>
                             <div className="p-4 pb-0">
@@ -44,9 +44,8 @@ export default function Home() {
                                 </div>
                             </div>
                             <DrawerFooter>
-                                <Button>Submit</Button>
                                 <DrawerClose asChild>
-                                    <Button variant="outline">Cancel</Button>
+                                    <Button variant="outline">Close</Button>
                                 </DrawerClose>
                             </DrawerFooter>
                         </div>
