@@ -5,7 +5,7 @@ import SpinLoading from "@/components/my-ui/SpinLoading";
 import {Order} from "@/types/order";
 import NotFound from "@/app/not-found";
 import Link from "next/link";
-import {Ban, Check, Loader2} from "lucide-react";
+import {Ban, Check, Loader2, MessageSquareWarning} from "lucide-react";
 import {Button} from "@/components/ui/button";
 import {useAuth} from "@/hooks/useAuth";
 import CreateFeedbackForm from "@/app/profile/orders/[id]/CreateFeedbackForm";
@@ -13,6 +13,7 @@ import {Card} from "@/components/ui/card";
 import axiosInstance from "@/configs/axios";
 import {toast} from "@/hooks/use-toast";
 import {AxiosError} from "axios";
+import ReportDialog from "@/components/my-ui/ReportDialog";
 
 
 type OrderPageProps = {
@@ -72,6 +73,7 @@ const OrderPage = ({params}: OrderPageProps) => {
                     }
                 </p>
             </Card>
+            {!data.isCompleted && !data.isCancelled && <ReportDialog order={data}/>}
             {!data.isCompleted && !data.isCancelled && data.customerId === auth.user?.id &&
                 <Card className={'p-4 mt-2 flex justify-center'}>
                     <Button onClick={handleConfirm} disabled={isLoadingConfirm}>
