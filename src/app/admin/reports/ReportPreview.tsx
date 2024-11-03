@@ -11,8 +11,9 @@ import {toast} from "@/hooks/use-toast";
 import {AxiosError} from "axios";
 import {useRouter} from "next/navigation";
 
-const ReportPreview = ({report}: {report: Report}) => {
+const ReportPreview = ({report, onConfirm, isArchive = false}: {report: Report, onConfirm?: () => void, isArchive?: boolean}) => {
     const [isLoadingChat,setIsLoadingChat] = useState<boolean>(false);
+    const [isLoadingConfirm,setIsLoadingConfirm] = useState<boolean>(false);
     const {push} = useRouter();
     const handleClickChat = () => {
         setIsLoadingChat(true)
@@ -27,6 +28,17 @@ const ReportPreview = ({report}: {report: Report}) => {
             toast({description: `Error: ${errorMessage}`})
         })
     }
+    const handleClickConfirm = () => {
+        setIsLoadingConfirm(true);
+        axiosInstance.post('/reports/confirm', {reportId: report.id}).then(res=>{
+            if(res.status === 201) {
+                if(onConfirm) onConfirm()
+            }
+        }).finally(() => setIsLoadingConfirm(false)).catch((error: AxiosError)=>{
+            const errorMessage = (error.response?.data as { message?: string })?.message || error.message;
+            toast({description: `Error: ${errorMessage}`})
+        })
+    }
     return (
         <div className={'mb-2'}>
             <div className={'w-full flex flex-col'}>
@@ -34,7 +46,7 @@ const ReportPreview = ({report}: {report: Report}) => {
                 <div className={'flex items-center'}>
                     <UserAvatar photoUrl={report.user.photoUrl || ""} nickname={report.user.nickname} id={report.user.id}/>
                     <Separator orientation={'vertical'} className={'mx-2 h-6 ml-4'}/>
-                    <Link href={`/profile/orders/${report.orderId}`} className={'text-blue-800 text-sm'}>
+                    <Link href={`/profile/orders/${report.orderId}?forAdmin=true`} className={'text-blue-800 text-sm'}>
                         <Button variant={'ghost'} className={'text-blue-800 text-sm'}>Order</Button>
                     </Link>
                     <Separator orientation={'vertical'} className={'mx-2 h-6'}/>
@@ -49,7 +61,27 @@ const ReportPreview = ({report}: {report: Report}) => {
                     </Button>
                 </div>
                 <p className={'ml-2 whitespace-pre-line'}>{report.text}</p>
-                <p className={'self-end'}>{new Date(report.createdAt).toLocaleDateString() + " " + new Date(report.createdAt).toLocaleTimeString()}</p>
+                {!isArchive &&
+                    <Button
+                        size={'sm'}
+                        className={'my-2'}
+                        disabled={isLoadingConfirm}
+                        onClick={handleClickConfirm}
+                    >
+                        {isLoadingConfirm && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                        Confirm report
+                    </Button>
+                }
+                <div>
+                    {report.admin &&
+                        <div className={'flex items-center'}>
+                            <p className={'text-sm text-muted-foreground'}>Admin:</p>
+                            <UserAvatar small className={'ml-2'} photoUrl={report.admin.photoUrl || ""} nickname={report.admin.nickname}
+                                        id={report.admin.id}/>
+                        </div>
+                    }
+                    <p className={'self-end'}>{new Date(report.createdAt).toLocaleDateString() + " " + new Date(report.createdAt).toLocaleTimeString()}</p>
+                </div>
             </div>
             <Separator orientation={'horizontal'} className={'mt-2'}/>
         </div>

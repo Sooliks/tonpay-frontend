@@ -21,7 +21,9 @@ const SendMessageForm = ({recipientId, onMessage}:{recipientId: string, onMessag
         register,
         handleSubmit,
         formState: {errors},
-        reset
+        reset,
+        setValue,
+        getValues
     } = useForm<CreateMessage>({mode: 'onChange'});
     const [isLoadingSubmit,setIsLoadingSubmit] = useState<boolean>(false)
     const [files, setFiles] = useState<PreviewFile[]>([]);
@@ -77,6 +79,10 @@ const SendMessageForm = ({recipientId, onMessage}:{recipientId: string, onMessag
     }
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         if (event.key === 'Enter' && event.shiftKey) {
+            event.preventDefault();
+            setValue('content', getValues('content') + '\n')
+        }
+        else if (event.key === 'Enter') {
             event.preventDefault();
             handleSubmit(onSubmit)();
         }

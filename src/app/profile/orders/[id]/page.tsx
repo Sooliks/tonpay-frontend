@@ -1,11 +1,11 @@
 'use client'
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import useSWR from "swr";
 import SpinLoading from "@/components/my-ui/SpinLoading";
 import {Order} from "@/types/order";
 import NotFound from "@/app/not-found";
 import Link from "next/link";
-import {Ban, Check, Loader2, MessageSquareWarning} from "lucide-react";
+import {Ban, Check, Loader2} from "lucide-react";
 import {Button} from "@/components/ui/button";
 import {useAuth} from "@/hooks/useAuth";
 import CreateFeedbackForm from "@/app/profile/orders/[id]/CreateFeedbackForm";
@@ -14,6 +14,7 @@ import axiosInstance from "@/configs/axios";
 import {toast} from "@/hooks/use-toast";
 import {AxiosError} from "axios";
 import ReportDialog from "@/components/my-ui/ReportDialog";
+import {useSearchParams} from "next/navigation";
 
 
 type OrderPageProps = {
@@ -24,10 +25,16 @@ type OrderPageProps = {
 const OrderPage = ({params}: OrderPageProps) => {
     const { data, error, isLoading, mutate } = useSWR<Order>(`/orders/byid/${params.id}`)
     const [isLoadingConfirm,setIsLoadingConfirm] = useState<boolean>(false)
+    const [isForAdmin,setIsForAdmin] = useState<boolean>(false)
     const auth = useAuth();
+    const searchParams = useSearchParams();
+    useEffect(() => {
+        const forAdmin = searchParams.get('forAdmin');
+        setIsForAdmin(forAdmin === 'true')
+    },[searchParams])
     const handleConfirm = () => {
         setIsLoadingConfirm(true)
-        axiosInstance.post('/orders/confirm', {orderId: data?.id}).then(res=>{
+        axiosInstance.post(auth.user?.role === 'ADMIN' || auth.user?.role === 'CREATOR' ? '/orders/confirm' : '/orders/confirm/foradmin', {orderId: data?.id}).then(res=>{
             if(res.status === 201) {
                 toast({description: `Order confirmed`})
                 mutate();
@@ -42,6 +49,9 @@ const OrderPage = ({params}: OrderPageProps) => {
     }
     if(!data){
         return <NotFound/>
+    }
+    if(auth.user?.role === 'USER'){
+        if(isForAdmin)return <NotFound/>
     }
     return (
         <div className={'p-4 flex flex-col'}>
@@ -74,7 +84,7 @@ const OrderPage = ({params}: OrderPageProps) => {
                 </p>
             </Card>
             {!data.isCompleted && !data.isCancelled && <ReportDialog order={data}/>}
-            {!data.isCompleted && !data.isCancelled && data.customerId === auth.user?.id &&
+            {((!data.isCompleted && !data.isCancelled && data.customerId === auth.user?.id) || (auth.user?.role === 'ADMIN' || auth.user?.role === 'CREATOR')) &&
                 <Card className={'p-4 mt-2 flex justify-center'}>
                     <Button onClick={handleConfirm} disabled={isLoadingConfirm}>
                         {isLoadingConfirm && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
