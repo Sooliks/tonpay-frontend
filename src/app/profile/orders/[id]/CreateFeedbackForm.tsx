@@ -21,6 +21,7 @@ const CreateFeedbackForm = ({orderId}:{orderId: string}) => {
     const [feedback,setFeedback] = useState<string>("");
     const [stars,setStars] = useState<number>(5);
     const [isLoading,setIsLoading] = useState<boolean>(false)
+    const [isOpen,setIsOpen] = useState<boolean>(false)
     const handleSendFeedback = () => {
         if(feedback.length > 100) {
             toast({description: `The review must be no more than 100 characters long`})
@@ -30,6 +31,7 @@ const CreateFeedbackForm = ({orderId}:{orderId: string}) => {
         axiosInstance.post('/feedbacks', {orderId: orderId, rate: stars, text: feedback}).then(res=>{
             if(res.status === 201) {
                 toast({description: `Feedback created`})
+                setIsOpen(false)
             }
         }).finally(() => setIsLoading(false)).catch((error: AxiosError)=>{
             const errorMessage = (error.response?.data as { message?: string })?.message || error.message;
@@ -54,7 +56,7 @@ const CreateFeedbackForm = ({orderId}:{orderId: string}) => {
         setFeedback(value); // Устанавливаем текст, если ограничения не нарушены
     };
     return (
-        <Drawer>
+        <Drawer onOpenChange={setIsOpen} open={isOpen}>
             <DrawerTrigger asChild>
                 <Button size={'sm'} className={'ml-2'} variant={'secondary'}>Create feedback</Button>
             </DrawerTrigger>

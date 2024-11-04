@@ -33,8 +33,7 @@ const ReportsArchivePage = () => {
                     scrollableTarget="scrollableDiv"
                 >
                     <div className={'flex flex-col'}>
-                        {data.length > 0 ? data.map(sale => (sale.map(report => <ReportPreview isArchive key={report.id}
-                                                                                               report={report}/>)))
+                        {data.length > 0 ? data.map(sale => (sale.map(report => <ReportPreview isArchive key={report.id} report={report}/>)))
                             :
                             <p className={'text-center text-muted-foreground text-2xl mt-24'}>Nothing</p>
                         }
