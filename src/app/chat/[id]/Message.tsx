@@ -6,6 +6,7 @@ import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import Link from "next/link";
 import {Badge} from "@/components/ui/badge";
 import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
+import parseTextWithLinks from "@/services/linkDetectService";
 
 const MessageUi = ({message, meId}:{message: MessageType, meId: string}) => {
     function formatMessageDate(createdAt: Date): string {
@@ -67,7 +68,9 @@ const MessageUi = ({message, meId}:{message: MessageType, meId: string}) => {
                         }
                     </div>
                     <div>
-                        <p className={'break-words leading-7 [&:not(:first-child)]:mt-6'}>{message.content}</p>
+                        <p className={'break-words break-all leading-7 [&:not(:first-child)]:mt-6'}>
+                            {parseTextWithLinks(message.content)}
+                        </p>
                     </div>
                 </div>
                 {message.screens.length > 0 && (

@@ -28,6 +28,7 @@ const ChatPage = ({params}: ProfileLayoutProps) => {
     const [hasMore, setHasMore] = useState(true);
     const [page, setPage] = useState(0);
     const prevMessagesLength = useRef(messages.length);
+    const lastMessageRef = useRef<HTMLDivElement | null>(null);
     const { data, error, isLoading } = useSWR<Chat>(`/chat/dialogs/${params.id}/messages?skip=${page * limit}&count=${limit}`, {revalidateOnFocus: false})
     const {message} = useChatSocket();
     useEffect(()=>{
@@ -51,12 +52,11 @@ const ChatPage = ({params}: ProfileLayoutProps) => {
             if (messages.length > prevMessagesLength.current) {
                 const isAtBottom =
                     scrollableDivRef.current.scrollTop + scrollableDivRef.current.clientHeight >=
-                    scrollableDivRef.current.scrollHeight - 100; // Погрешность в 100px
-
+                    scrollableDivRef.current.scrollHeight - 300; // Погрешность в 100px
                 if (isAtBottom) {
-                    setTimeout(() => {
-                        scrollableDivRef.current!.scrollTop = scrollableDivRef.current!.scrollHeight;
-                    }, 100); // 100ms задержка
+                    if (lastMessageRef.current) {
+                        lastMessageRef.current.scrollIntoView({ behavior: 'smooth' });
+                    }
                 }
             }
             prevMessagesLength.current = messages.length;
@@ -126,7 +126,11 @@ const ChatPage = ({params}: ProfileLayoutProps) => {
                                 <Skeleton className="h-4 w-full"/>
                             </div>
                         }
-                        {messages.map(message => <MessageUi key={message.id} message={message} meId={auth.user!.id}/>)}
+                        {messages.map((message, index) =>
+                            <div key={message.id} ref={index === messages.length - 1 ? lastMessageRef : null}>
+                                <MessageUi message={message} meId={auth.user!.id}/>
+                            </div>
+                        )}
                         <div ref={scrollableDivRef}/>
                     </InfiniteScroll>
                 </div>

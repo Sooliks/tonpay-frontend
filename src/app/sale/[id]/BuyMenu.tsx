@@ -23,7 +23,7 @@ const BuyMenu = ({sale}:{sale: Sale}) => {
     const {push} = useRouter();
     const handleSubmit = () => {
         setIsLoading(true)
-        axiosInstance.post(`/orders`, {saleId: sale.id}).then(res=>{
+        axiosInstance.post(`/orders`, {saleId: sale.id, price: sale.price}).then(res=>{
             if(res.status === 201) {
                 toast({description: 'Order created'})
                 push(`/chat/${res.data.chatId}`)
