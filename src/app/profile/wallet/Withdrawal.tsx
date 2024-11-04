@@ -7,7 +7,7 @@ import axiosInstance from "@/configs/axios";
 import {useTonConnectUI} from "@tonconnect/ui-react";
 import {Loader2} from "lucide-react";
 import {AxiosError} from "axios";
-import {useToast} from "@/hooks/use-toast";
+import {toast} from "@/hooks/use-toast";
 import {Label} from "@/components/ui/label";
 
 const Withdrawal = () => {
@@ -15,13 +15,15 @@ const Withdrawal = () => {
     const [amount,setAmount] = useState<number>(auth.user?.money || 0)
     const [isLoading,setIsLoading] = useState<boolean>(false)
     const [tonConnectUi] = useTonConnectUI()
-    const { toast } = useToast()
     const handleWithdraw = () => {
+        setIsLoading(true)
         if(!tonConnectUi.account?.address){
             toast({description: 'Please connect your wallet'})
+            tonConnectUi.openModal()
             return
         }
-        setIsLoading(true)
+        toast({description: 'The withdraw has been sent, wait..'})
+        setIsLoading(false)
         axiosInstance.post('/ton/withdraw', {amount: amount, address: tonConnectUi.account.address}).then(data=>{
             if(data.status === 201) {
                 toast({description: 'Success, check your wallet'})
@@ -43,7 +45,7 @@ const Withdrawal = () => {
                     value={amount}
                     onChange={(e)=>setAmount(Number(e.target.value))}
                     max={amount}
-                    min={0.002}
+                    min={0.05}
                 />
             </div>
             <Button
