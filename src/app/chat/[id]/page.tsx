@@ -52,7 +52,7 @@ const ChatPage = ({params}: ProfileLayoutProps) => {
         if (!isLoading && messages.length === limit) {
             scrollToBottom();
         }
-    }, [isLoading, messages.length]);
+    }, [messages.length]);
     useEffect(() => {
         if (scrollableDivRef.current) {
             if (messages.length > prevMessagesLength.current) {
