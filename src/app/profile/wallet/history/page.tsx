@@ -14,7 +14,7 @@ import SpinLoading from "@/components/my-ui/SpinLoading";
 const COUNT_ON_PAGE = 10;
 const getKey = (pageIndex: number, previousPageData: Transaction[] | null) => {
     if (previousPageData && !previousPageData.length) return null;
-    return `/ton/transactions/?count=${COUNT_ON_PAGE}&skip=${pageIndex * COUNT_ON_PAGE}`;
+    return `/ton/transactions?count=${COUNT_ON_PAGE}&skip=${pageIndex * COUNT_ON_PAGE}`;
 };
 const HistoryPaymentPage = () => {
     const {back} = useRouter();

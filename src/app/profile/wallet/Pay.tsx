@@ -27,7 +27,7 @@ const Pay = () => {
         setIsLoading(true)
         const body = beginCell()
             .storeUint(0, 32) // write 32 zero bits to indicate that a text comment will follow
-            .storeStringTail(auth.user!.id) // write our text comment
+            .storeStringTail(auth.user.id) // write our text comment
             .endCell();
         tonConnectUi.sendTransaction({
             messages: [
