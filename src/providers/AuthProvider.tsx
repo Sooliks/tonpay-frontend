@@ -17,13 +17,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const { authData, error: loginUserError, loginUser, isLoading: isLoggingIn } = useLoginUser()
     const {replace} = useRouter();
     useEffect(() => {
-        try {
-            setInterval(()=>{
-                fetchCurrentUser()
-            }, 2500)
-        }catch (e) {
-
-        }
+        fetchCurrentUser()
     }, [])
     useEffect(() => {
         try {
@@ -50,7 +44,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }, [authData])
     useEffect(() => {
         if(initData?.startParam){
-            console.log(initData.startParam)
             const url = UrlService.parseUrl(initData.startParam)
             if(url)replace(`/${url}`)
         }

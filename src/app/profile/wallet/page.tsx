@@ -1,50 +1,17 @@
 'use client'
-import React, {useRef, useState} from 'react';
-import {TonConnectButton, useTonConnectUI} from "@tonconnect/ui-react";
-import {beginCell, toNano} from "@ton/core";
-import {useAuth} from "@/hooks/useAuth";
+import React from 'react';
+import {TonConnectButton} from "@tonconnect/ui-react";
 import Pay from "@/app/profile/wallet/Pay";
 import {Button} from "@/components/ui/button";
 import {Separator} from "@/components/ui/separator";
-import {Card} from "@/components/ui/card";
 import Link from "next/link";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
 import Withdrawal from "@/app/profile/wallet/Withdrawal";
+import {useAuth} from "@/hooks/useAuth";
+import {Card} from "@/components/ui/card";
 
 const WalletPage = () => {
-    const [tonConnectUi] = useTonConnectUI();
-    const [isLoading,setIsLoading] = useState<boolean>(false);
     const auth = useAuth()
-    const balance= useRef<number>(auth.user!.money)
-    const handlePay = async (amount: number) => {
-        if(!tonConnectUi.wallet){
-            tonConnectUi.openModal()
-            return
-        }
-        if(!auth.user?.id){
-            alert('Error: Please reload app')
-            return
-        }
-        setIsLoading(true)
-        const body = beginCell()
-            .storeUint(0, 32) // write 32 zero bits to indicate that a text comment will follow
-            .storeStringTail(auth.user!.id) // write our text comment
-            .endCell();
-        const response = await tonConnectUi.sendTransaction({
-            messages: [
-                {
-                    address: 'UQDFD5TTfKEKnFgJkeKiCCzrDpX_iM85JRdig3RnmPrnjjMA',
-                    amount: toNano(amount.toString()).toString(),
-                    payload: body.toBoc().toString("base64")
-                }
-            ],
-            validUntil: Math.floor(Date.now() / 1000) + 360
-        }, {returnStrategy: 'none'});
-    }
-    if(balance.current !== auth.user?.money){
-        setIsLoading(true)
-    }
-
     return (
         <div className={'w-full flex flex-col items-center'}>
             <Card className={'p-4 mx-4 mt-2 w-80'}>
@@ -64,7 +31,7 @@ const WalletPage = () => {
                         <TabsTrigger value="withdrawal">Withdrawal</TabsTrigger>
                     </TabsList>
                     <TabsContent value="payment">
-                        <Pay isLoading={isLoading} onPay={handlePay}/>
+                        <Pay/>
                     </TabsContent>
                     <TabsContent value="withdrawal">
                         <Withdrawal/>

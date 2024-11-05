@@ -8,12 +8,14 @@ import {Loader2} from "lucide-react";
 import {AxiosError} from "axios";
 import {toast} from "@/hooks/use-toast";
 import {Label} from "@/components/ui/label";
+import {useAuth} from "@/hooks/useAuth";
 
 const Withdrawal = () => {
-    const [amount,setAmount] = useState<number>(0)
+    const auth = useAuth();
+    const [amount,setAmount] = useState<number>(auth.user?.money || 0)
     const [isLoading,setIsLoading] = useState<boolean>(false)
     const [tonConnectUi] = useTonConnectUI()
-    const handleWithdraw = () => {
+    const handleWithdraw = ()=> {
         if (isLoading) return;
         setIsLoading(true)
         if (!tonConnectUi.account?.address) {
@@ -31,7 +33,7 @@ const Withdrawal = () => {
             const errorMessage = (error.response?.data as { message?: string })?.message || error.message;
             toast({description: `Error: ${errorMessage}`})
         })
-    }
+    };
     return (
         <div className={'flex flex-col items-center w-full'}>
             <div>
@@ -42,6 +44,8 @@ const Withdrawal = () => {
                     type={'number'}
                     value={amount}
                     onChange={(e)=>setAmount(Number(e.target.value))}
+                    max={auth.user?.money || 0}
+                    min={0.05}
                 />
             </div>
             <Button

@@ -4,7 +4,6 @@ import {UserType} from "@/types/user-type";
 import {userService} from "@/services/userService";
 import {retrieveLaunchParams} from "@telegram-apps/sdk-react";
 
-
 export const useFetchCurrentUser = () => {
     const [user, setUser] = useState<UserType | undefined>(undefined)
     const [error, setError] = useState<Error | null>(null)
@@ -14,9 +13,11 @@ export const useFetchCurrentUser = () => {
     const fetchCurrentUser = async () => {
         setIsLoading(true)
         setError(null)
-
         try {
             const data = await userService.getCurrentUser(initDataRaw || "")
+            if(JSON.stringify(data) === JSON.stringify(user)) {
+                return;
+            }
             setUser(data)
         } catch (err) {
             setError(err as Error)
