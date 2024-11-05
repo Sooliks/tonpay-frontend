@@ -42,13 +42,17 @@ const ChatPage = ({params}: ProfileLayoutProps) => {
             }
         }
     },[message])
-    useEffect(() => {
-        if(lastMessageRef.current){
-            if(scrollableDivRef.current?.scrollTop === 0) {
-                lastMessageRef.current.scrollIntoView({ behavior: 'smooth' });
-            }
+    const scrollToBottom = () => {
+        if (scrollableDivRef.current) {
+            scrollableDivRef.current.scrollTop = 4645636434634346;
         }
-    }, [messages]);
+    };
+
+    useEffect(() => {
+        if (!isLoading && messages.length === 8) {
+            scrollToBottom();
+        }
+    }, [isLoading, messages.length]);
     useEffect(() => {
         if (scrollableDivRef.current) {
             if (messages.length > prevMessagesLength.current) {
@@ -82,7 +86,7 @@ const ChatPage = ({params}: ProfileLayoutProps) => {
         }
     }, [data]);
     const loadMoreMessages = () => {
-        setPage((prev) => prev + 2);
+        setPage((prev) => prev + 1);
     };
     const handleAddNewMessage = (message: Message) => {
         setMessages((prev) => [...prev,message])
