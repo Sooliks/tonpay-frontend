@@ -50,7 +50,7 @@ const ChatPage = ({params}: ProfileLayoutProps) => {
                 }
             }
         }, 100);
-    },[scrollableDivRef.current])
+    },[lastMessageRef.current])
     useEffect(() => {
         if (scrollableDivRef.current) {
             if (messages.length > prevMessagesLength.current) {
