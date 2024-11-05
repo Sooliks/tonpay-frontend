@@ -42,21 +42,12 @@ const ChatPage = ({params}: ProfileLayoutProps) => {
             }
         }
     },[message])
-    useEffect(()=>{
-        setTimeout(() => {
-            if (scrollableDivRef.current) {
-                if (lastMessageRef.current) {
-                    lastMessageRef.current.scrollIntoView({ behavior: 'smooth' });
-                }
-            }
-        }, 100);
-    },[lastMessageRef.current])
     useEffect(() => {
         if (scrollableDivRef.current) {
             if (messages.length > prevMessagesLength.current) {
                 const isAtBottom =
                     scrollableDivRef.current.scrollTop + scrollableDivRef.current.clientHeight >=
-                    scrollableDivRef.current.scrollHeight - 300; // Погрешность в 100px
+                    scrollableDivRef.current.scrollHeight - 500; // Погрешность в 100px
                 if (isAtBottom) {
                     if (lastMessageRef.current) {
                         lastMessageRef.current.scrollIntoView({ behavior: 'smooth' });
