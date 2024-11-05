@@ -8,35 +8,29 @@ import {Loader2} from "lucide-react";
 import {AxiosError} from "axios";
 import {toast} from "@/hooks/use-toast";
 import {Label} from "@/components/ui/label";
-import {useAuth} from "@/hooks/useAuth";
 
 const Withdrawal = () => {
-    const auth = useAuth()
-    const [amount,setAmount] = useState<number>(auth.user?.money || 0)
+    const [amount,setAmount] = useState<number>(0)
     const [isLoading,setIsLoading] = useState<boolean>(false)
     const [tonConnectUi] = useTonConnectUI()
     const handleWithdraw = () => {
         if (isLoading) return;
-        try {
-            setIsLoading(true)
-            if (!tonConnectUi.account?.address) {
-                toast({description: 'Please connect your wallet'})
-                tonConnectUi.openModal()
-                setIsLoading(false)
-                return
-            }
-            toast({description: 'The withdraw has been sent, wait..'})
-            axiosInstance.post('/ton/withdraw', {amount: amount, address: tonConnectUi.account.address}).then(data => {
-                if (data.status === 201) {
-                    toast({description: 'Success, check your wallet'})
-                }
-            }).finally(() => setIsLoading(false)).catch((error: AxiosError) => {
-                const errorMessage = (error.response?.data as { message?: string })?.message || error.message;
-                toast({description: `Error: ${errorMessage}`})
-            })
-        }catch (e) {
-            
+        setIsLoading(true)
+        if (!tonConnectUi.account?.address) {
+            toast({description: 'Please connect your wallet'})
+            tonConnectUi.openModal()
+            setIsLoading(false)
+            return
         }
+        toast({description: 'The withdraw has been sent, wait..'})
+        axiosInstance.post('/ton/withdraw', {amount: amount, address: tonConnectUi.account.address}).then(data => {
+            if (data.status === 201) {
+                toast({description: 'Success, check your wallet'})
+            }
+        }).finally(() => setIsLoading(false)).catch((error: AxiosError) => {
+            const errorMessage = (error.response?.data as { message?: string })?.message || error.message;
+            toast({description: `Error: ${errorMessage}`})
+        })
     }
     return (
         <div className={'flex flex-col items-center w-full'}>
@@ -48,7 +42,6 @@ const Withdrawal = () => {
                     type={'number'}
                     value={amount}
                     onChange={(e)=>setAmount(Number(e.target.value))}
-                    min={0.05}
                 />
             </div>
             <Button

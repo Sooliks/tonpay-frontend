@@ -63,8 +63,12 @@ const WalletPage = () => {
                         <TabsTrigger value="payment">Payment</TabsTrigger>
                         <TabsTrigger value="withdrawal">Withdrawal</TabsTrigger>
                     </TabsList>
-                    <TabsContent value="payment"><Pay isLoading={isLoading} onPay={handlePay}/></TabsContent>
-                    <TabsContent value="withdrawal"><Withdrawal/></TabsContent>
+                    <TabsContent value="payment">
+                        <Pay isLoading={isLoading} onPay={handlePay}/>
+                    </TabsContent>
+                    <TabsContent value="withdrawal">
+                        <Withdrawal/>
+                    </TabsContent>
                 </Tabs>
             </div>
         </div>
