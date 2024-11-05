@@ -44,7 +44,11 @@ const ChatPage = ({params}: ProfileLayoutProps) => {
     },[message])
     useEffect(()=>{
         setTimeout(() => {
-            if (scrollableDivRef.current) scrollableDivRef.current.scrollTop = scrollableDivRef.current!.scrollHeight;
+            if (scrollableDivRef.current) {
+                if (lastMessageRef.current) {
+                    lastMessageRef.current.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
         }, 100);
     },[scrollableDivRef.current])
     useEffect(() => {
