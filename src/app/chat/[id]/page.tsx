@@ -19,7 +19,8 @@ type ProfileLayoutProps = {
         id: string
     }
 }
-const limit = 8; // Количество сообщений на страницу
+const limit = 8;
+
 const ChatPage = ({params}: ProfileLayoutProps) => {
     const auth = useAuth()
     const scrollableDivRef = useRef<HTMLDivElement>(null);
@@ -47,9 +48,8 @@ const ChatPage = ({params}: ProfileLayoutProps) => {
             scrollableDivRef.current.scrollTop = 4645636434634346;
         }
     };
-
     useEffect(() => {
-        if (!isLoading && messages.length === 8) {
+        if (!isLoading && messages.length === limit) {
             scrollToBottom();
         }
     }, [isLoading, messages.length]);
@@ -59,10 +59,7 @@ const ChatPage = ({params}: ProfileLayoutProps) => {
                 const isAtTop =
                     scrollableDivRef.current.scrollTop <= 120; // Погрешность в 100px
                 if (!isAtTop) {
-                    if (lastMessageRef.current) {
-                        lastMessageRef.current.scrollIntoView({ behavior: 'smooth' });
-                        scrollableDivRef.current.scrollTop = 1256564640;
-                    }
+                    scrollToBottom()
                 }
             }
             prevMessagesLength.current = messages.length;

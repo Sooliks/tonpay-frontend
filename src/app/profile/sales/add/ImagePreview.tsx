@@ -2,6 +2,7 @@ import React from 'react';
 import {useDrag, useDrop} from "react-dnd";
 import {Button} from "@/components/ui/button";
 import {Trash2} from "lucide-react";
+import {cn} from "@/lib/utils";
 
 // Интерфейс для файла с превью
 export interface PreviewFile {
@@ -38,8 +39,8 @@ const ImagePreview: React.FC<{
     });
     drag(drop(ref)); // Объединяем drag и drop через ref
     return (
-        <div ref={ref} className="relative m-2">
-            <img src={file.preview} alt="preview" className={`${small ? 'w-5 h-5' : 'w-32 h-32'} object-cover`} />
+        <div ref={ref} className={cn('relative', small ? 'mr-1' : 'm-2')}>
+            <img src={file.preview} alt="preview" className={`${small ? 'w-4 h-4' : 'w-32 h-32'} object-cover`} />
             <Button
                 onClick={() => removeImage(index)}
                 variant={'secondary'}
