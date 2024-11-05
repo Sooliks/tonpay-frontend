@@ -57,6 +57,7 @@ const ChatPage = ({params}: ProfileLayoutProps) => {
                 if (!isAtTop) {
                     if (lastMessageRef.current) {
                         lastMessageRef.current.scrollIntoView({ behavior: 'smooth' });
+                        scrollableDivRef.current.scrollTop = 1256564640;
                     }
                 }
             }
@@ -81,16 +82,15 @@ const ChatPage = ({params}: ProfileLayoutProps) => {
         }
     }, [data]);
     const loadMoreMessages = () => {
-        setPage((prev) => prev + 1);
+        setPage((prev) => prev + 2);
     };
     const handleAddNewMessage = (message: Message) => {
         setMessages((prev) => [...prev,message])
     }
     const handleScroll = () => {
         const scrollElement = scrollableDivRef.current;
-        console.log(scrollElement?.scrollTop)
         if (scrollElement) {
-            if ((scrollElement.scrollTop === 0 || scrollElement.scrollTop <= 60) && hasMore) {
+            if (scrollElement.scrollTop === 0 && hasMore) {
                 loadMoreMessages(); // Подгружаем новые сообщения, если скролл на верхней позиции
             }
         }
