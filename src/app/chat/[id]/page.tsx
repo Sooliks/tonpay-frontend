@@ -47,7 +47,7 @@ const ChatPage = ({params}: ProfileLayoutProps) => {
             if (messages.length > prevMessagesLength.current) {
                 const isAtBottom =
                     scrollableDivRef.current.scrollTop + scrollableDivRef.current.clientHeight >=
-                    scrollableDivRef.current.scrollHeight - 500; // Погрешность в 100px
+                    scrollableDivRef.current.scrollHeight - 320; // Погрешность в 100px
                 if (isAtBottom) {
                     if (lastMessageRef.current) {
                         lastMessageRef.current.scrollIntoView({ behavior: 'smooth' });
