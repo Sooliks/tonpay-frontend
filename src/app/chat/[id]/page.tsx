@@ -43,12 +43,18 @@ const ChatPage = ({params}: ProfileLayoutProps) => {
         }
     },[message])
     useEffect(() => {
+        if(lastMessageRef.current){
+            if(scrollableDivRef.current?.scrollTop === 0) {
+                lastMessageRef.current.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    }, [messages]);
+    useEffect(() => {
         if (scrollableDivRef.current) {
             if (messages.length > prevMessagesLength.current) {
-                const isAtBottom =
-                    scrollableDivRef.current.scrollTop + scrollableDivRef.current.clientHeight >=
-                    scrollableDivRef.current.scrollHeight - 320; // Погрешность в 100px
-                if (isAtBottom) {
+                const isAtTop =
+                    scrollableDivRef.current.scrollTop <= 120; // Погрешность в 100px
+                if (!isAtTop) {
                     if (lastMessageRef.current) {
                         lastMessageRef.current.scrollIntoView({ behavior: 'smooth' });
                     }
@@ -82,8 +88,9 @@ const ChatPage = ({params}: ProfileLayoutProps) => {
     }
     const handleScroll = () => {
         const scrollElement = scrollableDivRef.current;
+        console.log(scrollElement?.scrollTop)
         if (scrollElement) {
-            if (scrollElement.scrollTop === 0 && hasMore) {
+            if ((scrollElement.scrollTop === 0 || scrollElement.scrollTop <= 60) && hasMore) {
                 loadMoreMessages(); // Подгружаем новые сообщения, если скролл на верхней позиции
             }
         }
