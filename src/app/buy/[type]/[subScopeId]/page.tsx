@@ -28,7 +28,7 @@ const SalesPage = ({params}: BuyLayoutProps) => {
     useEffect(() => {
         const handler = setTimeout(() => {
             setDebouncedSearchTerm(searchTerm);  // обновляем после задержки
-        }, 600); // задержка в 500 мс
+        }, 690); // задержка в 500 мс
 
         return () => clearTimeout(handler);  // очищаем таймер при изменении searchTerm
     }, [searchTerm]);
