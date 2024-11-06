@@ -27,10 +27,10 @@ const SalesPage = ({params}: BuyLayoutProps) => {
     const { data, error, isLoading, size, setSize } = useSWRInfinite<Sale[]>(getKey)
     useEffect(() => {
         const handler = setTimeout(() => {
-            setDebouncedSearchTerm(searchTerm);  // обновляем после задержки
-        }, 690); // задержка в 500 мс
+            setDebouncedSearchTerm(searchTerm);
+        }, 690);
 
-        return () => clearTimeout(handler);  // очищаем таймер при изменении searchTerm
+        return () => clearTimeout(handler);
     }, [searchTerm]);
     if(isLoading){
         return <SpinLoading/>

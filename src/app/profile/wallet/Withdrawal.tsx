@@ -9,6 +9,7 @@ import {AxiosError} from "axios";
 import {toast} from "@/hooks/use-toast";
 import {Label} from "@/components/ui/label";
 import {useAuth} from "@/hooks/useAuth";
+import Link from "next/link";
 
 const Withdrawal = () => {
     const auth = useAuth();
@@ -36,14 +37,27 @@ const Withdrawal = () => {
     };
     return (
         <div className={'flex flex-col items-center w-full'}>
+            <p className={'text-sm text-muted-foreground text-center'}>
+                {auth.user?.isSubscribed ?
+                    'You have a reduced commission for subscribing to our channel'
+                    :
+                    <p>To reduce the commission, you can subscribe to our <Link target={'_blank'} className={'text-sm text-blue-800'} href={'https://t.me/payonton'}>channel</Link></p>
+                }
+            </p>
             <div>
-                <Label htmlFor="in">Fee {10}%</Label>
+                <Label htmlFor="in">
+                    {auth.user?.isSubscribed ?
+                        <p>Fee <del>15%</del> 10%</p>
+                        :
+                        <p>Fee <del>10%</del> 15%</p>
+                    }
+                </Label>
                 <Input
                     className={'w-56'}
                     id={'in'}
                     type={'number'}
                     value={amount}
-                    onChange={(e)=>setAmount(Number(e.target.value))}
+                    onChange={(e) => setAmount(Number(e.target.value))}
                     max={auth.user?.money || 0}
                     min={0.05}
                 />
@@ -54,7 +68,7 @@ const Withdrawal = () => {
                 disabled={isLoading}
                 variant={'secondary'}
             >
-                {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin"/>}
                 Withdrawal
             </Button>
         </div>

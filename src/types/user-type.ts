@@ -13,6 +13,7 @@ export type UserType = {
     averageRating?: number,
     isOnline?: boolean
     languageCode?: string
+    isSubscribed: boolean
 }
 
 export enum Role {
