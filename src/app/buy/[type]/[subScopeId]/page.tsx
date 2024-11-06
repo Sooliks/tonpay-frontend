@@ -21,7 +21,7 @@ const SalesPage = ({params}: BuyLayoutProps) => {
     const [debouncedSearchTerm, setDebouncedSearchTerm] = useState<string>('');
     const getKey = useCallback((pageIndex: number, previousPageData: Sale[] | null) => {
         if (previousPageData && !previousPageData.length) return null;
-        return `/sales/bysubscope/${params.subScopeId}?count=${COUNT_ON_PAGE}&skip=${pageIndex * COUNT_ON_PAGE}${searchTerm && `&search=${debouncedSearchTerm}`}`;
+        return `/sales/bysubscope/${params.subScopeId}?count=${COUNT_ON_PAGE}&skip=${pageIndex * COUNT_ON_PAGE}${debouncedSearchTerm && `&search=${debouncedSearchTerm}`}`;
     }, [debouncedSearchTerm]);
     const [searchTerm, setSearchTerm] = useState<string>('');
     const { data, error, isLoading, size, setSize } = useSWRInfinite<Sale[]>(getKey)
