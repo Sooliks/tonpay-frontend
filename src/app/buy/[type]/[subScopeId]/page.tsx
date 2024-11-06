@@ -50,7 +50,7 @@ const SalesPage = ({params}: BuyLayoutProps) => {
                 type="text"
                 placeholder="Search"
                 onChange={(e)=>setSearchTerm(e.target.value)}
-                className={'mb-2'}
+                className={'mb-4'}
             />
             {data && items.length > 0 ?
                 <InfiniteScroll

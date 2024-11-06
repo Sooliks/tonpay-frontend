@@ -36,13 +36,13 @@ const AdminDeclineSaleDialog = ({saleId}:{saleId: string}) => {
         <Drawer>
             <DrawerTrigger asChild>
                 <Button variant={'destructive'}>
-                    Decline
+                    Delete
                 </Button>
             </DrawerTrigger>
             <DrawerContent>
                 <div className="mx-auto w-full max-w-sm">
                     <DrawerHeader>
-                        <DrawerTitle>Send message</DrawerTitle>
+                        <DrawerTitle>Action</DrawerTitle>
                     </DrawerHeader>
                     <div className="p-4 pb-0">
                         <div className="flex items-center justify-center space-x-2">
