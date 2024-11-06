@@ -7,6 +7,7 @@ import {beginCell, toNano} from "@ton/core";
 import {useTonConnectUI} from "@tonconnect/ui-react";
 import {useAuth} from "@/hooks/useAuth";
 import {Loader2} from "lucide-react";
+import {toast} from "@/hooks/use-toast";
 
 const buttons: number[] = [0.5, 1, 5, 10, 20, 100]
 
@@ -21,7 +22,11 @@ const Pay = () => {
             return
         }
         if(!auth.user?.id){
-            alert('Error: Please reload app')
+            toast({description: 'Error: Please reload app'})
+            return
+        }
+        if(value < 0.05){
+            toast({description: 'The amount must be greater than 0.05'})
             return
         }
         setIsLoading(true)
@@ -59,7 +64,7 @@ const Pay = () => {
                 value={value}
                 onChange={(e)=>setValue(Number(e.target.value))}
                 className={'w-1/4'}
-                min={0}
+                min={0.05}
             />
             <Button
                 variant={'secondary'}

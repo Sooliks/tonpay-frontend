@@ -34,6 +34,7 @@ const SalePreview = ({sale, isProfile, forAdmin = false, avatar = true, edit = f
                     <p className={'text-muted-foreground text-sm whitespace-pre-line overflow-hidden text-ellipsis break-words max-h-16'}>
                         {sale.description.split('\n').filter(line => line.trim() !== '').join('\n')}
                     </p>
+                    {sale.currency && !isProfile && <p>Count {sale.subScope.name.toLowerCase()}: <span className={'text-muted-foreground'}>{sale.currency}</span></p>}
                 </div>
             </Link>
             {isProfile &&
