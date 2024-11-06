@@ -1,5 +1,5 @@
 'use client'
-import React from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Sale} from "@/types/sale";
 import SpinLoading from "@/components/my-ui/SpinLoading";
 import SalePreview from "@/components/SalePreview";
@@ -8,6 +8,7 @@ import Tree from "@/components/my-ui/Tree";
 import useSWRInfinite from "swr/infinite";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {Skeleton} from "@/components/ui/skeleton";
+import {Input} from "@/components/ui/input";
 
 type BuyLayoutProps = {
     params: {
@@ -17,11 +18,20 @@ type BuyLayoutProps = {
 const COUNT_ON_PAGE = 10;
 
 const SalesPage = ({params}: BuyLayoutProps) => {
-    const getKey = (pageIndex: number, previousPageData: Sale[] | null) => {
+    const [debouncedSearchTerm, setDebouncedSearchTerm] = useState<string>('');
+    const getKey = useCallback((pageIndex: number, previousPageData: Sale[] | null) => {
         if (previousPageData && !previousPageData.length) return null;
-        return `/sales/bysubscope/${params.subScopeId}?count=${COUNT_ON_PAGE}&skip=${pageIndex * COUNT_ON_PAGE}`;
-    };
+        return `/sales/bysubscope/${params.subScopeId}?count=${COUNT_ON_PAGE}&skip=${pageIndex * COUNT_ON_PAGE}${searchTerm && `&search=${debouncedSearchTerm}`}`;
+    }, [debouncedSearchTerm]);
+    const [searchTerm, setSearchTerm] = useState<string>('');
     const { data, error, isLoading, size, setSize } = useSWRInfinite<Sale[]>(getKey)
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setDebouncedSearchTerm(searchTerm);  // обновляем после задержки
+        }, 500); // задержка в 500 мс
+
+        return () => clearTimeout(handler);  // очищаем таймер при изменении searchTerm
+    }, [searchTerm]);
     if(isLoading){
         return <SpinLoading/>
     }
@@ -35,6 +45,13 @@ const SalesPage = ({params}: BuyLayoutProps) => {
                     subScope={{href: `/buy/${items[0].subScope.scope.type}/${items[0].subScope.id}`, name: items[0].subScope.name}}
                 />
             }
+            <Input
+                value={searchTerm}
+                type="text"
+                placeholder="Search"
+                onChange={(e)=>setSearchTerm(e.target.value)}
+                className={'mb-2'}
+            />
             {data && items.length > 0 ?
                 <InfiniteScroll
                     dataLength={items.length}

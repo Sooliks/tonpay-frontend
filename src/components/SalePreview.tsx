@@ -10,6 +10,8 @@ import {HoverCard, HoverCardContent, HoverCardTrigger} from "@/components/ui/hov
 import Tree from "@/components/my-ui/Tree";
 import UserAvatar from "@/components/my-ui/UserAvatar";
 import EditSaleDialog from "@/components/EditSaleDialog";
+import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
+import {Badge} from "@/components/ui/badge";
 
 const SalePreview = ({sale, isProfile, forAdmin = false, avatar = true, edit = false, rate = false}:{sale: Sale, isProfile?: boolean, forAdmin?: boolean, avatar?: boolean, edit?: boolean, rate?: boolean}) => {
     return (
@@ -24,7 +26,16 @@ const SalePreview = ({sale, isProfile, forAdmin = false, avatar = true, edit = f
                                 <div className={'flex items-center justify-between w-full'}>
                                     <UserAvatar photoUrl={sale.user.photoUrl || ""} nickname={sale.user.nickname} id={sale.userId}/>
                                     {edit && !rate && <EditSaleDialog sale={sale}/>}
-                                    {rate && sale.user.averageRating && <p className={'flex items-center'}><Star className={'w-4 h-4'}/> {sale.user.averageRating}</p>}
+                                    {rate && sale.user.averageRating &&
+                                        <Tooltip delayDuration={200}>
+                                            <TooltipTrigger>
+                                                <p className={'flex items-center'}><Star className={'w-4 h-4'}/> {sale.user.averageRating}</p>
+                                            </TooltipTrigger>
+                                            <TooltipContent>
+                                                <p>Seller rating</p>
+                                            </TooltipContent>
+                                        </Tooltip>
+                                    }
                                 </div>
                             }
                             <p className={'mt-1 leading-7'}>{sale.title}</p>
