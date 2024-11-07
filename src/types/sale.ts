@@ -14,6 +14,15 @@ export type CreateSaleType = {
     autoMessage?: string
 }
 
+export type UpdateSaleType = {
+    price: number
+    product: string[]
+    title: string
+    description: string
+    currency?: number
+    autoMessage?: string
+}
+
 export type Sale = {
     id: string
     createdAt: Date
@@ -32,4 +41,6 @@ export type Sale = {
     currency?: number
     screenUrls: string[]
     rate?: number
+    autoMessage?: string
+    lastUp: Date
 }

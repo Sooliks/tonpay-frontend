@@ -55,7 +55,7 @@ const Pay = () => {
                         variant={'outline'}
                         onClick={()=>setValue(button)}
                     >
-                        {button} <Badge className={'border-blue-400 h-5 ml-1'} variant={'outline'}>TON</Badge>
+                        {button} {/*<Badge className={'border-blue-400 h-5 ml-1'} variant={'outline'}>TON</Badge>*/}
                     </Button>
                 )}
             </div>
@@ -74,6 +74,7 @@ const Pay = () => {
             >
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 Send transaction
+                <Badge className={'border-blue-400 h-5 ml-1'} variant={'outline'}>TON</Badge>
             </Button>
         </div>
     );

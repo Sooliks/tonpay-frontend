@@ -10,6 +10,7 @@ import {toast} from "@/hooks/use-toast";
 import {Label} from "@/components/ui/label";
 import {useAuth} from "@/hooks/useAuth";
 import Link from "next/link";
+import {Badge} from "@/components/ui/badge";
 
 const Withdrawal = () => {
     const auth = useAuth();
@@ -39,7 +40,7 @@ const Withdrawal = () => {
         <div className={'flex flex-col items-center w-full'}>
             <p className={'text-sm text-muted-foreground text-center'}>
                 {auth.user?.isSubscribed ?
-                    'You have a reduced commission for subscribing to our channel'
+                    'You have a reduced commission for subscribing to our channel. Thanks!'
                     :
                     <p>To reduce the commission, you can subscribe to our <Link target={'_blank'} className={'text-sm text-blue-800'} href={'https://t.me/payonton'}>channel</Link></p>
                 }
@@ -70,6 +71,7 @@ const Withdrawal = () => {
             >
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin"/>}
                 Withdrawal
+                <Badge className={'border-blue-400 h-5 ml-1'} variant={'outline'}>TON</Badge>
             </Button>
         </div>
     );
