@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     Drawer,
     DrawerClose,
@@ -28,8 +28,12 @@ const EditSaleDialog = ({data, onSave}:{data: Sale,onSave: () => void}) => {
         register,
         handleSubmit,
         formState: {errors},
-        watch
+        watch,
+        reset
     } = useForm<UpdateSaleType>({mode: 'onChange'});
+    useEffect(()=>{
+        return () => reset()
+    },[])
     const onSubmit: SubmitHandler<UpdateSaleType> = async  (updatedSale) => {
         setIsLoadingSubmit(true)
         axiosInstance.post('/sales/update', {
@@ -38,7 +42,7 @@ const EditSaleDialog = ({data, onSave}:{data: Sale,onSave: () => void}) => {
             product: products,
             title: updatedSale.title,
             description: updatedSale.description,
-            currency: Number(updatedSale.currency),
+            currency: updatedSale.currency ? Number(updatedSale.currency) : undefined,
             autoMessage: updatedSale.autoMessage
         }).then(res=>{
             if(res.status === 201) {

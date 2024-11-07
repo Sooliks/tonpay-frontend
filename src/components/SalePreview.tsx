@@ -11,6 +11,7 @@ import Tree from "@/components/my-ui/Tree";
 import UserAvatar from "@/components/my-ui/UserAvatar";
 import EditSaleDialog from "@/components/EditSaleDialog";
 import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
+import DeleteSaleDialog from "@/components/DeleteSaleDialog";
 
 const SalePreview = ({sale, isProfile, forAdmin = false, avatar = true, edit = false, rate = false, onSave}:{sale: Sale, isProfile?: boolean, forAdmin?: boolean, avatar?: boolean, edit?: boolean, rate?: boolean, onSave?: () => void}) => {
     return (
@@ -67,6 +68,7 @@ const SalePreview = ({sale, isProfile, forAdmin = false, avatar = true, edit = f
                     <EditSaleDialog data={sale} onSave={()=>{if(onSave) onSave()}}/>
                 }
             </div>
+            {edit && <DeleteSaleDialog sale={sale} onDelete={()=>{if(onSave) onSave()}}/>}
         </Card>
     );
 };
