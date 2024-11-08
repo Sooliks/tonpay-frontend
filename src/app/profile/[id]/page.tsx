@@ -1,9 +1,21 @@
-import React from 'react';
+'use client'
+import React, {useLayoutEffect} from 'react';
+import {useRouter} from "next/navigation";
 
-const ProfilePage = () => {
+type ProfilePageProps = {
+    params: {
+        id: string
+    }
+}
+
+const ProfilePage = ({params}: ProfilePageProps) => {
+    const {replace} = useRouter();
+    useLayoutEffect(()=>{
+       replace(`/profile/${params.id}/sales`)
+    },[])
     return (
         <div>
-            base profile page
+
         </div>
     );
 };
