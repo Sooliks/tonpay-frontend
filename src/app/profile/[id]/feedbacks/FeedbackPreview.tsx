@@ -25,6 +25,9 @@ const FeedbackPreview = ({feedback}:{feedback: Feedback}) => {
                     </Link>
                 </p>
                 <p className={'ml-2 whitespace-pre-line'}>{feedback.text}</p>
+                <p className={'mt-2 text-muted-foreground text-sm'}>
+                    Amount: <span className={'ml-auto text-sm tracking-widest text-muted-foreground'}>{feedback.order.amount.toFixed(2)} TON</span>
+                </p>
             </div>
             <Separator orientation={'horizontal'}/>
         </div>

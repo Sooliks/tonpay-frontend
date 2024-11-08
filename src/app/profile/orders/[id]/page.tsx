@@ -35,7 +35,7 @@ const OrderPage = ({params}: OrderPageProps) => {
     },[searchParams])
     const handleConfirm = () => {
         setIsLoadingConfirm(true)
-        axiosInstance.post(auth.user?.role === 'ADMIN' || auth.user?.role === 'CREATOR' ? '/orders/confirm' : '/orders/confirm/foradmin', {orderId: data?.id}).then(res=>{
+        axiosInstance.post(auth.user?.role === 'ADMIN' || auth.user?.role === 'CREATOR' ? '/orders/confirm/foradmin' : '/orders/confirm', {orderId: data?.id}).then(res=>{
             if(res.status === 201) {
                 toast({description: `Order confirmed`})
                 mutate();
@@ -47,7 +47,7 @@ const OrderPage = ({params}: OrderPageProps) => {
     }
     const handleCancel = () => {
         setIsLoadingCancel(true)
-        axiosInstance.post(auth.user?.role === 'ADMIN' || auth.user?.role === 'CREATOR' ? '/orders/cancel' : '/orders/cancel/foradmin', {orderId: data?.id}).then(res=>{
+        axiosInstance.post(auth.user?.role === 'ADMIN' || auth.user?.role === 'CREATOR' ? '/orders/cancel/foradmin' : '/orders/cancel', {orderId: data?.id}).then(res=>{
             if(res.status === 201) {
                 toast({description: `Order cancelled`})
                 mutate();
@@ -104,6 +104,7 @@ const OrderPage = ({params}: OrderPageProps) => {
                         Confirm the order
                     </Button>
                     <p className={'text-sm text-muted-foreground mt-1'}>Send money to the seller</p>
+                    <p className={'text-destructive text-sm mt-1'}>It will no longer be possible to cancel this action</p>
                 </Card>
             }
             {((!data.isCompleted && !data.isCancelled && data.sellerId === auth.user?.id) || (auth.user?.role === 'ADMIN' || auth.user?.role === 'CREATOR')) &&
@@ -113,6 +114,7 @@ const OrderPage = ({params}: OrderPageProps) => {
                         Cancel order
                     </Button>
                     <p className={'text-sm text-muted-foreground mt-1'}>Refund the money to the buyer</p>
+                    <p className={'text-destructive text-sm mt-1'}>It will no longer be possible to cancel this action</p>
                 </Card>
             }
         </div>
