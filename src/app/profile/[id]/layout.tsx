@@ -57,12 +57,12 @@ const ProfileLayout = ({params, children}: ProfileLayoutProps) => {
             </Card>
             <ProfileMenu
                 tabs={[
-                    {title: 'View', key: '/'},
+                    /*{title: 'View', key: '/'},*/
                     {title: 'Sales', key: '/sales'},
                     {title: 'Feedbacks', key: '/feedbacks'}
                 ]}
                 idProfile={params.id}
-                defaultKey={'/'}
+                defaultKey={'/sales'}
             />
             {children}
         </div>
