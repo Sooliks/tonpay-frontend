@@ -22,7 +22,7 @@ const CreateSubScope = ({idScope, onCreated}:{idScope: string, onCreated: () => 
     const [isLoading,setIsLoading] = useState<boolean>(false)
     const onSubmit: SubmitHandler<{name: string, isCurrency: boolean}> = async (data) => {
         setIsLoading(true)
-        axiosInstance.post('/scopes/createsubscope', {name: data.name, scopeId: idScope, isCurrency: data.isCurrency}).then(data=>{
+        axiosInstance.post('/scopes/createsubscope', {name: data.name, scopeId: idScope, isCurrency: data.isCurrency || false}).then(data=>{
             if(data.status === 201) {
                 toast({description: 'Success created!'})
                 onCreated()
