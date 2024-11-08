@@ -23,7 +23,7 @@ import {Badge} from "@/components/ui/badge";
 const EditSaleDialog = ({data, onSave}:{data: Sale,onSave: () => void}) => {
     const [isLoadingSubmit,setIsLoadingSubmit] = useState<boolean>(false)
     const [isOpen,setIsOpen] = useState<boolean>(false)
-    const [products,setProducts] = useState<string[]>([]);
+    const [products,setProducts] = useState<string[]>(data.product || []);
     const {
         register,
         handleSubmit,

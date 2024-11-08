@@ -25,6 +25,7 @@ type OrderPageProps = {
 const OrderPage = ({params}: OrderPageProps) => {
     const { data, error, isLoading, mutate } = useSWR<Order>(`/orders/byid/${params.id}`)
     const [isLoadingConfirm,setIsLoadingConfirm] = useState<boolean>(false)
+    const [isLoadingCancel,setIsLoadingCancel] = useState<boolean>(false)
     const [isForAdmin,setIsForAdmin] = useState<boolean>(false)
     const auth = useAuth();
     const searchParams = useSearchParams();
@@ -40,6 +41,18 @@ const OrderPage = ({params}: OrderPageProps) => {
                 mutate();
             }
         }).finally(() => setIsLoadingConfirm(false)).catch((error: AxiosError)=>{
+            const errorMessage = (error.response?.data as { message?: string })?.message || error.message;
+            toast({description: `Error: ${errorMessage}`})
+        })
+    }
+    const handleCancel = () => {
+        setIsLoadingCancel(true)
+        axiosInstance.post(auth.user?.role === 'ADMIN' || auth.user?.role === 'CREATOR' ? '/orders/cancel' : '/orders/cancel/foradmin', {orderId: data?.id}).then(res=>{
+            if(res.status === 201) {
+                toast({description: `Order cancelled`})
+                mutate();
+            }
+        }).finally(() => setIsLoadingCancel(false)).catch((error: AxiosError)=>{
             const errorMessage = (error.response?.data as { message?: string })?.message || error.message;
             toast({description: `Error: ${errorMessage}`})
         })
@@ -79,17 +92,27 @@ const OrderPage = ({params}: OrderPageProps) => {
                     auth.user?.id === data.customerId ?
                         <CreateFeedbackForm orderId={data.id}/>
                         :
-                        'Nothing'
+                        ' Nothing'
                     }
                 </p>
             </Card>
             {!data.isCompleted && !data.isCancelled && <ReportDialog order={data}/>}
             {((!data.isCompleted && !data.isCancelled && data.customerId === auth.user?.id) || (auth.user?.role === 'ADMIN' || auth.user?.role === 'CREATOR')) &&
-                <Card className={'p-4 mt-2 flex justify-center'}>
+                <Card className={'p-4 mt-2 flex flex-col items-center'}>
                     <Button onClick={handleConfirm} disabled={isLoadingConfirm}>
-                        {isLoadingConfirm && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                        {isLoadingConfirm && <Loader2 className="mr-2 h-4 w-4 animate-spin"/>}
                         Confirm the order
                     </Button>
+                    <p className={'text-sm text-muted-foreground mt-1'}>Send money to the seller</p>
+                </Card>
+            }
+            {((!data.isCompleted && !data.isCancelled && data.sellerId === auth.user?.id) || (auth.user?.role === 'ADMIN' || auth.user?.role === 'CREATOR')) &&
+                <Card className={'p-4 mt-2 flex flex-col items-center'}>
+                    <Button onClick={handleCancel} disabled={isLoadingCancel} variant={'destructive'}>
+                        {isLoadingCancel && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                        Cancel order
+                    </Button>
+                    <p className={'text-sm text-muted-foreground mt-1'}>Refund the money to the buyer</p>
                 </Card>
             }
         </div>

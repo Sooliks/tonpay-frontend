@@ -12,7 +12,7 @@ const SalesPage = () => {
     }
     return (
         <div className={'mt-2'}>
-            <h4 className={'text-center scroll-m-20 text-xl font-semibold tracking-tight mb-2'}>My sales</h4>
+            {/*<h4 className={'text-center scroll-m-20 text-xl font-semibold tracking-tight mb-2'}>My sales</h4>*/}
             {data && data.length > 0 ? data.map(sale=>
                     <SalePreview sale={sale} key={sale.id} isProfile edit onSave={mutate}/>
                 )

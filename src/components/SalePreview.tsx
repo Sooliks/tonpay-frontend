@@ -55,6 +55,7 @@ const SalePreview = ({sale, isProfile, forAdmin = false, avatar = true, edit = f
                     subScope={{href: `/buy/${sale.subScope.scope.type}/${sale.subScope.id}`, name: sale.subScope.name}}
                 />
             }
+            {!sale.isPublished && isProfile && <p className={'text-sm text-muted-foreground mt-1'}>Not published</p>}
             <div className={'flex items-center justify-between'}>
                 {isProfile && sale.isModerating &&
                     <HoverCard openDelay={200}>
