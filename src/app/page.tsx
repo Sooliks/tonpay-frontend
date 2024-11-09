@@ -36,7 +36,7 @@ export default function Home() {
                                 <DrawerDescription>Terms of use of the PayOnTon trading platform</DrawerDescription>
                             </DrawerHeader>
                             <div className="p-4 pb-0 h-96 overflow-y-auto">
-                                <div className="text-gray-300 text-sm space-y-4">
+                                <div className="text-muted-foreground text-sm space-y-4">
                                     <div>
                                         <h3 className="font-semibold">1. Honesty and respect for other users</h3>
                                         <p>Be polite and respectful when communicating with other users. Offensive
