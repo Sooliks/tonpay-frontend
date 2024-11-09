@@ -3,6 +3,7 @@ import {Button} from "@/components/ui/button";
 import {ChevronLeftIcon} from "lucide-react";
 import Image from "next/image";
 import {ChevronRightIcon} from "@radix-ui/react-icons";
+import Link from "next/link";
 
 const SaleScreenshots = ({publicIds}:{publicIds: string[]}) => {
     const [currentScreenIndex,setCurrentScreenIndex] = useState<number>(0)
@@ -26,13 +27,18 @@ const SaleScreenshots = ({publicIds}:{publicIds: string[]}) => {
             >
                 <ChevronLeftIcon className="h-4 w-4" />
             </Button>
-            <Image
-                src={`https://res.cloudinary.com/dqggb6cgz/image/upload/${publicIds[currentScreenIndex]}`}
-                alt={`screen ${currentScreenIndex}`}
+            <Link
                 className={'mx-4'}
-                width={200}
-                height={170}
-            />
+                target={'_blank'}
+                href={`https://res.cloudinary.com/dqggb6cgz/image/upload/${publicIds[currentScreenIndex]}`}
+            >
+                <Image
+                    src={`https://res.cloudinary.com/dqggb6cgz/image/upload/${publicIds[currentScreenIndex]}`}
+                    alt={`screen ${currentScreenIndex}`}
+                    width={200}
+                    height={170}
+                />
+            </Link>
             <Button
                 onClick={handleClickRight}
                 disabled={currentScreenIndex===publicIds.length-1}
