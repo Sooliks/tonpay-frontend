@@ -70,6 +70,7 @@ const SalePreview = ({sale, isProfile, forAdmin = false, avatar = true, edit = f
                 }
             </div>
             {edit && <DeleteSaleDialog sale={sale} onDelete={()=>{if(onSave) onSave()}}/>}
+            <p className={'ml-auto text-sm tracking-widest text-muted-foreground mt-1'}>{sale.price.toFixed(2)} TON</p>
         </Card>
     );
 };
