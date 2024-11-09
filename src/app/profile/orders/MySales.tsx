@@ -52,7 +52,7 @@ const MySales = () => {
                                     <TableRow key={order.id} className={'h-16'}>
                                         <TableCell><Link href={`/profile/orders/${order.id}`} className={'text-blue-800'}>Details</Link></TableCell>
                                         <TableCell><p>{new Date(order.createdAt).toLocaleDateString()}</p><p>{new Date(order.createdAt).toLocaleTimeString()}</p></TableCell>
-                                        <TableCell><Link href={`/sale/${order.sale?.id}`} className={'text-blue-800'}>Sale</Link> {!order.sale?.id && ' was deleted'}</TableCell>
+                                        <TableCell><Link href={`/sale/${order.sale?.id}`} className={'text-blue-800'}>Sale</Link> {!order.sale?.id && ' (was deleted)'}</TableCell>
                                         <TableCell>{order.isCompleted ? <Check color={'green'}/> : order.isCancelled ? 'Cancelled' : <Ban color={'red'}/>}</TableCell>
                                         <TableCell><span className={'ml-auto text-sm tracking-widest text-muted-foreground'}>{order.amount.toFixed(2)} TON</span></TableCell>
                                     </TableRow>
