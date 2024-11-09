@@ -82,7 +82,7 @@ const EditSaleDialog = ({data, onSave}:{data: Sale,onSave: () => void}) => {
                     <DrawerHeader>
                         <DrawerTitle>Edit sale</DrawerTitle>
                     </DrawerHeader>
-                    <div className="p-4 pb-0 h-5/6 overflow-y-auto">
+                    <div className="p-4 pb-0 h-96 overflow-y-auto">
                         <form onSubmit={handleSubmit(onSubmit)} className={'flex flex-col'}>
                             <label htmlFor="title" className={'text-muted-foreground text-sm'}>Title</label>
                             <Input
