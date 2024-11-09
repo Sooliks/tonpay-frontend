@@ -73,7 +73,7 @@ const OrderPage = ({params}: OrderPageProps) => {
             </Card>
             <Card className={'p-4 mt-2 flex flex-col'}>
                 <p>Created at {new Date(data.createdAt).toLocaleDateString()} {new Date(data.createdAt).toLocaleTimeString()}</p>
-                <Link href={`/sale/${data.sale.id}`} className={'text-blue-800'}>Sale</Link>
+                <Link href={`/sale/${data.sale?.id}`} className={'text-blue-800'}>Sale</Link>
                 <Link href={`/profile/${data.customerId}`} className={'text-blue-800'}>Customer</Link>
                 <Link href={`/profile/${data.sellerId}`} className={'text-blue-800'}>Seller</Link>
                 <p className={'flex items-center'}>
