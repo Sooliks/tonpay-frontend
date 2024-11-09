@@ -19,6 +19,7 @@ type MenuItem = {
     shortcut?: string
     path: string
     disabled?: boolean
+    individual?: boolean
 }
 
 export type MenuBar = {
@@ -54,7 +55,7 @@ const Menu = ({bars}: MenuProps) => {
                                 <>
                                     <Link
                                         key={index}
-                                        href={`/${bar.path}/${item.path}`} className={item.disabled ? 'pointer-events-none' : undefined}
+                                        href={item.individual ? item.path : `/${bar.path}/${item.path}`} className={item.disabled ? 'pointer-events-none' : undefined}
                                     >
                                         <MenubarItem disabled={item.disabled}>
                                             {item.title} {item.shortcut && <MenubarShortcut>{item.shortcut}</MenubarShortcut>}

@@ -19,6 +19,7 @@ const MenuData = () => {
         {
             title: 'Categories',
             items: [
+                {title: 'Last sales', path: '/lastsales', shortcut: 'in 10 hours', individual: true},
                 {title: 'PC', path: 'pc_games', shortcut: 'Games'},
                 {title: 'Mobile', path: 'mobile_games', shortcut: 'Games'},
                 {title: 'Telegram Mini Apps', path: 'tg_mini_app_game'},
