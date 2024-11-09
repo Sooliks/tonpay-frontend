@@ -18,12 +18,14 @@ const FeedbackPreview = ({feedback}:{feedback: Feedback}) => {
                     />
                     <p className={'flex items-center'}><Star className={'w-4 h-4 ml-1'}/> {feedback.rate}</p>
                 </div>
-                <p className={'flex items-center'}>
-                    Sale:
-                    <Link className={'ml-1 text-blue-800 text-sm text-muted-foreground'} href={`/sale/${feedback.order.sale.id}`}>
-                        {feedback.order.sale.title}
-                    </Link>
-                </p>
+                {feedback.order.sale &&
+                    <p className={'flex items-center'}>
+                        Sale:
+                        <Link className={'ml-1 text-blue-800 text-sm text-muted-foreground'} href={`/sale/${feedback.order.sale?.id}`}>
+                            {feedback.order.sale?.title}
+                        </Link>
+                    </p>
+                }
                 <p className={'ml-2 whitespace-pre-line'}>{feedback.text}</p>
                 <p className={'mt-2 text-muted-foreground text-sm'}>
                     Amount: <span className={'ml-auto text-sm tracking-widest text-muted-foreground'}>{feedback.order.amount.toFixed(2)} TON</span>
