@@ -49,11 +49,13 @@ const BuyPage = ({params}: BuyLayoutProps) => {
                         <AccordionItem value={scope.name} key={scope.id} defaultValue={'open'}>
                             <AccordionTrigger>{scope.name}</AccordionTrigger>
                             <AccordionContent>
-                                {scope.subScopes.map(subScope=>
-                                    <Link className={'mr-1 mb-1'} href={`/buy/${scope.type}/${subScope.id}`} key={subScope.id}>
-                                        <Badge variant={'secondary'}>{subScope.name}</Badge>
-                                    </Link>
-                                )}
+                                <div className={'flex flex-wrap'}>
+                                    {scope.subScopes.map(subScope=>
+                                        <Link className={'mr-1 mb-1'} href={`/buy/${scope.type}/${subScope.id}`} key={subScope.id}>
+                                            <Badge variant={'secondary'}>{subScope.name}</Badge>
+                                        </Link>
+                                    )}
+                                </div>
                             </AccordionContent>
                         </AccordionItem>
                     )}
