@@ -60,7 +60,7 @@ const SalesPage = ({params}: BuyLayoutProps) => {
                     loader={<Skeleton/>}
                     scrollableTarget="scrollableDiv"
                 >
-                    <div className={'flex flex-col'}>
+                    <div className={'flex flex-col flex-wrap'}>
                         {data.length > 0 ? data.map(sale=> (sale.map(s=> <SalePreview sale={s} key={s.id} isProfile={false} rate/>)))
                             :
                             <p className={'text-center text-muted-foreground text-2xl mt-24'}>Nothing</p>
