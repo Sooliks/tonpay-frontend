@@ -31,7 +31,7 @@ const UsersPage = () => {
                 loader={<Skeleton/>}
                 scrollableTarget="scrollableDiv"
             >
-                {countUsers && <p>Count users: {countUsers}</p>}
+                {countUsers && <p className={'text-center text-muted-foreground'}>Count users: {countUsers}</p>}
                 <Table className={'p-4'}>
                     <TableCaption>Users</TableCaption>
                     <TableHeader>
