@@ -50,7 +50,7 @@ const BuyPage = ({params}: BuyLayoutProps) => {
                             <AccordionTrigger>{scope.name}</AccordionTrigger>
                             <AccordionContent>
                                 {scope.subScopes.map(subScope=>
-                                    <Link className={'mr-1'} href={`/buy/${scope.type}/${subScope.id}`} key={subScope.id}>
+                                    <Link className={'mr-1 mb-1'} href={`/buy/${scope.type}/${subScope.id}`} key={subScope.id}>
                                         <Badge variant={'secondary'}>{subScope.name}</Badge>
                                     </Link>
                                 )}

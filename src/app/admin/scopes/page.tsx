@@ -37,9 +37,9 @@ const AdminScopesPage = () => {
                                     <CreateSubScope idScope={scope.id} onCreated={mutate}/>
                                     <p className={'text-1xl text-center mt-2'}>Sub categories: </p>
                                         {scope.subScopes.length > 0 ?
-                                            <div className={'flex'}>
+                                            <div className={'flex flex-wrap'}>
                                                 {scope.subScopes.map(subScope=>
-                                                    <Badge key={subScope.id} className={'mr-1 mt-2'}>{subScope.name}{subScope.isCurrency && ' $'}</Badge>
+                                                    <Badge key={subScope.id} className={'mr-1 mb-1'}>{subScope.name}{subScope.isCurrency && ' $'}</Badge>
                                                 )}
                                             </div>
                                             :
