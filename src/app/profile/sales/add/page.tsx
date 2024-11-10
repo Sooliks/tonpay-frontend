@@ -178,7 +178,7 @@ const SalesAddPage = () => {
                             <SelectTrigger className="w-[180px]">
                                 <SelectValue />
                             </SelectTrigger>
-                            <SelectContent>
+                            <SelectContent className={'h-52 overflow-y-auto'}>
                                 {scopes.map(scope=>
                                     <SelectItem key={scope.id} value={scope.id}>{scope.name}</SelectItem>
                                 )}
