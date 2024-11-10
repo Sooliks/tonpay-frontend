@@ -52,7 +52,7 @@ const BuyPage = ({params}: BuyLayoutProps) => {
                                 <div className={'flex flex-wrap'}>
                                     {scope.subScopes.map(subScope=>
                                         <Link className={'mr-1 mb-1'} href={`/buy/${scope.type}/${subScope.id}`} key={subScope.id}>
-                                            <Badge variant={'secondary'}>{subScope.name}</Badge>
+                                            <Badge className={'mr-1 mb-1'} variant={'secondary'}>{subScope.name}</Badge>
                                         </Link>
                                     )}
                                 </div>
