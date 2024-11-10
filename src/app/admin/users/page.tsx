@@ -7,6 +7,7 @@ import Link from "next/link";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {Skeleton} from "@/components/ui/skeleton";
 import useSWRInfinite from "swr/infinite";
+import useSWR from "swr";
 
 const COUNT_ON_PAGE = 10;
 const getKey = (pageIndex: number, previousPageData: UserType[] | null) => {
@@ -16,6 +17,7 @@ const getKey = (pageIndex: number, previousPageData: UserType[] | null) => {
 
 const UsersPage = () => {
     const { data, error, isLoading, size, setSize } = useSWRInfinite<UserType[]>(getKey)
+    const { data: countUsers } = useSWR<number>(`/stats/users/count`)
     if(isLoading){
         return <SpinLoading/>
     }
@@ -29,6 +31,7 @@ const UsersPage = () => {
                 loader={<Skeleton/>}
                 scrollableTarget="scrollableDiv"
             >
+                {countUsers && <p>Count users: {countUsers}</p>}
                 <Table className={'p-4'}>
                     <TableCaption>Users</TableCaption>
                     <TableHeader>
