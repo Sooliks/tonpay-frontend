@@ -4,7 +4,6 @@ import {
     Drawer,
     DrawerClose,
     DrawerContent,
-    DrawerDescription,
     DrawerFooter,
     DrawerHeader,
     DrawerTitle,
@@ -17,9 +16,11 @@ import {toast} from "@/hooks/use-toast";
 import {AxiosError} from "axios";
 import {Loader2} from "lucide-react";
 import {useRouter} from "next/navigation";
+import useTonPrice from "@/hooks/useTonPrice";
 
 const BuyMenu = ({sale}:{sale: Sale}) => {
     const [isLoading, setIsLoading] = useState(false);
+    const {priceTon} = useTonPrice()
     const {push} = useRouter();
     const handleSubmit = () => {
         setIsLoading(true)
@@ -49,7 +50,7 @@ const BuyMenu = ({sale}:{sale: Sale}) => {
                             disabled={isLoading}
                         >
                             {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                            Buy <span className={'text-muted-foreground text-sm ml-2'}>[{sale.price} TON]</span>
+                            Buy <span className={'text-muted-foreground text-sm ml-2'}>[{sale.price} TON] ~ {priceTon! * sale.price}$</span>
                         </Button>
                         <DrawerClose asChild>
                             <Button variant="outline">Cancel</Button>
