@@ -23,7 +23,7 @@ const Providers = ({children}:{children: React.ReactNode}) => {
         <SDKProvider acceptCustomStyles>
             <ThemeProvider
                 attribute="class"
-                defaultTheme="dark"
+                defaultTheme="light"
                 disableTransitionOnChange
             >
                 <MyTonConnectUiProvider>
