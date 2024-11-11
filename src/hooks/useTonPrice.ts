@@ -12,7 +12,8 @@ const useTonPrice = (salePrice?: number) => {
                         symbol: 'TONUSDT'
                     }
                 });
-                setPrice(res.data.price.toFixed(2));
+                const p: string = res.data.price.toString().toFixed(2);
+                setPrice(Number(p));
             }catch (error) {
                 console.error(error);
             }
