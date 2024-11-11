@@ -9,7 +9,7 @@ const UserAvatar = ({photoUrl, nickname, id, link = true, small = false, classNa
         link ?
             <div className={cn(className, 'flex items-center')}>
                 <Link href={`/profile/${id}`}>
-                    <Avatar className={'h-6 w-6'}>
+                    <Avatar className={cn(!small ? 'h-6 w-6' : 'h-4 w-4', 'z-0')}>
                         <AvatarImage src={photoUrl}/>
                         <AvatarFallback>{nickname[0]}</AvatarFallback>
                     </Avatar>
@@ -20,7 +20,7 @@ const UserAvatar = ({photoUrl, nickname, id, link = true, small = false, classNa
             </div>
             :
             <div className={cn(className, 'flex items-center')}>
-                <Avatar className={!small ? 'h-6 w-6' : 'h-4 w-4'}>
+                <Avatar className={cn(!small ? 'h-6 w-6' : 'h-4 w-4', 'z-0')}>
                     <AvatarImage src={photoUrl}/>
                     <AvatarFallback>{nickname[0]}</AvatarFallback>
                 </Avatar>
