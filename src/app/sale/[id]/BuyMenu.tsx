@@ -37,7 +37,7 @@ const BuyMenu = ({sale}:{sale: Sale}) => {
     return (
         <Drawer>
             <DrawerTrigger asChild>
-                <Button>Buy <span className={'text-muted-foreground text-sm ml-2'}>[{sale.price} TON] ~ {priceTon * sale.price}$</span></Button>
+                <Button>Buy <span className={'text-muted-foreground text-sm ml-2'}>[{sale.price} TON] ~ {(priceTon * sale.price).toFixed(3)}$</span></Button>
             </DrawerTrigger>
             <DrawerContent>
                 <div className="mx-auto w-full max-w-sm">
@@ -50,7 +50,7 @@ const BuyMenu = ({sale}:{sale: Sale}) => {
                             disabled={isLoading}
                         >
                             {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                            Buy <span className={'text-muted-foreground text-sm ml-2'}>[{sale.price} TON] ~ {priceTon * sale.price}$</span>
+                            Buy <span className={'text-muted-foreground text-sm ml-2'}>[{sale.price} TON] ~ {(priceTon * sale.price).toFixed(3)}$</span>
                         </Button>
                         <DrawerClose asChild>
                             <Button variant="outline">Cancel</Button>
