@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 
 
-const useTonPrice = () => {
+const useTonPrice = (salePrice?: number) => {
     const [priceTon, setPrice] = useState<number>(0);
     useEffect(() => {
         const fetchCurrentPrice = async () => {
@@ -19,9 +19,8 @@ const useTonPrice = () => {
         }
         setInterval(()=>{
             fetchCurrentPrice()
-        },5000)
+        }, 6000)
     }, []);
-
     return { priceTon };
 };
 

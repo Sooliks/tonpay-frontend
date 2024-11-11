@@ -22,9 +22,11 @@ import update from "immutability-helper";
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {useRouter} from "next/navigation";
+import useTonPrice from "@/hooks/useTonPrice";
 
 const SalesAddPage = () => {
     const { data, error, isLoading } = useSWR<Scope[]>('/scopes')
+    const {priceTon} = useTonPrice()
     const [scopes,setScopes] = useState<Scope[]>([]);
     const [subScopes,setSubScopes] = useState<SubScope[]>([]);
     const [currentSubScope,setCurrentSubScope] = useState<SubScope | undefined>(undefined);
@@ -268,6 +270,7 @@ const SalesAddPage = () => {
                             }
                         }})}
                 />
+                ~ {priceTon * watch('price')}$
                 {errors.price?.message && <p className="text-sm text-muted-foreground text-red-500">{errors.price.message}</p>}
                 <label htmlFor="images" className={'text-muted-foreground text-sm mt-2 flex items-center'}>
                     Upload Images (max 3):
