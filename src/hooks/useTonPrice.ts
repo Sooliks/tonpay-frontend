@@ -12,12 +12,14 @@ const useTonPrice = (salePrice?: number) => {
                         symbol: 'TONUSDT'
                     }
                 });
-                const p: string = res.data.price.toString().toFixed(2);
-                setPrice(Number(p));
+                const p: string = res.data.price as string;
+                const pr = Number(p)
+                setPrice(Number(pr.toFixed(2)));
             }catch (error) {
                 console.error(error);
             }
         }
+        fetchCurrentPrice()
         setInterval(()=>{
             fetchCurrentPrice()
         }, 6000)
