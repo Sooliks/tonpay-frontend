@@ -37,7 +37,7 @@ const BuyMenu = ({sale}:{sale: Sale}) => {
     return (
         <Drawer>
             <DrawerTrigger asChild>
-                <Button className={'w-36'}>Buy <span className={'text-muted-foreground text-sm ml-2'}>[{sale.price} TON] ~ {priceTon * sale.price}$</span></Button>
+                <Button>Buy <span className={'text-muted-foreground text-sm ml-2'}>[{sale.price} TON] ~ {priceTon * sale.price}$</span></Button>
             </DrawerTrigger>
             <DrawerContent>
                 <div className="mx-auto w-full max-w-sm">

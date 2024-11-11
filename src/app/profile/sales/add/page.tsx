@@ -270,7 +270,7 @@ const SalesAddPage = () => {
                             }
                         }})}
                 />
-                ~ {priceTon * watch('price')}$
+                ~ {priceTon * Number(getValues('price'))}$
                 {errors.price?.message && <p className="text-sm text-muted-foreground text-red-500">{errors.price.message}</p>}
                 <label htmlFor="images" className={'text-muted-foreground text-sm mt-2 flex items-center'}>
                     Upload Images (max 3):
