@@ -95,6 +95,7 @@ const OrderPage = ({params}: OrderPageProps) => {
                         ' Nothing'
                     }
                 </p>
+                {data.count && <p>Count: {data.count}</p>}
             </Card>
             {!data.isCompleted && !data.isCancelled && <ReportDialog order={data}/>}
             {((!data.isCompleted && !data.isCancelled && data.customerId === auth.user?.id) || (auth.user?.role === 'ADMIN' || auth.user?.role === 'CREATOR')) &&

@@ -16,4 +16,5 @@ export type Order = {
     sellerId: string
     feedback?: Feedback
     feedbackId?: string
+    count?: number
 }
