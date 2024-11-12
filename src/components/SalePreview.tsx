@@ -12,6 +12,7 @@ import UserAvatar from "@/components/my-ui/UserAvatar";
 import EditSaleDialog from "@/components/EditSaleDialog";
 import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
 import DeleteSaleDialog from "@/components/DeleteSaleDialog";
+import {Badge} from "@/components/ui/badge";
 
 const SalePreview = ({sale, isProfile, forAdmin = false, avatar = true, edit = false, rate = false, onSave}:{sale: Sale, isProfile?: boolean, forAdmin?: boolean, avatar?: boolean, edit?: boolean, rate?: boolean, onSave?: () => void}) => {
     return (
@@ -71,6 +72,7 @@ const SalePreview = ({sale, isProfile, forAdmin = false, avatar = true, edit = f
             </div>
             {edit && <DeleteSaleDialog sale={sale} onDelete={()=>{if(onSave) onSave()}}/>}
             <p className={'ml-auto text-sm tracking-widest text-muted-foreground mt-1'}>{sale.price.toFixed(2)} TON</p>
+            {sale.autoDelivery && <Badge>Auto delivery</Badge>}
         </Card>
     );
 };

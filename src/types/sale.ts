@@ -43,4 +43,5 @@ export type Sale = {
     rate?: number
     autoMessage?: string
     lastUp: Date
+    autoDelivery?: boolean
 }
