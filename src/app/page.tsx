@@ -18,7 +18,7 @@ export default function Home() {
                 The safest and fastest way to trade online using TON crypto payments.
             </p>
             <div className="space-x-4">
-                <Link href={'/profile/sales'}>
+                <Link href={'/lastsales'}>
                     <Button>
                         Start Trading
                     </Button>
