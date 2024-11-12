@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import {ThemeToggle} from "@/components/ThemeToggle";
 import CopyButton from "@/components/my-ui/CopyButton";
