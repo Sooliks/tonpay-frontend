@@ -13,7 +13,9 @@ const SettingsPage = () => {
                 <h6>Theme</h6>
                 <ThemeToggle/>
             </div>
-            <CopyButton className={'mt-4'} copyText={`https://t.me/PayOnTonBot/app?startapp=${auth.user!.id}`} textButton={'Referral link'}/>
+            <div className={'flex justify-center'}>
+            <CopyButton refTelegram={false} className={'mt-4'} copyText={`https://t.me/PayOnTonBot/app?startapp=${auth.user?.id}`} textButton={'Referral link'}/>
+            </div>
         </div>
     );
 };
