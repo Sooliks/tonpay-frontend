@@ -14,6 +14,7 @@ export type UserType = {
     isOnline?: boolean
     languageCode?: string
     isSubscribed: boolean
+    isPublishedFirstSale?: boolean
 }
 
 export enum Role {

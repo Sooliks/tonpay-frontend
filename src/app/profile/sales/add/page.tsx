@@ -23,6 +23,7 @@ import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {useRouter} from "next/navigation";
 import useTonPrice from "@/hooks/useTonPrice";
+import {useAuth} from "@/hooks/useAuth";
 
 const SalesAddPage = () => {
     const { data, error, isLoading } = useSWR<Scope[]>('/scopes')
@@ -32,6 +33,7 @@ const SalesAddPage = () => {
     const [currentSubScope,setCurrentSubScope] = useState<SubScope | undefined>(undefined);
     const [products,setProducts] = useState<string[]>([]);
     const {back} = useRouter()
+    const auth = useAuth();
     const {
         register,
         handleSubmit,
@@ -325,6 +327,7 @@ const SalesAddPage = () => {
                 >
                     {isLoadingSubmit && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                     Add
+                    {!auth.user?.isPublishedFirstSale && <Badge className={'ml-2'}>+0.05 TON</Badge>}
                 </Button>
             </form>
         </Card>
