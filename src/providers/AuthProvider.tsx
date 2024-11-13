@@ -8,17 +8,20 @@ import FirstLoading from "@/components/my-ui/FirstLoading";
 import Error from "@/app/error";
 import {useRouter} from "next/navigation";
 import {UrlService} from "@/services/UrlService";
+import useNotification from "@/hooks/useNotifications";
+import {toast} from "@/hooks/use-toast";
 
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const initData = useInitData(true);
+    const {notification} = useNotification()
     const { initDataRaw } = typeof window !== 'undefined' ? retrieveLaunchParams() : { initDataRaw: null };
     const { user, error: fetchCurrentUserError, fetchCurrentUser, setUser, isLoading: isFetchingCurrentUser } = useFetchCurrentUser()
     const { authData, error: loginUserError, loginUser, isLoading: isLoggingIn } = useLoginUser()
     const {replace} = useRouter();
     useEffect(() => {
         fetchCurrentUser()
-    }, [])
+    }, [notification])
     useEffect(() => {
         try {
             if (!initData?.user) return
@@ -48,6 +51,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             if(url)replace(`/${url}`)
         }
     }, [initData]);
+    useEffect(()=>{
+        if(notification) toast({description: notification})
+    },[notification])
 
 
     const isLoading = isFetchingCurrentUser || isLoggingIn
