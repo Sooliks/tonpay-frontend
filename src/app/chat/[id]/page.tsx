@@ -106,10 +106,10 @@ const ChatPage = ({params}: ProfileLayoutProps) => {
     return (
         <div className="flex flex-col overflow-y-hidden p-4">
             <Card className={'p-4 flex items-center justify-between'}>
-                <UserAvatar photoUrl={interlocutor.photoUrl || ""} nickname={interlocutor.nickname} id={interlocutor.id}/>
+                <UserAvatar photoUrl={interlocutor.photoUrl || ""} nickname={interlocutor.nickname} id={interlocutor.id} className={'mr-1'}/>
                 {data?.sale &&
                     <Badge className={'text-sm text-ellipsis max-w-56 truncate whitespace-nowrap overflow-hidden'} variant={'outline'}>
-                        Wathing <Link href={`/sale/${data.sale.id}`} className={'text-blue-800 ml-2'}>{data.sale.title}</Link>
+                        Wathing <Link href={`/sale/${data.sale.id}`} className={'text-blue-800 ml-2 text-sm'}>{data.sale.title}</Link>
                     </Badge>
                 }
             </Card>
