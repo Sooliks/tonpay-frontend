@@ -17,7 +17,7 @@ export default async function Home({ params: { lang } }: { params: { lang: Local
         <section className="text-black dark:text-white py-20 px-8 text-center">
             <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">{t.home.title} <br className="hidden sm:inline-block"/>{t.home.cryptocurrency}</h1>
             <p className="text-lg mb-8 text-muted-foreground">
-                The safest and fastest way to trade online using TON crypto payments.
+                {t.home.description}
             </p>
             <div className="space-x-4">
                 <Link href={'/lastsales'}>
@@ -28,88 +28,71 @@ export default async function Home({ params: { lang } }: { params: { lang: Local
                 <Drawer>
                     <DrawerTrigger asChild>
                         <Button variant={'secondary'}>
-                            Rules
+                            {t.home.rulesButton}
                         </Button>
                     </DrawerTrigger>
                     <DrawerContent>
                         <div className="mx-auto w-full max-w-sm">
                             <DrawerHeader>
-                                <DrawerTitle>Rules</DrawerTitle>
-                                <DrawerDescription>Terms of use of the PayOnTon trading platform</DrawerDescription>
+                                <DrawerTitle>{t.home.rulesButton}</DrawerTitle>
+                                <DrawerDescription>{t.home.rules.description}</DrawerDescription>
                             </DrawerHeader>
                             <div className="p-4 pb-0 h-96 overflow-y-auto">
                                 <div className="text-muted-foreground text-sm space-y-4">
                                     <div>
-                                        <h3 className="font-semibold">1. Honesty and respect for other users</h3>
-                                        <p>Be polite and respectful when communicating with other users. Offensive
-                                            language, threats, aggressive or disrespectful behavior is prohibited.</p>
+                                        <h3 className="font-semibold">1. {t.home.rules.points[0].title}</h3>
+                                        <p>{t.home.rules.points[0].description}</p>
                                     </div>
 
                                     <div>
-                                        <h3 className="font-semibold">2. Prohibition of fraudulent manipulations</h3>
-                                        <p>Any form of fraud (including deception, withholding information, misleading
-                                            other users) is strictly prohibited. Creating multiple accounts to gain
-                                            benefits, artificially boosting ratings, or reviews is forbidden.</p>
+                                        <h3 className="font-semibold">2. {t.home.rules.points[1].title}</h3>
+                                        <p>{t.home.rules.points[1].description}</p>
                                     </div>
 
                                     <div>
-                                        <h3 className="font-semibold">3. Prohibition of review manipulation</h3>
-                                        <p>The platform strictly monitors the authenticity of reviews and ratings.
-                                            Prohibited:</p>
+                                        <h3 className="font-semibold">3. {t.home.rules.points[2].title}</h3>
+                                        <p>{t.home.rules.points[2].description}</p>
                                         <ul className="list-disc list-inside">
-                                            <li>Collusion for artificially increasing or decreasing ratings.</li>
-                                            <li>Use of fake accounts or external services for review manipulation.</li>
+                                            {t.home.rules.points[2].list?.map((item, index) => (
+                                                <li key={index}>{item}</li>
+                                            ))}
                                         </ul>
-                                        <p>Any attempt to manipulate reviews will lead to account blocking.</p>
+                                        <p>{t.home.rules.points[2].subDesc}</p>
                                     </div>
 
                                     <div>
-                                        <h3 className="font-semibold">4. Authenticity of goods and services</h3>
-                                        <p>Sellers must provide complete and accurate information about the goods and
-                                            services they offer. It is prohibited to list non-existent, stolen, or
-                                            inactive items. If you are selling in-game items, they must be obtained
-                                            fairly and not violate game rules.</p>
+                                        <h3 className="font-semibold">4. {t.home.rules.points[3].title}</h3>
+                                        <p>{t.home.rules.points[3].description}</p>
                                     </div>
 
                                     <div>
-                                        <h3 className="font-semibold">5. Secure transactions</h3>
-                                        <p>All transactions should be conducted within the platform. This protects you
-                                            from fraud. Avoid external platforms or payment methods not supported by our
-                                            service.</p>
+                                        <h3 className="font-semibold">5. {t.home.rules.points[4].title}</h3>
+                                        <p>{t.home.rules.points[4].description}</p>
                                     </div>
 
                                     <div>
-                                        <h3 className="font-semibold">6. No spam and advertising</h3>
-                                        <p>Advertising of goods and services outside this platform, spam, or mass
-                                            messaging to attract buyers is prohibited.</p>
+                                        <h3 className="font-semibold">6. {t.home.rules.points[5].title}</h3>
+                                        <p>{t.home.rules.points[5].description}</p>
                                     </div>
 
                                     <div>
-                                        <h3 className="font-semibold">7. Responsibility for your actions</h3>
-                                        <p>Each user is responsible for their actions on the platform. In case of rule
-                                            violations, the administration reserves the right to impose temporary or
-                                            permanent account blocking.</p>
+                                        <h3 className="font-semibold">7. {t.home.rules.points[6].title}</h3>
+                                        <p>{t.home.rules.points[6].description}</p>
                                     </div>
 
                                     <div>
-                                        <h3 className="font-semibold">8. Feedback</h3>
-                                        <p>If you encounter rule violations or suspected fraud, please report it to the
-                                            administration. We will carefully review each case and take necessary
-                                            actions.</p>
+                                        <h3 className="font-semibold">8. {t.home.rules.points[7].title}</h3>
+                                        <p>{t.home.rules.points[7].description}</p>
                                     </div>
 
                                     <div className="mt-4 text-gray-400">
-                                        <p><strong>Consequences of rule violations:</strong> We strive to maintain a
-                                            high level of safety and honesty. Any violation, especially related to
-                                            fraud, review manipulation, or other dishonest activities, may result in a
-                                            permanent ban from the platform without the possibility of reinstatement.
-                                        </p>
+                                        <p><strong>{t.home.rules.miniDesc.strong}</strong> {t.home.rules.miniDesc.text}</p>
                                     </div>
                                 </div>
                             </div>
                             <DrawerFooter>
                                 <DrawerClose asChild>
-                                    <Button variant="outline">Close</Button>
+                                    <Button variant="outline">{t.frequent.close}</Button>
                                 </DrawerClose>
                             </DrawerFooter>
                         </div>

@@ -1,10 +1,61 @@
 {
-  "home": {
-    "title": "Buy and Sell with TON",
-    "cryptocurrency": "Cryptocurrency",
-    "startButton": "Start Trading"
-  },
-  "profile": {
-    "me": "Me"
-  }
+    "frequent": {
+        "close": "Close"
+    },
+    "home": {
+        "title": "Buy and Sell with TON",
+        "cryptocurrency": "Cryptocurrency",
+        "startButton": "Start Trading",
+        "description": "The safest and fastest way to trade online using TON crypto payments.",
+        "rulesButton": "Rules",
+        "rules": {
+            "description": "Terms of use of the PayOnTon trading platform",
+            "points": [
+                {
+                    "title": "Honesty and respect for other users",
+                    "description": "Be polite and respectful when communicating with other users. Offensive language, threats, aggressive or disrespectful behavior is prohibited."
+                },
+                {
+                    "title": "Prohibition of fraudulent manipulations",
+                    "description": "Any form of fraud (including deception, withholding information, misleading other users) is strictly prohibited. Creating multiple accounts to gain benefits, artificially boosting ratings, or reviews is forbidden."
+                },
+                {
+                    "title": "Prohibition of review manipulation",
+                    "description": "The platform strictly monitors the authenticity of reviews and ratings. Prohibited:",
+                    "list": [
+                        "Collusion for artificially increasing or decreasing ratings.",
+                        "Use of fake accounts or external services for review manipulation."
+                    ],
+                    "subDesc": "Any attempt to manipulate reviews will lead to account blocking."
+                },
+                {
+                    "title": "Authenticity of goods and services",
+                    "description": "Sellers must provide complete and accurate information about the goods and services they offer. It is prohibited to list non-existent, stolen, or inactive items. If you are selling in-game items, they must be obtained fairly and not violate game rules."
+                },
+                {
+                    "title": "Secure transactions",
+                    "description": "All transactions should be conducted within the platform. This protects you from fraud. Avoid external platforms or payment methods not supported by our service."
+                },
+                {
+                    "title": "No spam and advertising",
+                    "description": "Advertising of goods and services outside this platform, spam, or mass messaging to attract buyers is prohibited."
+                },
+                {
+                    "title": "Responsibility for your actions",
+                    "description": "Each user is responsible for their actions on the platform. In case of rule violations, the administration reserves the right to impose temporary or permanent account blocking."
+                },
+                {
+                    "title": "Feedback",
+                    "description": "If you encounter rule violations or suspected fraud, please report it to the administration. We will carefully review each case and take necessary actions."
+                }
+            ],
+            "miniDesc": {
+                "strong": "Consequences of rule violations:",
+                "text": "We strive to maintain a high level of safety and honesty. Any violation, especially related to fraud, review manipulation, or other dishonest activities, may result in a permanent ban from the platform without the possibility of reinstatement."
+            }
+        }
+    },
+    "profile": {
+        "me": "Me"
+    }
 }
