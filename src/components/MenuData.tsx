@@ -7,9 +7,11 @@ import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import {Badge} from "@/components/ui/badge";
 import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip";
 import axiosInstance from "@/configs/axios";
+import {useTranslation} from "@/hooks/useTranslation";
 
 const MenuData = () => {
     const auth = useAuth();
+    const { translations } = useTranslation();
     const initData = useInitData()
     const [bars,setBars] = useState<MenuBar[]>([
         {
@@ -39,7 +41,7 @@ const MenuData = () => {
                         <AvatarImage src={auth.user?.photoUrl}/>
                         <AvatarFallback>{initData!.user!.firstName[0]}</AvatarFallback>
                     </Avatar>
-                    <span className={'ml-2'}>Me</span>
+                    <span className={'ml-2'}>{translations.profile.me}</span>
                 </div>,
             items: [
                 {title: 'Profile', path: auth.user!.id, separator: true},

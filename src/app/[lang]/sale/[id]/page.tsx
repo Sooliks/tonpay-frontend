@@ -5,13 +5,9 @@ import {Sale} from "@/types/sale";
 import SpinLoading from "@/components/my-ui/SpinLoading";
 import NotFound from "@/app/[lang]/not-found";
 import {Card} from "@/components/ui/card";
-import SaleScreenshots from "@/app/sale/[id]/SaleScreenshots";
 import UserAvatar from "@/components/my-ui/UserAvatar";
 import {Star} from "lucide-react";
-import {Button} from "@/components/ui/button";
-import BuyMenu from "@/app/sale/[id]/BuyMenu";
 import {useSearchParams} from "next/navigation";
-import AdminSaleAction from "@/app/sale/[id]/AdminSaleAction";
 import {useAuth} from "@/hooks/useAuth";
 import Tree from "@/components/my-ui/Tree";
 import {getNameByPath} from "@/services/navService";
@@ -21,6 +17,9 @@ import axiosInstance from "@/configs/axios";
 import {AxiosError} from "axios";
 import {toast} from "@/hooks/use-toast";
 import CopyButton from "@/components/my-ui/CopyButton";
+import SaleScreenshots from "@/app/[lang]/sale/[id]/SaleScreenshots";
+import BuyMenu from "@/app/[lang]/sale/[id]/BuyMenu";
+import AdminSaleAction from "@/app/[lang]/sale/[id]/AdminSaleAction";
 type ProfileLayoutProps = {
     params: {
         id: string
