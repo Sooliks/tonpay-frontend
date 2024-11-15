@@ -7,7 +7,8 @@ import {toast} from "@/hooks/use-toast";
 import {useRouter} from "next/navigation";
 import {AxiosError} from "axios";
 import {Loader2} from "lucide-react";
-import AdminDeclineSaleDialog from "@/app/sale/[id]/AdminDeclineSaleDialog";
+import AdminDeclineSaleDialog from "@/app/[lang]/sale/[id]/AdminDeclineSaleDialog";
+
 
 const AdminSaleAction = ({id}:{id: string}) => {
     const [isLoadingAccept,setIsLoadingAccept] = useState<boolean>(false);
