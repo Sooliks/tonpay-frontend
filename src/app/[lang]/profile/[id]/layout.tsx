@@ -12,6 +12,7 @@ import CountryList from "country-list-with-dial-code-and-flag";
 import CopyButton from "@/components/my-ui/CopyButton";
 import NotFound from "@/app/[lang]/not-found";
 import ProfileMenu from "@/app/[lang]/profile/[id]/ProfileMenu";
+import {useTranslation} from "@/hooks/useTranslation";
 
 type ProfileLayoutProps = {
     params: {
@@ -23,6 +24,7 @@ type ProfileLayoutProps = {
 
 const ProfileLayout = ({params, children}: ProfileLayoutProps) => {
     const { data, error, isLoading } = useSWR<UserType>(`/profile/${params.id}`)
+    const {translations} = useTranslation();
     const country = CountryList.findOneByCountryCode(data?.languageCode || "")|| undefined
     if(isLoading){
         return <SpinLoading/>
@@ -34,7 +36,7 @@ const ProfileLayout = ({params, children}: ProfileLayoutProps) => {
         <div className={'p-4'}>
             <Card className={'p-4'}>
                 <div className={'flex justify-between'}>
-                    <h1>User</h1>
+                    <h1>{translations.frequent.user}</h1>
                     <p className={'text-sm text-muted-foreground'}>{country?.flag}</p>
                 </div>
                 <Separator className={'mt-2 mb-4'}/>
@@ -42,7 +44,7 @@ const ProfileLayout = ({params, children}: ProfileLayoutProps) => {
                     <div>
                         <UserAvatar photoUrl={data?.photoUrl || ''} nickname={data!.nickname} id={params.id} link={false}/>
                         {data?.isOnline ?
-                            <p className={'text-muted-foreground text-sm'}>Online now</p>
+                            <p className={'text-muted-foreground text-sm'}>{translations.frequent.onlineNow}</p>
                             :
                             data && <p className={'text-muted-foreground text-sm'}>Last online: {new Date(data.lastOnline).toLocaleDateString() + ' ' + new Date(data.lastOnline).toLocaleTimeString()}</p>
                         }
@@ -58,8 +60,8 @@ const ProfileLayout = ({params, children}: ProfileLayoutProps) => {
             <ProfileMenu
                 tabs={[
                     /*{title: 'View', key: '/'},*/
-                    {title: 'Sales', key: '/sales'},
-                    {title: 'Feedbacks', key: '/feedbacks'}
+                    {title: translations.menu.profileId.sales, key: `/sales`},
+                    {title: translations.menu.profileId.feedbacks, key: `/feedbacks`}
                 ]}
                 idProfile={params.id}
                 defaultKey={'/sales'}

@@ -1,7 +1,16 @@
 {
     "frequent": {
         "close": "Close",
-        "profile": "Profile"
+        "profile": "Profile",
+        "user": "User",
+        "onlineNow": "Online now",
+        "back": "Back"
+    },
+    "profile": {
+        "sales": {
+            "addNewButton": "Add new",
+            "boostSales": "Boost sales"
+        }
     },
     "home": {
         "title": "Buy and Sell with TON",
@@ -68,6 +77,10 @@
             "home": "Home",
             "categories": "Categories",
             "messages": "Messages"
+        },
+        "profileId": {
+            "sales": "Sales",
+            "feedbacks": "Feedbacks"
         }
     }
 }

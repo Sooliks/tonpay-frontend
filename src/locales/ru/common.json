@@ -1,7 +1,16 @@
 {
   "frequent": {
     "close": "Закрыть",
-    "profile": "Профиль"
+    "profile": "Профиль",
+    "user": "Пользователь",
+    "onlineNow": "Сейчас онлайн",
+    "back": "Назад"
+  },
+  "profile": {
+    "sales": {
+      "addNewButton": "Добавить",
+      "boostSales": "Поднять продажи"
+    }
   },
   "home": {
     "title": "Покупайте и продавайте с TON",
@@ -68,6 +77,10 @@
       "home": "Главная",
       "categories": "Категории",
       "messages": "Сообщения"
+    },
+    "profileId": {
+      "sales": "Продажи",
+      "feedbacks": "Отзывы"
     }
   }
 }
