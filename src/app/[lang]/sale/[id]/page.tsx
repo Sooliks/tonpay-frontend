@@ -20,6 +20,7 @@ import CopyButton from "@/components/my-ui/CopyButton";
 import SaleScreenshots from "@/app/[lang]/sale/[id]/SaleScreenshots";
 import BuyMenu from "@/app/[lang]/sale/[id]/BuyMenu";
 import AdminSaleAction from "@/app/[lang]/sale/[id]/AdminSaleAction";
+import {useTranslation} from "@/hooks/useTranslation";
 type ProfileLayoutProps = {
     params: {
         id: string
@@ -28,6 +29,7 @@ type ProfileLayoutProps = {
 
 const SalePage = ({params}: ProfileLayoutProps) => {
     const { data, error, isLoading } = useSWR<Sale>(`/sales/one/${params.id}`)
+    const {translations} = useTranslation()
     const [isForAdmin,setIsForAdmin] = useState<boolean>(false)
     const auth = useAuth()
     const searchParams = useSearchParams();
@@ -72,7 +74,7 @@ const SalePage = ({params}: ProfileLayoutProps) => {
             <Card className={'p-4 mt-2'}>
                 <p className={'text-muted-foreground'}>Description</p>
                 <p className={'whitespace-pre-line'}>{parseTextWithLinks(data.description)}</p>
-                <CopyButton refTelegram copyText={`sale${data.id}`} className={'mt-2'} textButton={'Share'}/>
+                <CopyButton refTelegram copyText={`sale${data.id}`} className={'mt-2'} textButton={translations.frequent.share}/>
             </Card>
             <Card className={'p-4 mt-2 flex justify-between'}>
                 <UserAvatar photoUrl={data.user.photoUrl || ""} nickname={data.user.nickname} id={data.userId}/>

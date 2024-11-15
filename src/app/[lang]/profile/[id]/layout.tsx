@@ -54,7 +54,7 @@ const ProfileLayout = ({params, children}: ProfileLayoutProps) => {
                 <Separator className={'my-2'}/>
                 <div className={'flex items-center justify-between'}>
                     <FirstSendMessageDialog recipientId={data.id}/>
-                    <CopyButton refTelegram copyText={`profile${data.id}`} textButton={'Share'}/>
+                    <CopyButton refTelegram copyText={`profile${data.id}`} textButton={translations.frequent.share}/>
                 </div>
             </Card>
             <ProfileMenu

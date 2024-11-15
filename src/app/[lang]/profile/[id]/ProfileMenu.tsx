@@ -19,7 +19,7 @@ const ProfileMenu = ({idProfile, tabs, defaultKey} : ProfileMenuProps) => {
     const {push} = useRouter();
     const pathname = usePathname()
     useEffect(()=>{
-        const path = pathname.split('/')[3] || '';
+        const path = pathname.split('/')[4] || '';
         setValue('/' + path)
     },[pathname])
     const handleValueChange = (key: string) => {
