@@ -1,3 +1,4 @@
+'use client'
 import React, {useState} from 'react';
 import {
     Drawer,
@@ -16,9 +17,11 @@ import {AxiosError} from "axios";
 import {useAuth} from "@/hooks/useAuth";
 import {Loader2} from "lucide-react";
 import {useRouter} from "next/navigation";
+import {useTranslation} from "@/hooks/useTranslation";
 
 const FirstSendMessageDialog = ({recipientId, small = true}:{recipientId: string, small?: boolean}) => {
     const [message,setMessage] = useState<string>("");
+    const {translations} = useTranslation();
     const {push} = useRouter()
     const [isLoading,setIsLoading] = useState<boolean>(false)
     const auth = useAuth();
@@ -46,14 +49,13 @@ const FirstSendMessageDialog = ({recipientId, small = true}:{recipientId: string
                     size={small ? 'sm' : 'default'}
                     variant={'secondary'}
                 >
-                    Send message
+                    {translations.frequent.sendMessage}
                 </Button>
             </DrawerTrigger>
             <DrawerContent>
                 <div className="mx-auto w-full max-w-sm">
                     <DrawerHeader>
-                        <DrawerTitle>Send message</DrawerTitle>
-                        {/*<DrawerDescription>Send first message</DrawerDescription>*/}
+                        <DrawerTitle>{translations.frequent.sendMessage}</DrawerTitle>
                     </DrawerHeader>
                     <div className="p-4 pb-0">
                         <div className="flex items-center justify-center space-x-2">

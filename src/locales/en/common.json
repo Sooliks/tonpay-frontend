@@ -5,13 +5,16 @@
         "user": "User",
         "onlineNow": "Online now",
         "back": "Back",
-        "share": "Share"
+        "share": "Share",
+        "sendMessage": "Send message",
+        "rate": "Rating"
     },
     "profile": {
         "sales": {
             "addNewButton": "Add new",
             "boostSales": "Boost sales"
-        }
+        },
+        "lastOnline": "Last online"
     },
     "home": {
         "title": "Buy and Sell with TON",

@@ -46,10 +46,10 @@ const ProfileLayout = ({params, children}: ProfileLayoutProps) => {
                         {data?.isOnline ?
                             <p className={'text-muted-foreground text-sm'}>{translations.frequent.onlineNow}</p>
                             :
-                            data && <p className={'text-muted-foreground text-sm'}>Last online: {new Date(data.lastOnline).toLocaleDateString() + ' ' + new Date(data.lastOnline).toLocaleTimeString()}</p>
+                            data && <p className={'text-muted-foreground text-sm'}>translations.profile.lastOnline: {new Date(data.lastOnline).toLocaleDateString() + ' ' + new Date(data.lastOnline).toLocaleTimeString()}</p>
                         }
                     </div>
-                    {data && data.averageRating && <p className={'flex items-center'}>Rating: <Star className={'w-4 h-4 ml-1'}/> {data.averageRating}</p>}
+                    {data && data.averageRating && <p className={'flex items-center'}>{translations.frequent.rate}: <Star className={'w-4 h-4 ml-1'}/> {data.averageRating}</p>}
                 </div>
                 <Separator className={'my-2'}/>
                 <div className={'flex items-center justify-between'}>
