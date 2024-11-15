@@ -1,0 +1,24 @@
+{
+  "title": "PayOnTon - Trading Platform",
+  "heading": "Buy and Sell with TON Cryptocurrency",
+  "description": "The safest and fastest way to trade online using TON crypto payments.",
+  "button": "Open in Telegram",
+  "footer": "All rights reserved.",
+  "roadmap": {
+    "title": "Roadmap",
+    "q4_2024": {
+      "title": "Q4 2024",
+      "localization": "Localization and support for additional languages"
+    },
+    "q1_2025": {
+      "title": "Q1 2025",
+      "analytics": "Extended analytics and premium features",
+      "promotion": "Product promotion system"
+    },
+    "q2_2025": {
+      "title": "Q2 2025",
+      "ai_chatbots": "AI-powered chatbots",
+      "ads_monetization": "Advanced ads and monetization through premium accounts"
+    }
+  }
+}

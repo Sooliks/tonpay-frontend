@@ -5,7 +5,7 @@ import {retrieveLaunchParams, useInitData} from "@telegram-apps/sdk-react";
 import {useFetchCurrentUser} from "@/hooks/useFetchCurrentUser";
 import {useLoginUser} from "@/hooks/useLoginUser";
 import FirstLoading from "@/components/my-ui/FirstLoading";
-import Error from "@/app/error";
+import Error from "@/app/[lang]/error";
 import {useRouter} from "next/navigation";
 import {UrlService} from "@/services/UrlService";
 import useNotification from "@/hooks/useNotifications";
