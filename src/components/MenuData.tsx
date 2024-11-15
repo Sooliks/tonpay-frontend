@@ -15,11 +15,11 @@ const MenuData = () => {
     const initData = useInitData()
     const [bars,setBars] = useState<MenuBar[]>([
         {
-            title: 'Home',
+            title: translations.menu.main.home,
             path: '/'
         },
         {
-            title: 'Categories',
+            title: translations.menu.main.categories,
             items: [
                 {title: 'Last sales', path: '/lastsales', individual: true},
                 {title: 'PC', path: 'pc_games', shortcut: 'Games'},
@@ -31,7 +31,7 @@ const MenuData = () => {
             path: 'buy'
         },
         {
-            title: 'Messages',
+            title: translations.menu.main.messages,
             path: 'messages'
         },
         {
@@ -41,14 +41,14 @@ const MenuData = () => {
                         <AvatarImage src={auth.user?.photoUrl}/>
                         <AvatarFallback>{initData!.user!.firstName[0]}</AvatarFallback>
                     </Avatar>
-                    <span className={'ml-2'}>{translations.profile.me}</span>
+                    <span className={'ml-2'}>{translations.menu.profile.me}</span>
                 </div>,
             items: [
-                {title: 'Profile', path: auth.user!.id, separator: true},
-                {title: 'Wallet', shortcut: `${auth.user!.money.toFixed(6)} TON`, path: 'wallet'},
-                {title: 'Settings', path: 'settings', separator: true},
-                {title: 'My sales', path: 'sales'},
-                {title: 'Orders', path: 'orders'}
+                {title: translations.frequent.profile, path: auth.user!.id, separator: true},
+                {title: translations.menu.profile.wallet, shortcut: `${auth.user!.money.toFixed(6)} TON`, path: 'wallet'},
+                {title: translations.menu.profile.settings, path: 'settings', separator: true},
+                {title: translations.menu.profile.mySales, path: 'sales'},
+                {title: translations.menu.profile.orders, path: 'orders'}
             ],
             path: 'profile'
         }

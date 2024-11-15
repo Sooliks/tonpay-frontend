@@ -1,6 +1,7 @@
 {
   "frequent": {
-    "close": "Закрыть"
+    "close": "Закрыть",
+    "profile": "Профиль"
   },
   "home": {
     "title": "Покупайте и продавайте с TON",
@@ -55,7 +56,18 @@
       }
     }
   },
-  "profile": {
-    "me": "Я"
+  "menu": {
+    "profile": {
+      "me": "Я",
+      "wallet": "Кошелек",
+      "settings": "Настройки",
+      "mySales": "Мои продажи",
+      "orders": "Заказы"
+    },
+    "main": {
+      "home": "Главная",
+      "categories": "Категории",
+      "messages": "Сообщения"
+    }
   }
 }
