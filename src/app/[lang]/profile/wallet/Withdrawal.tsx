@@ -11,12 +11,14 @@ import {Label} from "@/components/ui/label";
 import {useAuth} from "@/hooks/useAuth";
 import Link from "next/link";
 import {Badge} from "@/components/ui/badge";
+import {useTranslation} from "@/hooks/useTranslation";
 
 const Withdrawal = () => {
     const auth = useAuth();
     const [amount,setAmount] = useState<number>(auth.user?.money || 0)
     const [isLoading,setIsLoading] = useState<boolean>(false)
     const [tonConnectUi] = useTonConnectUI()
+    const {translations} = useTranslation();
     const handleWithdraw = ()=> {
         if (isLoading) return;
         setIsLoading(true)
@@ -40,17 +42,17 @@ const Withdrawal = () => {
         <div className={'flex flex-col items-center w-full'}>
             <p className={'text-sm text-muted-foreground text-center'}>
                 {auth.user?.isSubscribed ?
-                    'You have a reduced commission for subscribing to our channel. Thanks!'
+                    translations.profile.wallet.lowComm
                     :
-                    <p>To reduce the commission, you can subscribe to our <Link target={'_blank'} className={'text-sm text-blue-800'} href={'https://t.me/payonton'}>channel</Link></p>
+                    <p>{translations.profile.wallet.highComm} <Link target={'_blank'} className={'text-sm text-blue-800'} href={'https://t.me/payonton'}>{translations.frequent.channel.toLowerCase()}</Link></p>
                 }
             </p>
             <div>
                 <Label htmlFor="in">
                     {auth.user?.isSubscribed ?
-                        <p>Fee <del>15%</del> 5%</p>
+                        <p>{translations.frequent.fee} <del>15%</del> 5%</p>
                         :
-                        <p>Fee <del>5%</del> 15%</p>
+                        <p>{translations.frequent.fee} <del>5%</del> 15%</p>
                     }
                 </Label>
                 <Input
@@ -70,7 +72,7 @@ const Withdrawal = () => {
                 variant={'secondary'}
             >
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin"/>}
-                Withdrawal
+                {translations.profile.wallet.withdraw}
                 <Badge className={'border-blue-400 h-5 ml-1'} variant={'outline'}>TON</Badge>
             </Button>
         </div>

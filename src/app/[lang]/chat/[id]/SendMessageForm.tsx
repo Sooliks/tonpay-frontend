@@ -15,6 +15,7 @@ import {useAuth} from "@/hooks/useAuth";
 import {AxiosError} from "axios";
 import {Message} from "@/types/chat/message";
 import ImagePreview, {PreviewFile} from "@/app/[lang]/profile/sales/add/ImagePreview";
+import {useTranslation} from "@/hooks/useTranslation";
 
 const SendMessageForm = ({recipientId, onMessage}:{recipientId: string, onMessage: (message: Message) => void}) => {
     const {
@@ -28,6 +29,7 @@ const SendMessageForm = ({recipientId, onMessage}:{recipientId: string, onMessag
     const [isLoadingSubmit,setIsLoadingSubmit] = useState<boolean>(false)
     const [files, setFiles] = useState<PreviewFile[]>([]);
     const auth = useAuth()
+    const {translations} = useTranslation()
 
     const onFilesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if(files.length >= 2 || e.target!.files!.length > 2){
@@ -108,7 +110,7 @@ const SendMessageForm = ({recipientId, onMessage}:{recipientId: string, onMessag
                 onSubmit={handleSubmit(onSubmit)}
             >
                 <Textarea
-                    placeholder="Enter message"
+                    placeholder={translations.frequent.enterMessage}
                     id="description"
                     {...register('content')}
                     maxLength={500}

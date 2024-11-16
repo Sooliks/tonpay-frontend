@@ -7,14 +7,37 @@
         "back": "Back",
         "share": "Share",
         "sendMessage": "Send message",
-        "rate": "Rating"
+        "rate": "Rating",
+        "soon": "Soon",
+        "enterMessage": "Enter message",
+        "channel": "Channel",
+        "fee": "Fee"
+    },
+    "messages": {
+        "title": "Messages",
+        "watching": "Watching",
+        "nothing": "You dont have any chat rooms"
     },
     "profile": {
         "sales": {
             "addNewButton": "Add new",
             "boostSales": "Boost sales"
         },
-        "lastOnline": "Last online"
+        "lastOnline": "Last online",
+        "settings": {
+            "title": "Settings",
+            "theme": "Theme",
+            "refButton": "Referral link"
+        },
+        "wallet": {
+            "balance": "Balance",
+            "transactions": "History transactions",
+            "payment": "Payment",
+            "withdraw": "Withdrawal",
+            "sendTxButton": "Send transaction",
+            "lowComm": "You have a reduced commission for subscribing to our channel. Thanks!",
+            "highComm": "To reduce the commission, you can subscribe to our"
+        }
     },
     "home": {
         "title": "Buy and Sell with TON",

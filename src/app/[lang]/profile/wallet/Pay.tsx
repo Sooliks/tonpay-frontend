@@ -8,6 +8,7 @@ import {useTonConnectUI} from "@tonconnect/ui-react";
 import {useAuth} from "@/hooks/useAuth";
 import {Loader2} from "lucide-react";
 import {toast} from "@/hooks/use-toast";
+import {useTranslation} from "@/hooks/useTranslation";
 
 const buttons: number[] = [0.5, 1, 5, 10, 20, 100]
 
@@ -15,6 +16,7 @@ const Pay = () => {
     const [value,setValue] = useState<number>(0.5);
     const [tonConnectUi] = useTonConnectUI()
     const auth = useAuth();
+    const {translations} = useTranslation();
     const [isLoading,setIsLoading] = useState<boolean>(false)
     const handlePay = () => {
         if(!tonConnectUi.wallet){
@@ -73,7 +75,7 @@ const Pay = () => {
                 disabled={isLoading}
             >
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                Send transaction
+                {translations.profile.wallet.sendTxButton}
                 <Badge className={'border-blue-400 h-5 ml-1'} variant={'outline'}>TON</Badge>
             </Button>
         </div>
