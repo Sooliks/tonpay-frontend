@@ -14,6 +14,7 @@ import {Badge} from "@/components/ui/badge";
 import Link from "next/link";
 import MessageUi from "@/app/[lang]/chat/[id]/Message";
 import SendMessageForm from "@/app/[lang]/chat/[id]/SendMessageForm";
+import {useTranslation} from "@/hooks/useTranslation";
 type ProfileLayoutProps = {
     params: {
         id: string
@@ -27,6 +28,7 @@ const ChatPage = ({params}: ProfileLayoutProps) => {
     const [messages, setMessages] = useState<Message[]>([]);
     const [chat,setChat] = useState<Chat | undefined>(undefined)
     const [hasMore, setHasMore] = useState(true);
+    const {translations} = useTranslation()
     const [page, setPage] = useState(0);
     const prevMessagesLength = useRef(messages.length);
     const lastMessageRef = useRef<HTMLDivElement | null>(null);
@@ -109,7 +111,7 @@ const ChatPage = ({params}: ProfileLayoutProps) => {
                 <UserAvatar photoUrl={interlocutor.photoUrl || ""} nickname={interlocutor.nickname} id={interlocutor.id} className={'mr-1'}/>
                 {data?.sale &&
                     <Badge className={'text-sm text-ellipsis max-w-56 truncate whitespace-nowrap overflow-hidden'} variant={'outline'}>
-                        Wathing <Link href={`/sale/${data.sale.id}`} className={'text-blue-800 ml-2 text-sm'}>{data.sale.title}</Link>
+                        {translations.messages.watching} <Link href={`/sale/${data.sale.id}`} className={'text-blue-800 ml-2 text-sm'}>{data.sale.title}</Link>
                     </Badge>
                 }
             </Card>
