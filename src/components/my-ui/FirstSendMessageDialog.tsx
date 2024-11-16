@@ -48,6 +48,7 @@ const FirstSendMessageDialog = ({recipientId, small = true}:{recipientId: string
                 <Button
                     size={small ? 'sm' : 'default'}
                     variant={'secondary'}
+                    className={'text-ellipsis'}
                 >
                     {translations.frequent.sendMessage}
                 </Button>
