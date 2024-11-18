@@ -21,7 +21,7 @@ const MenuData = () => {
         {
             title: translations.menu.main.categories,
             items: [
-                {title: 'Last sales', path: '/lastsales', individual: true},
+                {title: translations.menu.main.lastSales, path: '/lastsales', individual: true},
                 {title: 'PC', path: 'pc_games', shortcut: 'Games'},
                 {title: 'Mobile', path: 'mobile_games', shortcut: 'Games'},
                 {title: 'Telegram Mini Apps', path: 'tg_mini_app_game'},

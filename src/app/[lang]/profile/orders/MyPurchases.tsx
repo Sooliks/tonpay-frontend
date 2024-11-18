@@ -10,6 +10,7 @@ import {Order} from "@/types/order";
 import Link from "next/link";
 import NotFound from "@/app/[lang]/not-found";
 import {Ban, Check} from "lucide-react";
+import {useTranslation} from "@/hooks/useTranslation";
 
 const COUNT_ON_PAGE = 10;
 const getKey = (pageIndex: number, previousPageData: Transaction[] | null) => {
@@ -18,6 +19,7 @@ const getKey = (pageIndex: number, previousPageData: Transaction[] | null) => {
 };
 const MyPurchases = () => {
     const { data, error, isLoading, size, setSize } = useSWRInfinite<Order[]>(getKey)
+    const {translations} = useTranslation();
     if(isLoading){
         return <SpinLoading/>
     }
@@ -36,23 +38,23 @@ const MyPurchases = () => {
                     scrollableTarget="scrollableDiv"
                 >
                     <Table>
-                        <TableCaption>My purchases</TableCaption>
+                        <TableCaption>{translations.profile.orders.myPurchases}</TableCaption>
                         <TableHeader>
                             <TableRow>
                                 <TableHead></TableHead>
-                                <TableHead>Created at</TableHead>
-                                <TableHead>Sale</TableHead>
-                                <TableHead>Is completed</TableHead>
-                                <TableHead>Amount</TableHead>
+                                <TableHead>{translations.frequent.createdAt}</TableHead>
+                                <TableHead>{translations.frequent.sale}</TableHead>
+                                <TableHead>{translations.profile.orders.isCompleted}</TableHead>
+                                <TableHead>{translations.frequent.amount}</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                             {data.map(orders=> (
                                 orders.map(order=>
                                     <TableRow key={order.id} className={'h-16'}>
-                                        <TableCell><Link href={`/profile/orders/${order.id}`} className={'text-blue-800'}>Details</Link></TableCell>
+                                        <TableCell><Link href={`/profile/orders/${order.id}`} className={'text-blue-800'}>{translations.frequent.details}</Link></TableCell>
                                         <TableCell><p>{new Date(order.createdAt).toLocaleDateString()}</p><p>{new Date(order.createdAt).toLocaleTimeString()}</p></TableCell>
-                                        <TableCell><Link href={`/sale/${order.sale?.id}`} className={'text-blue-800'}>Sale</Link> {!order.sale?.id && ' (was deleted)'}</TableCell>
+                                        <TableCell><Link href={`/sale/${order.sale?.id}`} className={'text-blue-800'}>{translations.frequent.sale}</Link> {!order.sale?.id && ' (was deleted)'}</TableCell>
                                         <TableCell>{order.isCompleted ? <Check color={'green'}/> : order.isCancelled ? 'Cancelled' : <Ban color={'red'}/>}</TableCell>
                                         <TableCell><span className={'ml-auto text-sm tracking-widest text-muted-foreground'}>{order.amount.toFixed(2)} TON</span></TableCell>
                                     </TableRow>

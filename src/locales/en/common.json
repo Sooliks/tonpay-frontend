@@ -11,7 +11,11 @@
         "soon": "Soon",
         "enterMessage": "Enter message",
         "channel": "Channel",
-        "fee": "Fee"
+        "fee": "Fee",
+        "createdAt": "Created at",
+        "sale": "Sale",
+        "amount": "Amount",
+        "details": "Details"
     },
     "messages": {
         "title": "Messages",
@@ -37,6 +41,11 @@
             "sendTxButton": "Send transaction",
             "lowComm": "You have a reduced commission for subscribing to our channel. Thanks!",
             "highComm": "To reduce the commission, you can subscribe to our"
+        },
+        "orders": {
+            "myPurchases": "My purchases",
+            "mySales": "My sales",
+            "isCompleted": "Is completed"
         }
     },
     "home": {
@@ -103,7 +112,9 @@
         "main": {
             "home": "Home",
             "categories": "Categories",
-            "messages": "Messages"
+            "messages": "Messages",
+            "lastSales": "Last sales",
+            "last20Sales": "Last 20 sales"
         },
         "profileId": {
             "sales": "Sales",
