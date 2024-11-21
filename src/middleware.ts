@@ -27,15 +27,16 @@ export function middleware(request: NextRequest) {
     );
     if (pathnameIsMissingLocale) {
         const locale = getLocale(request);
-        return NextResponse.redirect(
-            new URL(
-                `/${locale}${pathname.startsWith("/") ? "" : "/"}${pathname}`,
-                request.url,
-            ),
+        const url = new URL(request.url);
+        const searchParams = url.search;
+        const redirectUrl = new URL(
+            `/${locale}${pathname.startsWith("/") ? "" : "/"}${pathname}${searchParams}`,
+            request.url,
         );
+        return NextResponse.redirect(redirectUrl);
     }
+    return NextResponse.next();
 }
-
 export const config = {
     matcher: [
         "/((?!api|_next/static|_next/image|favicon.ico).*)"
