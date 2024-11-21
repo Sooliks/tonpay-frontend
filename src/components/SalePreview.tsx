@@ -15,10 +15,11 @@ import DeleteSaleDialog from "@/components/DeleteSaleDialog";
 import {Badge} from "@/components/ui/badge";
 
 const SalePreview = ({sale, isProfile, forAdmin = false, avatar = true, edit = false, rate = false, onSave}:{sale: Sale, isProfile?: boolean, forAdmin?: boolean, avatar?: boolean, edit?: boolean, rate?: boolean, onSave?: () => void}) => {
+    const href = forAdmin ? `/sale/${sale.id}?forAdmin=true` : `/sale/${sale.id}?forAdmin=false`;
     return (
         <Card className={'flex flex-col w-full p-4 mb-2'}>
             <Link
-                href={`/sale/${sale.id}/${forAdmin ? '?forAdmin=true' : '?forAdmin=false'}`}
+                href={href}
             >
                 <div>
                     <div className={'flex items-center justify-between'}>
