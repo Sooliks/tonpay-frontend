@@ -18,7 +18,7 @@ const SalePreview = ({sale, isProfile, forAdmin = false, avatar = true, edit = f
     return (
         <Card className={'flex flex-col w-full p-4 mb-2'}>
             <Link
-                href={`/sale/${sale.id}${forAdmin ? '?forAdmin=true' : '?forAdmin=false'}`}
+                href={`/sale/${sale.id}/${forAdmin ? '?forAdmin=true' : '?forAdmin=false'}`}
             >
                 <div>
                     <div className={'flex items-center justify-between'}>
