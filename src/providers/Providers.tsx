@@ -1,5 +1,5 @@
 'use client'
-import React from 'react';
+import React, {useEffect} from 'react';
 import {AuthProvider} from "@/providers/AuthProvider";
 import {SDKProvider} from "@telegram-apps/sdk-react";
 import {ThemeProvider} from "next-themes";
@@ -14,6 +14,15 @@ const fetcher = async (url: string) => {
     return response.data;
 };
 const Providers = ({children}:{children: React.ReactNode}) => {
+    useEffect(()=>{
+        if (window.Telegram?.WebApp) {
+            const webApp = window.Telegram.WebApp;
+            webApp.setBackgroundColor("#000000");
+        } else {
+            console.error("Telegram.WebApp is not available. Make sure this is opened in Telegram.");
+        }
+
+    },[])
     return (
         <SDKProvider acceptCustomStyles>
             <ThemeProvider
