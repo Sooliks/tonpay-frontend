@@ -18,6 +18,9 @@ const Providers = ({children}:{children: React.ReactNode}) => {
         if (window.Telegram?.WebApp) {
             const webApp = window.Telegram.WebApp;
             webApp.setBackgroundColor("#000000");
+            webApp.expand();
+            webApp.themeParams.hint_color = "#000000"
+            webApp.themeParams.text_color = "#FFFFFF"
         } else {
             console.error("Telegram.WebApp is not available. Make sure this is opened in Telegram.");
         }
