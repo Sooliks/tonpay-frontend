@@ -12,7 +12,7 @@ import {useTranslation} from "@/hooks/useTranslation";
 const SalesProfileLayout = ({children}:{children: React.ReactNode}) => {
     const pathname = usePathname()
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const {translations} = useTranslation();
+    const {translations, lang} = useTranslation();
     const handleBoostSales = () => {
         setIsLoading(true)
         axiosInstance.post('/sales/up').then(res=>{
@@ -27,8 +27,8 @@ const SalesProfileLayout = ({children}:{children: React.ReactNode}) => {
     return (
         <div className={'p-4'}>
             <div className={'flex justify-between items-center'}>
-                <Link href={pathname === '/profile/sales/add' ? '/profile/sales' : '/profile/sales/add'}>
-                    <Button variant={'secondary'}>{pathname === '/profile/sales/add' ? translations.frequent.back : translations.profile.sales.addNewButton}</Button>
+                <Link href={pathname === `/${lang}/profile/sales/add` ? `/${lang}/profile/sales` : `/${lang}/profile/sales/add`}>
+                    <Button variant={'secondary'}>{pathname === `/${lang}/profile/sales/add` ? translations.frequent.back : translations.profile.sales.addNewButton}</Button>
                 </Link>
                 <Button
                     disabled={isLoading}
