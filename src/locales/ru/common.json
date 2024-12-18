@@ -31,7 +31,7 @@
     "settings": {
       "title": "Настройки",
       "theme": "Тема",
-      "refButton": "Реферальная ссылка"
+      "refButton": "Скопировать ссылку"
     },
     "wallet": {
       "balance": "Баланс",
