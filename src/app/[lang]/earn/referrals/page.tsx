@@ -60,7 +60,9 @@ const ReferralsPage = () => {
                                     {referal.nickname}
                                 </Link>
                             </TableCell>
-                            <TableCell>{referal.money.toFixed(3)}</TableCell>
+                            <TableCell>
+                                <span className={'ml-auto text-sm tracking-widest text-muted-foreground'}>{referal.money.toFixed(2)}</span>
+                            </TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
