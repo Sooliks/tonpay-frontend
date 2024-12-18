@@ -39,7 +39,7 @@ const Task = ({task}:{task: TaskTypeWithoutCheck}) => {
         <Card className={'w-full p-4 flex justify-between items-center mb-2'}>
             <div>
                 <p className={'text-muted-foreground text-sm'}>{taskState.name}</p>
-                <p className={'text-sm'}>+{taskState.reward} <span style={{color: '#757575'}}>$</span></p>
+                <p className={'text-sm'}>+{taskState.reward} <span style={{color: '#757575'}}>TON</span></p>
             </div>
             {taskState.isComplete ?
                 <Check color={'green'}/>
