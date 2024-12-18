@@ -16,7 +16,10 @@ const MenuData = () => {
     const [bars,setBars] = useState<MenuBar[]>([
         {
             title: translations.menu.main.home,
-            path: '/'
+            path: 'earn',
+            items: [
+                {title: 'Tasks', path: 'tasks'}
+            ]
         },
         {
             title: translations.menu.main.categories,
