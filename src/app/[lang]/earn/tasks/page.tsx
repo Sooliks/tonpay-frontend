@@ -1,15 +1,13 @@
 'use client'
 import React from 'react';
 import useSWR from "swr";
-import {useTranslation} from "@/hooks/useTranslation";
 import SpinLoading from "@/components/my-ui/SpinLoading";
 import {TaskType} from "@/types/task";
 import Task from "@/app/[lang]/earn/tasks/Task";
 import NotFound from "@/app/[lang]/not-found";
 
-const TasksPage = async () => {
+const TasksPage = () => {
     const { data, error, isLoading } = useSWR<TaskType[]>(`/tasks/get`)
-    const {translations} = useTranslation();
     if(isLoading){
         return <SpinLoading/>
     }
