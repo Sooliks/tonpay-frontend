@@ -58,7 +58,7 @@ const Menu = ({bars}: MenuProps) => {
                                         href={item.individual ? item.path : `/${bar.path}/${item.path}`} className={item.disabled ? 'pointer-events-none' : undefined}
                                     >
                                         <MenubarItem disabled={item.disabled}>
-                                            {item.title} {item.shortcut && <MenubarShortcut>{item.shortcut}</MenubarShortcut>}
+                                            {item.title} {item.shortcut && <MenubarShortcut className={'ml-1'}>{item.shortcut}</MenubarShortcut>}
                                         </MenubarItem>
                                     </Link>
                                     {item.separator && <MenubarSeparator />}
