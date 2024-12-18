@@ -19,7 +19,7 @@ const MenuData = () => {
             path: 'earn',
             items: [
                 {title: 'Tasks', path: 'tasks'},
-                {title: 'Referrals', path: 'referrals', shortcut: 'Earn money for inviting friends'}
+                {title: 'Referrals', path: 'referrals', shortcut: 'Earn TON for inviting friends'}
             ]
         },
         {
