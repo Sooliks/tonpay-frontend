@@ -20,7 +20,7 @@ const Task = ({task}:{task: TaskTypeWithoutCheck}) => {
         if(isLoadingCheck)return
         setIsLoadingCheck(true)
         axiosInstance.post('/tasks/check', {idTask: task.id}).then(res=>{
-            if(res.status === 200) setTaskState({...taskState, isComplete: true})
+            if(res.status === 201) setTaskState({...taskState, isComplete: true})
         }).catch((error: AxiosError)=>{
             const errorMessage = (error.response?.data as { message?: string })?.message || error.message;
             toast({description: `${errorMessage}`})
