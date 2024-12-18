@@ -40,7 +40,7 @@ const ReferralsPage = () => {
         <div className={'flex flex-col p-4'}>
             <Card className={'flex flex-col items-center p-4 mt-4'}>
                 <CopyButton refTelegram={false} copyText={`https://t.me/PayOnTonBot/app?startapp=${auth.user?.id}`} textButton={translations.profile.settings.refButton}/>
-                <Button onClick={handleInviteFriend} className={'mt-2'}>
+                <Button onClick={handleInviteFriend} className={'mt-2'} size={'sm'}>
                     Invite friend
                 </Button>
             </Card>

@@ -31,7 +31,8 @@
     "settings": {
       "title": "Настройки",
       "theme": "Тема",
-      "refButton": "Скопировать ссылку"
+      "refButton": "Скопировать ссылку",
+      "refButtonChat": "Пригласить друга"
     },
     "wallet": {
       "balance": "Баланс",

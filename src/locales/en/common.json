@@ -31,7 +31,8 @@
         "settings": {
             "title": "Settings",
             "theme": "Theme",
-            "refButton": "Copy referral link"
+            "refButton": "Copy link",
+            "refButtonChat": "Invite friend"
         },
         "wallet": {
             "balance": "Balance",
