@@ -51,7 +51,7 @@ const Task = ({task}:{task: TaskTypeWithoutCheck}) => {
                         disabled={isLoadingLink}
                     >
                         {isLoadingLink && <Loader2 className="mr-2 h-4 w-4 animate-spin"/>}
-                        Выполнить
+                        Start
                     </Button>
                     :
                     <Button
@@ -60,7 +60,7 @@ const Task = ({task}:{task: TaskTypeWithoutCheck}) => {
                         disabled={isLoadingCheck}
                     >
                         {isLoadingCheck && <Loader2 className="mr-2 h-4 w-4 animate-spin"/>}
-                        Проверить
+                        Check
                     </Button>
             }
         </Card>
