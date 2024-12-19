@@ -21,7 +21,7 @@ export const useFetchCurrentUser = () => {
             }
             setUser(data)
         } catch (err: any) {
-            toast({description: err.response.data.message})
+            console.log(err.response.data.message)
             setError(err as Error)
         } finally {
             setIsLoading(false)

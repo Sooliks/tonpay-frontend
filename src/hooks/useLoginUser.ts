@@ -17,8 +17,7 @@ export const useLoginUser = () => {
             const data = await userService.login(initData,refId)
             setAuthData(data)
         } catch (err: any) {
-            toast({description: err.response.data.message})
-            console.log(err);
+            console.log(err.response.data.message)
             setError(err as Error)
         } finally {
             setIsLoading(false)
