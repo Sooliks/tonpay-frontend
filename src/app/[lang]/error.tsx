@@ -7,6 +7,7 @@ import {Button} from "@/components/ui/button";
 
 const Error = ({error}:{error: any}) => {
     const {back} = useRouter();
+    console.log(error)
     return (
         <div className={'w-screen flex justify-center items-center flex-col'}>
             <p className={'mt-52 flex items-center text-red-800'}>{error?.name}</p>
