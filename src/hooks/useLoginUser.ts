@@ -4,7 +4,7 @@ import {LoginResponse, userService} from "@/services/userService";
 
 export const useLoginUser = () => {
     const [authData, setAuthData] = useState<LoginResponse | undefined>()
-    const [error, setError] = useState<Error | null>(null)
+    const [error, setError] = useState<Error | null | any>(null)
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const loginUser = async (initData: string, refId?: string) => {

@@ -6,7 +6,7 @@ import {retrieveLaunchParams} from "@telegram-apps/sdk-react";
 
 export const useFetchCurrentUser = () => {
     const [user, setUser] = useState<UserType | undefined>(undefined)
-    const [error, setError] = useState<Error | null>(null)
+    const [error, setError] = useState<Error | null | any>(null)
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const { initDataRaw } = typeof window !== 'undefined' ? retrieveLaunchParams() : { initDataRaw: null };
 
