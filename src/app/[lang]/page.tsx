@@ -15,7 +15,7 @@ export default async function Home({ params: { lang } }: { params: { lang: Local
     const t = await getDictionary(lang);
     return (
         <section className="text-black dark:text-white py-20 px-8 text-center">
-            <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">{t.home.title} <br className="hidden sm:inline-block"/>{t.home.cryptocurrency}</h1>
+            <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">{t.home.title} <br className="hidden sm:inline-block"/>{/*{t.home.cryptocurrency}*/}</h1>
             <p className="text-lg mb-8 text-muted-foreground">
                 {t.home.description}
             </p>
