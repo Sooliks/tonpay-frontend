@@ -1,6 +1,7 @@
 'use client'
 import { useState } from "react"
 import {LoginResponse, userService} from "@/services/userService";
+import {toast} from "@/hooks/use-toast";
 
 
 export const useLoginUser = () => {
@@ -15,7 +16,8 @@ export const useLoginUser = () => {
         try {
             const data = await userService.login(initData,refId)
             setAuthData(data)
-        } catch (err) {
+        } catch (err: any) {
+            toast({description: err.response.data.message})
             console.log(err);
             setError(err as Error)
         } finally {
