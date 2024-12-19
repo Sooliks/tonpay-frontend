@@ -18,7 +18,7 @@ function getLocale(request: NextRequest): string | undefined {
 
 export function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
-    if (pathname.endsWith(".html") || pathname.endsWith(".ico") || pathname.endsWith(".xml")) {
+    if (pathname.endsWith(".html") || pathname.endsWith(".ico") || pathname.endsWith(".xml") || pathname.endsWith(".png")) {
         return NextResponse.next();
     }
     const pathnameIsMissingLocale = i18n.locales.every(
