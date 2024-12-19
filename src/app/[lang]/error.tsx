@@ -5,7 +5,7 @@ import {Button} from "@/components/ui/button";
 
 
 
-const Error = ({error}:{error: Error | null | any}) => {
+const Error = ({error}:{error: any}) => {
     const {back} = useRouter();
     return (
         <div className={'w-screen flex justify-center items-center flex-col'}>
