@@ -1,8 +1,6 @@
 'use client'
 import { useState } from "react"
 import {LoginResponse, userService} from "@/services/userService";
-import {toast} from "@/hooks/use-toast";
-
 
 export const useLoginUser = () => {
     const [authData, setAuthData] = useState<LoginResponse | undefined>()
@@ -17,8 +15,7 @@ export const useLoginUser = () => {
             const data = await userService.login(initData,refId)
             setAuthData(data)
         } catch (err: any) {
-            console.log(err.response.data.message)
-            setError(err as Error)
+            setError(err)
         } finally {
             setIsLoading(false)
         }
