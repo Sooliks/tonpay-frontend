@@ -17,7 +17,7 @@ const WalletPage = () => {
     return (
         <div className={'w-full flex flex-col items-center'}>
             <Card className={'p-4 mx-4 mt-2 w-80'}>
-                <p className={'text-xs'}>{translations.profile.wallet.balance}: <span className={'ml-auto text-sm tracking-widest text-muted-foreground'}>{auth.user?.money} TON</span></p>
+                <p className={'text-xs'}>{translations.profile.wallet.balance}: <span className={'ml-auto text-sm tracking-widest text-muted-foreground'}>{auth.user?.money.toFixed(4)} TON</span></p>
             </Card>
             <div className={'flex items-center flex-col mt-2 w-full'}>
                 <div className={'flex justify-between w-full'}>
