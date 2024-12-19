@@ -50,9 +50,9 @@ const Withdrawal = () => {
             <div>
                 <Label htmlFor="in">
                     {auth.user?.isSubscribed ?
-                        <p>{translations.frequent.fee} <del>15%</del> 5%</p>
+                        <p>{translations.frequent.fee} <del>15%</del> 10%</p>
                         :
-                        <p>{translations.frequent.fee} <del>5%</del> 15%</p>
+                        <p>{translations.frequent.fee} <del>10%</del> 15%</p>
                     }
                 </Label>
                 <Input
