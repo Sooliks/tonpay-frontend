@@ -1,12 +1,10 @@
 'use client'
 import React from 'react';
 import {ThemeToggle} from "@/components/ThemeToggle";
-import {useAuth} from "@/hooks/useAuth";
 import {Card} from "@/components/ui/card";
 import {useTranslation} from "@/hooks/useTranslation";
 
 const SettingsPage = () => {
-    const auth = useAuth()
     const {translations} = useTranslation()
     return (
         <div className={'p-4'}>

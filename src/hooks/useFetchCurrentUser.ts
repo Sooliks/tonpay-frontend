@@ -3,6 +3,7 @@ import { useState } from "react"
 import {UserType} from "@/types/user-type";
 import {userService} from "@/services/userService";
 import {retrieveLaunchParams} from "@telegram-apps/sdk-react";
+import {toast} from "@/hooks/use-toast";
 
 export const useFetchCurrentUser = () => {
     const [user, setUser] = useState<UserType | undefined>(undefined)
@@ -20,6 +21,7 @@ export const useFetchCurrentUser = () => {
             }
             setUser(data)
         } catch (err) {
+            console.log(err);
             setError(err as Error)
         } finally {
             setIsLoading(false)
