@@ -11,7 +11,7 @@ const Error = ({error}:{error: any}) => {
     return (
         <div className={'w-screen flex justify-center items-center flex-col'}>
             <p className={'mt-52 flex items-center text-red-800'}>{error?.name}</p>
-            <p className={'text-muted-foreground w-60'}>{error?.response?.data?.message || error?.message}</p>
+            <p className={'text-muted-foreground text-center'}>{error?.response?.data?.message || error?.message}</p>
             <Button size={'sm'} className={'mt-2'} onClick={back}>Back</Button>
         </div>
     );
