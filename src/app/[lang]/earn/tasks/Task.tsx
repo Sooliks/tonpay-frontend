@@ -49,6 +49,7 @@ const Task = ({task}:{task: TaskTypeWithoutCheck}) => {
                         onClick={handleClickRef}
                         variant={'outline'}
                         disabled={isLoadingLink}
+                        className={'w-9'}
                     >
                         {isLoadingLink && <Loader2 className="mr-2 h-4 w-4 animate-spin"/>}
                         Start
@@ -58,6 +59,7 @@ const Task = ({task}:{task: TaskTypeWithoutCheck}) => {
                         onClick={handleCheck}
                         variant={'outline'}
                         disabled={isLoadingCheck}
+                        className={'w-9'}
                     >
                         {isLoadingCheck && <Loader2 className="mr-2 h-4 w-4 animate-spin"/>}
                         Check
