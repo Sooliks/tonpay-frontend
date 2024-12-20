@@ -14,8 +14,8 @@ export const useLoginUser = () => {
         try {
             const data = await userService.login(initData,refId)
             setAuthData(data)
-        } catch (err: any) {
-            setError(err)
+        } catch (err) {
+            setError(err as Error)
         } finally {
             setIsLoading(false)
         }

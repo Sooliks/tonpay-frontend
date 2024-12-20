@@ -3,15 +3,12 @@ import React from 'react';
 import {useRouter} from "next/navigation";
 import {Button} from "@/components/ui/button";
 
-
-
-const Error = ({error}:{error: any}) => {
+const Error = ({error}:{error: Error | null}) => {
     const {back} = useRouter();
-    console.log(error)
     return (
         <div className={'w-screen flex justify-center items-center flex-col'}>
             <p className={'mt-52 flex items-center text-red-800'}>{error?.name}</p>
-            <p className={'text-muted-foreground text-center'}>{error?.response?.data?.message || error?.message}</p>
+            <p className={'text-muted-foreground text-center'}>{error?.message}</p>
             <Button size={'sm'} className={'mt-2'} onClick={back}>Back</Button>
         </div>
     );
