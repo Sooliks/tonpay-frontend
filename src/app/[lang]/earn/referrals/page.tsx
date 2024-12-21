@@ -56,7 +56,7 @@ const ReferralsPage = () => {
                     {data.map(referal=> (
                         <TableRow key={referal.id}>
                             <TableCell>
-                                <Link href={`/profile/${referal.id}`} passHref>
+                                <Link className={'text-blue-800'} href={`/profile/${referal.id}`} passHref>
                                     {referal.nickname}
                                 </Link>
                             </TableCell>
