@@ -16,7 +16,6 @@ type BuyLayoutProps = {
     }
 }
 const COUNT_ON_PAGE = 10;
-
 const SalesPage = ({params}: BuyLayoutProps) => {
     const [debouncedSearchTerm, setDebouncedSearchTerm] = useState<string>('');
     const getKey = useCallback((pageIndex: number, previousPageData: Sale[] | null) => {
