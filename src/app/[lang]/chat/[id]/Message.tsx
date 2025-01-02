@@ -2,11 +2,11 @@
 import React from 'react';
 import {Message as MessageType} from "@/types/chat/message";
 import Image from "next/image";
-import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import Link from "next/link";
 import {Badge} from "@/components/ui/badge";
 import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
 import parseTextWithLinks from "@/services/linkDetectService";
+import UserAvatar from "@/components/my-ui/UserAvatar";
 
 const MessageUi = ({message, meId}:{message: MessageType, meId: string}) => {
     function formatMessageDate(createdAt: Date): string {
@@ -52,10 +52,17 @@ const MessageUi = ({message, meId}:{message: MessageType, meId: string}) => {
                 }
                 <div className={'flex items-center max-w-56'}>
                     <div className={'mr-2 flex'}>
-                        <Avatar className={'h-5 w-5'}>
+                        <UserAvatar
+                            photoUrl={message.sender?.photoUrl || ""}
+                            nickname={message.sender?.nickname}
+                            id={message.sender?.id}
+                            link={false}
+                            small={true}
+                        />
+                        {/*<Avatar className={'h-5 w-5'}>
                             <AvatarImage src={message.sender?.photoUrl || ""}/>
                             <AvatarFallback>{message.sender?.nickname[0]}</AvatarFallback>
-                        </Avatar>
+                        </Avatar>*/}
                         {(message.sender.role === 'ADMIN' || message.sender.role === 'CREATOR') &&
                             <Tooltip delayDuration={200}>
                                 <TooltipTrigger>
