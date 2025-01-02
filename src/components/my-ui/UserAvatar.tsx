@@ -18,14 +18,10 @@ const UserAvatar = ({photoUrl, nickname, id, link = true, small = false, classNa
                             onError={() => setImageError(true)}
                         />
                         :
-                        <div className={cn(!small ? 'h-6 w-6' : 'h-4 w-4', 'z-0 rounded-full bg-gray-500 flex justify-center items-center')}>
+                        <div className={cn(!small ? 'h-6 w-6' : 'h-4 w-4', 'z-0 rounded-full bg-gray-500 flex justify-center items-center', small && 'text-sm')}>
                             {nickname[0]}
                         </div>
                     }
-                    {/*<Avatar className={cn(!small ? 'h-6 w-6' : 'h-4 w-4', 'z-0')}>
-                        <AvatarImage src={photoUrl}/>
-                        <AvatarFallback>{nickname[0]}</AvatarFallback>
-                    </Avatar>*/}
                 </Link>
                 {nickname &&
                     <Link href={`/profile/${id}`} className={'text-muted-foreground text-sm ml-2'}>
@@ -43,14 +39,10 @@ const UserAvatar = ({photoUrl, nickname, id, link = true, small = false, classNa
                         onError={() => setImageError(true)}
                     />
                     :
-                    <div className={cn(!small ? 'h-6 w-6' : 'h-4 w-4', 'z-0 rounded-full bg-gray-500 flex justify-center items-center')}>
+                    <div className={cn(!small ? 'h-6 w-6' : 'h-4 w-4', 'z-0 rounded-full bg-gray-500 flex justify-center items-center', small && 'text-sm')}>
                         {nickname[0]}
                     </div>
                 }
-                {/*<Avatar className={cn(!small ? 'h-6 w-6' : 'h-4 w-4', 'z-0')}>
-                    <AvatarImage src={photoUrl}/>
-                    <AvatarFallback>{nickname[0]}</AvatarFallback>
-                </Avatar>*/}
                 {nickname && <p className={'text-muted-foreground text-sm ml-2'}>@{nickname}</p>}
             </div>
     );

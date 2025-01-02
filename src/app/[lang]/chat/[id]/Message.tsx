@@ -59,14 +59,10 @@ const MessageUi = ({message, meId}:{message: MessageType, meId: string}) => {
                             link={false}
                             small={true}
                         />
-                        {/*<Avatar className={'h-5 w-5'}>
-                            <AvatarImage src={message.sender?.photoUrl || ""}/>
-                            <AvatarFallback>{message.sender?.nickname[0]}</AvatarFallback>
-                        </Avatar>*/}
                         {(message.sender.role === 'ADMIN' || message.sender.role === 'CREATOR') &&
                             <Tooltip delayDuration={200}>
                                 <TooltipTrigger>
-                                    <Badge className={'w-5 h-5 text-sm flex justify-center items-center p-0 ml-1'} variant={'destructive'}>A</Badge>
+                                    <Badge className={'w-4 h-4 text-sm flex justify-center items-center p-0 ml-1'} variant={'destructive'}>A</Badge>
                                 </TooltipTrigger>
                                 <TooltipContent>
                                     <p>This is the administrator</p>
