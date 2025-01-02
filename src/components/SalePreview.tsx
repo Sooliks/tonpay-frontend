@@ -73,7 +73,7 @@ const SalePreview = ({sale, isProfile, forAdmin = false, avatar = true, edit = f
             </div>
             {edit && <DeleteSaleDialog sale={sale} onDelete={()=>{if(onSave) onSave()}}/>}
             <div className={'flex items-center justify-between'}>
-                {sale.autoDelivery && <Badge>Auto delivery</Badge>}
+                {sale.autoDelivery && <Badge variant={'outline'}>Auto delivery</Badge>}
                 <p className={'ml-auto text-sm tracking-widest text-muted-foreground mt-1'}>{sale.price.toFixed(2)} TON</p>
             </div>
         </Card>
