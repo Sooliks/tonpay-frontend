@@ -20,7 +20,7 @@ const UserAvatar = ({photoUrl, nickname, id, link = true, small = false, classNa
                             onError={() => setImageError(true)}
                         />
                         :
-                        <div className={cn(!small ? 'h-6 w-6' : 'h-4 w-4', 'z-0 rounded-full bg-gray-300')}>
+                        <div className={cn(!small ? 'h-6 w-6' : 'h-4 w-4', 'z-0 rounded-full bg-gray-500 flex justify-center items-center')}>
                             {nickname[0]}
                         </div>
                     }

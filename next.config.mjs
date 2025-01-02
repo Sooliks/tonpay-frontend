@@ -8,6 +8,11 @@ const nextConfig = {
                 protocol: 'https',
                 hostname: 'res.cloudinary.com',
                 pathname: '/dqggb6cgz/image/upload/**'
+            },
+            {
+                protocol: 'https',
+                hostname: 'api.telegram.org',
+                pathname: '/file/**'
             }
         ]
     },
