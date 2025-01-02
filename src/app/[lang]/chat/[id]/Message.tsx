@@ -54,7 +54,7 @@ const MessageUi = ({message, meId}:{message: MessageType, meId: string}) => {
                     <div className={'mr-2 flex'}>
                         <UserAvatar
                             photoUrl={message.sender?.photoUrl || ""}
-                            nickname={message.sender?.nickname}
+                            nickname={""}
                             id={message.sender?.id}
                             link={false}
                             small={true}
