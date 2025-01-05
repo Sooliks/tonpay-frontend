@@ -29,6 +29,7 @@ const NotificationsToggle = () => {
             <Switch
                 id="notify-mode"
                 checked={value}
+                defaultChecked={auth.user?.notifications}
                 onCheckedChange={(v) => {setValue(v); switchOnServer(v)}}
             />
             <Label htmlFor="notify-mode">Notifications in Telegram</Label>
