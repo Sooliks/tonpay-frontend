@@ -15,9 +15,9 @@ const NotificationsToggle = () => {
     useLayoutEffect(() => {
         setValue(auth.user?.notifications || true)
     }, [auth.user]);
-    const switchOnServer = async (value: boolean) => {
+    const switchOnServer = (value: boolean) => {
         axiosInstance.post('/settings/toggle/notifications', {value: value}).then(data=>{
-
+            fetchCurrentUser()
         }).finally(()=>{fetchCurrentUser()}).catch((error: AxiosError)=>{
             const errorMessage = (error.response?.data as { message?: string })?.message || error.message;
             toast({description: `Error: ${errorMessage}`})
