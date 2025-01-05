@@ -1,5 +1,5 @@
 'use client'
-import React, {useLayoutEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Switch} from "@/components/ui/switch";
 import {Label} from "@/components/ui/label";
 import {useAuth} from "@/hooks/useAuth";
@@ -12,10 +12,6 @@ const NotificationsToggle = () => {
     const auth = useAuth();
     const [value,setValue] = useState<boolean | undefined>(undefined);
     const {fetchCurrentUser} = useFetchCurrentUser()
-    useLayoutEffect(() => {
-        console.log(auth.user?.notifications)
-        setValue(auth.user?.notifications || true)
-    }, [auth.user]);
     const switchOnServer = (value: boolean) => {
         axiosInstance.post('/settings/toggle/notifications', {value: value}).then(data=>{
             fetchCurrentUser();
