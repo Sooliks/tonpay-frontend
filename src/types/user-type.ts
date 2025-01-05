@@ -3,7 +3,7 @@ export type UserType = {
     createdAt: Date
     telegramId: number
     nickname: string
-    role: 'ADMIN' | 'USER' | 'CREATOR'
+    role: Role
     refId?: string
     isPremium: boolean
     isBanned: boolean
@@ -15,10 +15,7 @@ export type UserType = {
     languageCode?: string
     isSubscribed: boolean
     isPublishedFirstSale?: boolean
+    notifications: boolean
 }
 
-export enum Role {
-    ADMIN,
-    USER,
-    CREATOR
-}
+export type Role = 'ADMIN' | 'USER' | 'CREATOR'
