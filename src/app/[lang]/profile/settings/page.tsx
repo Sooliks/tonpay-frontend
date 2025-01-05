@@ -12,8 +12,8 @@ const SettingsPage = () => {
                 <h4 className={'text-center scroll-m-20 text-xl font-semibold tracking-tight'}>{translations.profile.settings.title}</h4>
             </Card>
             <Card className={'p-4 w-full h-full'}>
-                <Card className={'p-2 flex items-center'}>
-                    <p className={'mr-2 text-sm'}>Theme</p>
+                <Card className={'p-4 flex items-center w-40'}>
+                    <p className={'mr-2 text-sm text-muted-foreground'}>Theme</p>
                     <ThemeToggle/>
                 </Card>
             </Card>
