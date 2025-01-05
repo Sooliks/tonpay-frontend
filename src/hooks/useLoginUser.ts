@@ -6,11 +6,9 @@ export const useLoginUser = () => {
     const [authData, setAuthData] = useState<LoginResponse | undefined>()
     const [error, setError] = useState<null | any>(null)
     const [isLoading, setIsLoading] = useState<boolean>(false)
-
     const loginUser = async (initData: string, refId?: string) => {
         setIsLoading(true)
         setError(null)
-
         try {
             const data = await userService.login(initData,refId)
             setAuthData(data)

@@ -8,10 +8,6 @@ import {
     MenubarTrigger
 } from "@/components/ui/menubar";
 import Link from "next/link";
-import {Card} from "@/components/ui/card";
-import {Separator} from "@/components/ui/separator";
-
-
 
 type MenuItem = {
     title: string | React.ReactNode

@@ -11,7 +11,12 @@ const SettingsPage = () => {
             <Card className={'p-4'}>
                 <h4 className={'text-center scroll-m-20 text-xl font-semibold tracking-tight'}>{translations.profile.settings.title}</h4>
             </Card>
-            <ThemeToggle/>
+            <Card className={'p-4 w-full h-full'}>
+                <Card className={'p-2 flex items-center'}>
+                    <p className={'mr-2 text-sm'}>Theme</p>
+                    <ThemeToggle/>
+                </Card>
+            </Card>
         </div>
     );
 };
