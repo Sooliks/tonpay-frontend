@@ -10,14 +10,15 @@ import {useFetchCurrentUser} from "@/hooks/useFetchCurrentUser";
 
 const NotificationsToggle = () => {
     const auth = useAuth();
-    const [value,setValue] = useState<boolean>(auth.user?.notifications || true);
+    const [value,setValue] = useState<boolean | undefined>(undefined);
     const {fetchCurrentUser} = useFetchCurrentUser()
     useLayoutEffect(() => {
+        console.log(auth.user?.notifications)
         setValue(auth.user?.notifications || true)
     }, [auth.user]);
     const switchOnServer = (value: boolean) => {
         axiosInstance.post('/settings/toggle/notifications', {value: value}).then(data=>{
-            fetchCurrentUser()
+            fetchCurrentUser();
         }).finally(()=>{fetchCurrentUser()}).catch((error: AxiosError)=>{
             const errorMessage = (error.response?.data as { message?: string })?.message || error.message;
             toast({description: `Error: ${errorMessage}`})
