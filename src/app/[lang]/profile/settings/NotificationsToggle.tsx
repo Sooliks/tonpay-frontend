@@ -1,5 +1,5 @@
 'use client'
-import React, {useLayoutEffect} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import {Switch} from "@/components/ui/switch";
 import {Label} from "@/components/ui/label";
 import {useAuth} from "@/hooks/useAuth";
@@ -9,9 +9,9 @@ import {AxiosError} from "axios";
 import {useFetchCurrentUser} from "@/hooks/useFetchCurrentUser";
 
 const NotificationsToggle = () => {
-    const [value,setValue] = React.useState<boolean>(true);
-    const {fetchCurrentUser} = useFetchCurrentUser()
     const auth = useAuth();
+    const [value,setValue] = useState<boolean>(auth.user?.notifications || true);
+    const {fetchCurrentUser} = useFetchCurrentUser()
     useLayoutEffect(() => {
         setValue(auth.user?.notifications || true)
     }, [auth.user]);
