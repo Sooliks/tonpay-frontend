@@ -1,5 +1,5 @@
 'use client'
-import React, {useEffect} from 'react';
+import React, {useLayoutEffect} from 'react';
 import {Switch} from "@/components/ui/switch";
 import {Label} from "@/components/ui/label";
 import {useAuth} from "@/hooks/useAuth";
@@ -12,15 +12,9 @@ const NotificationsToggle = () => {
     const [value,setValue] = React.useState<boolean>(true);
     const {fetchCurrentUser} = useFetchCurrentUser()
     const auth = useAuth();
-    useEffect(() => {
+    useLayoutEffect(() => {
         setValue(auth.user?.notifications || true)
     }, [auth.user]);
-    useEffect(() => {
-        if(auth.user?.notifications === value){
-            return;
-        }
-        switchOnServer(value)
-    }, [value]);
     const switchOnServer = async (value: boolean) => {
         axiosInstance.post('/settings/toggle/notifications', {value: value}).then(data=>{
 
@@ -34,7 +28,7 @@ const NotificationsToggle = () => {
             <Switch
                 id="notify-mode"
                 checked={value}
-                onCheckedChange={setValue}
+                onCheckedChange={(v) => {setValue(v); switchOnServer(v)}}
             />
             <Label htmlFor="notify-mode">Notifications in Telegram</Label>
         </div>
