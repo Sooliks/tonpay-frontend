@@ -14,7 +14,7 @@ const NotificationsToggle = () => {
     const {fetchCurrentUser, user, setUser} = useFetchCurrentUser()
     const switchOnServer = (value: boolean) => {
         axiosInstance.post('/settings/toggle/notifications', {value: value}).then(data=>{
-            if(user)setUser({...user, notifications: value})
+            if(auth.user)setUser({...auth.user, notifications: value})
         }).finally(()=>{fetchCurrentUser()}).catch((error: AxiosError)=>{
             const errorMessage = (error.response?.data as { message?: string })?.message || error.message;
             toast({description: `Error: ${errorMessage}`})
