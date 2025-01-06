@@ -11,10 +11,10 @@ import {useFetchCurrentUser} from "@/hooks/useFetchCurrentUser";
 const NotificationsToggle = () => {
     const auth = useAuth();
     const [value,setValue] = useState<boolean | undefined>(undefined);
-    const {fetchCurrentUser} = useFetchCurrentUser()
+    const {fetchCurrentUser, user, setUser} = useFetchCurrentUser()
     const switchOnServer = (value: boolean) => {
         axiosInstance.post('/settings/toggle/notifications', {value: value}).then(data=>{
-            fetchCurrentUser();
+            if(user)setUser({...user, notifications: value})
         }).finally(()=>{fetchCurrentUser()}).catch((error: AxiosError)=>{
             const errorMessage = (error.response?.data as { message?: string })?.message || error.message;
             toast({description: `Error: ${errorMessage}`})
