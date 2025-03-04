@@ -7,14 +7,23 @@ import MyTonConnectUiProvider from "@/providers/MyTonConnectUiProvider";
 import {SWRConfig} from "swr";
 import axiosInstance from "@/configs/axios";
 import {TooltipProvider} from "@/components/ui/tooltip";
+import telegramAnalytics from '@telegram-apps/analytics';
 
 
 const fetcher = async (url: string) => {
     const response = await axiosInstance.get(url);
     return response.data;
 };
+telegramAnalytics.init({
+    token: 'eyJhcHBfbmFtZSI6IlBheU9uVG9uIiwiYXBwX3VybCI6Imh0dHBzOi8vdC5tZS9QYXlPblRvbkJvdCIsImFwcF9kb21haW4iOiJodHRwczovL3BheW9udG9uLXRtYS52ZXJjZWwuYXBwIn0=!GoPVzIM6oBdTQVOQhUsRwwOfxGrXXQgY4Z+yCgeqb2I=',
+    appName: 'PayOnTon', // The analytics identifier you entered in @DataChief_bot
+});
 const Providers = ({children}:{children: React.ReactNode}) => {
     useEffect(()=>{
+        telegramAnalytics.init({
+            token: 'eyJhcHBfbmFtZSI6IlBheU9uVG9uIiwiYXBwX3VybCI6Imh0dHBzOi8vdC5tZS9QYXlPblRvbkJvdCIsImFwcF9kb21haW4iOiJodHRwczovL3BheW9udG9uLXRtYS52ZXJjZWwuYXBwIn0=!GoPVzIM6oBdTQVOQhUsRwwOfxGrXXQgY4Z+yCgeqb2I=',
+            appName: 'PayOnTon',
+        });
         if (window.Telegram?.WebApp) {
             const webApp = window.Telegram.WebApp;
             webApp.setBackgroundColor("#000000");
