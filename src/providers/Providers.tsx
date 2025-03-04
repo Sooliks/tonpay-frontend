@@ -1,5 +1,5 @@
 'use client'
-import React, {useEffect} from 'react';
+import React, {useEffect, useLayoutEffect} from 'react';
 import {AuthProvider} from "@/providers/AuthProvider";
 import {SDKProvider} from "@telegram-apps/sdk-react";
 import {ThemeProvider} from "next-themes";
@@ -19,7 +19,7 @@ const fetcher = async (url: string) => {
     appName: 'PayOnTon', // The analytics identifier you entered in @DataChief_bot
 });*/
 const Providers = ({children}:{children: React.ReactNode}) => {
-    useEffect(()=>{
+    useLayoutEffect(()=>{
         telegramAnalytics.init({
             token: 'eyJhcHBfbmFtZSI6IlBheU9uVG9uIiwiYXBwX3VybCI6Imh0dHBzOi8vdC5tZS9QYXlPblRvbkJvdCIsImFwcF9kb21haW4iOiJodHRwczovL3BheW9udG9uLXRtYS52ZXJjZWwuYXBwIn0=!GoPVzIM6oBdTQVOQhUsRwwOfxGrXXQgY4Z+yCgeqb2I=',
             appName: 'PayOnTon',
