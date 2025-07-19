@@ -2,7 +2,7 @@
 const nextConfig = {
     reactStrictMode: false,
     images: {
-        formats: ['image/webp','image/avif'],
+        formats: ['image/avif'],
         remotePatterns: [
             {
                 protocol: 'https',
@@ -14,7 +14,8 @@ const nextConfig = {
                 hostname: 'api.telegram.org',
                 pathname: '/file/**'
             }
-        ]
+        ],
+        minimumCacheTTL: 2678400
     },
     headers: () => [
         {
